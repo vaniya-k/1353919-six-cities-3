@@ -1,9 +1,14 @@
 import React from 'react';
 import Main from '../main/main.jsx';
+import PropTypes from 'prop-types';
 
 export default class App extends React.Component {
+  static propTypes = {
+    places: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    foundPlacesQnt: PropTypes.number.isRequired
+  }
+
   render() {
-    // eslint-disable-next-line react/prop-types
-    return <Main foundPlacesQnt={this.props.foundPlacesQnt}/>;
+    return <Main foundPlacesQnt={this.props.foundPlacesQnt} places={this.props.places}/>;
   }
 }
