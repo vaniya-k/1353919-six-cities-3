@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card.jsx'
+import PlaceCard from '../place-card/place-card.jsx';
 
 export default class Main extends React.Component {
   static propTypes = {
