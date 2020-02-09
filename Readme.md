@@ -4,7 +4,6 @@
 * Студент: [Ваня](https://up.htmlacademy.ru/react/3/user/1353919)
 * Наставник: [Андрей](https://htmlacademy.ru/profile/id773165)
 
-
 ---
 
 _Не удаляйте и не изменяйте папки и файлы:_
