@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app.jsx';
-
-const foundPlacesQnt = 321;
-const places = [`Tiny, though cozy flat`, `Spacious apartment`, `Rustic cabin`, `Authentic fachwerk house`];
+import placesListing from './mocs/places-listing.js';
 
 ReactDOM.render(
-    <App foundPlacesQnt={foundPlacesQnt} places={places}/>,
+    <App foundPlacesQnt={placesListing.foundPlacesQnt} places={placesListing.places}/>,
     document.getElementById(`root`)
 );
