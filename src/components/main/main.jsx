@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
 
 const Main = (props) => {
-  const {places, foundPlacesQnt} = props;
+  const {places, foundPlacesQnt, onCityTabClick} = props;
 
   return <React.Fragment>
     <div className="page page--gray page--main">
@@ -57,7 +57,7 @@ const Main = (props) => {
               </li>
               <li className="locations__item">
                 <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
+                  <span className="tabs__item-hamburg" onClick={onCityTabClick}>Hamburg</span>
                 </a>
               </li>
               <li className="locations__item">
@@ -104,7 +104,8 @@ const Main = (props) => {
 
 Main.propTypes = {
   places: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  foundPlacesQnt: PropTypes.number.isRequired
+  foundPlacesQnt: PropTypes.number.isRequired,
+  onCityTabClick: PropTypes.func
 };
 
 export default Main;
