@@ -2,13 +2,15 @@ import React from 'react';
 import Main from '../main/main.jsx';
 import PropTypes from 'prop-types';
 
-export default class App extends React.Component {
-  static propTypes = {
-    places: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    foundPlacesQnt: PropTypes.number.isRequired
-  }
+const App = (props) => {
+  const {places, foundPlacesQnt} = props;
 
-  render() {
-    return <Main foundPlacesQnt={this.props.foundPlacesQnt} places={this.props.places}/>;
-  }
-}
+  return <Main foundPlacesQnt={foundPlacesQnt} places={places}/>;
+};
+
+App.propTypes = {
+  places: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  foundPlacesQnt: PropTypes.number.isRequired
+};
+
+export default App;
