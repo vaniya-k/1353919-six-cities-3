@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PlaceCard = (props) => {
-  const {placeName} = props;
+class PlaceCard extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-  return <React.Fragment>
-    <article className="cities__place-card place-card">
+  render() {
+    const place = this.props.place;
+
+    return <article className="cities__place-card place-card" onMouseEnter={() => this.props.handleHover(this.props.cardId)} onMouseLeave={() => this.props.handleHover(this.props.cardId)}>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"></img>
@@ -14,7 +18,7 @@ const PlaceCard = (props) => {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;80</b>
+            <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
@@ -26,21 +30,29 @@ const PlaceCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}></span>
+            <span style={{width: `${place.rating}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{placeName}</a>
+          <a href="#">{place.title}</a>
         </h2>
-        <p className="place-card__type">Private room</p>
+        <p className="place-card__type">{place.type}</p>
       </div>
-    </article>
-  </React.Fragment>;
-};
+    </article>;
+  }
+}
 
 PlaceCard.propTypes = {
-  placeName: PropTypes.string.isRequired
+  place: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired
+  })
+  .isRequired,
+  handleHover: PropTypes.func.isRequired,
+  cardId: PropTypes.string.isRequired
 };
 
 export default PlaceCard;
