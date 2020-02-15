@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Main from './main.jsx';
-import placesListing from '../../mocs/places-listing-test.js';
+import placesListing from '../../mocks/places-listing-test.js';
 
 Enzyme.configure({
   adapter: new Adapter(),
