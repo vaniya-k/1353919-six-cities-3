@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PlaceCard from './place-card.jsx';
-import placesListing from '../../mocs/places-listing-test.js';
+import placesListing from '../../mocks/places-listing-test.js';
 
 it(`<PlaceCard/> should render "Tiny apartment"`, () => {
   const tree = renderer
-    .create(<PlaceCard placeName={placesListing.places[0]}/>)
+    .create(<PlaceCard place={placesListing.places[0]} cardId={`keyXXX`} handleHover={placesListing.handleHover}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

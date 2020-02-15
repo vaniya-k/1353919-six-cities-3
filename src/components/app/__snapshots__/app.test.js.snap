@@ -228,6 +228,8 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
           >
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
@@ -256,7 +258,8 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     <b
                       className="place-card__price-value"
                     >
-                      €80
+                      €
+                      70
                     </b>
                     <span
                       className="place-card__price-text"
@@ -316,12 +319,14 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                 <p
                   className="place-card__type"
                 >
-                  Private room
+                  Apartment
                 </p>
               </div>
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
@@ -350,7 +355,8 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     <b
                       className="place-card__price-value"
                     >
-                      €80
+                      €
+                      160
                     </b>
                     <span
                       className="place-card__price-text"
@@ -387,7 +393,7 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "60%",
                         }
                       }
                     />
@@ -410,12 +416,14 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                 <p
                   className="place-card__type"
                 >
-                  Private room
+                  Apartment
                 </p>
               </div>
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
@@ -444,7 +452,8 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     <b
                       className="place-card__price-value"
                     >
-                      €80
+                      €
+                      220
                     </b>
                     <span
                       className="place-card__price-text"
@@ -481,7 +490,7 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -498,13 +507,13 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                   <a
                     href="#"
                   >
-                    Rustic house
+                    Rustic mansion
                   </a>
                 </h2>
                 <p
                   className="place-card__type"
                 >
-                  Private room
+                  House
                 </p>
               </div>
             </article>
