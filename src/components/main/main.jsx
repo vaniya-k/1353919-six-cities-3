@@ -8,7 +8,7 @@ class Main extends React.PureComponent {
   }
 
   render() {
-    const {places, foundPlacesQnt, onCityTabClick} = this.props;
+    const {places, foundPlacesQnt, onCityTabClick, onPlaceCardClick} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -74,7 +74,7 @@ class Main extends React.PureComponent {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <PlacesList places={places} foundPlacesQnt={foundPlacesQnt}/>
+            <PlacesList places={places} foundPlacesQnt={foundPlacesQnt} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
             </div>

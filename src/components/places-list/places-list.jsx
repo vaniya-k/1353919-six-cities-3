@@ -17,7 +17,7 @@ class PlacesList extends React.PureComponent {
   }
 
   render() {
-    const {places, foundPlacesQnt} = this.props;
+    const {places, foundPlacesQnt, onPlaceCardClick} = this.props;
 
     return <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -38,7 +38,7 @@ class PlacesList extends React.PureComponent {
         </ul>
       </form>
       <div className="cities__places-list places__list tabs__content">
-        {places.map((place, i) => <PlaceCard key={`key${i}`} cardId={`key${i}`} place={place} handleHover={this.handleHover} />)}
+        {places.map((place, i) => <PlaceCard key={`key${i}`} cardId={`key${i}`} place={place} handleHover={this.handleHover} onPlaceCardClick={onPlaceCardClick} />)}
       </div>
     </section>;
   }
