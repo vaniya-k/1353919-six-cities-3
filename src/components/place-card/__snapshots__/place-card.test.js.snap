@@ -94,7 +94,7 @@ exports[`<PlaceCard/> should render "Tiny apartment" 1`] = `
     >
       <a
         href="/dev-place-page"
-        onClick={[Function]}
+        onClick={[MockFunction]}
       >
         Tiny apartment
       </a>
