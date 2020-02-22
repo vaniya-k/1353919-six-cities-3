@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const PremiumMark = ({isPremium}) => {
+  return isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null;
+};
+
 class PlaceCard extends React.PureComponent {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const place = this.props.place;
+    const {place, onPlaceCardClick, handleHover, cardId} = this.props;
 
-    return <article className="cities__place-card place-card" onMouseEnter={() => this.props.handleHover(this.props.cardId)} onMouseLeave={() => this.props.handleHover(this.props.cardId)}>
+    return <article className="cities__place-card place-card" onMouseEnter={() => handleHover(cardId)} onMouseLeave={() => handleHover(cardId)}>
+      <PremiumMark isPremium={place.isPremium}/>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"></img>
+          <img className="place-card__image" src={`img/${place.imageName}.jpg`} width="260" height="200" alt="Place image"></img>
         </a>
       </div>
       <div className="place-card__info">
@@ -35,7 +40,7 @@ class PlaceCard extends React.PureComponent {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{place.title}</a>
+          <a href="/dev-place-page" onClick={() => onPlaceCardClick()}>{place.title}</a>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>
@@ -48,11 +53,18 @@ PlaceCard.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired
+    rating: PropTypes.number.isRequired,
+    imageName: PropTypes.string.isRequired,
+    isPremium: PropTypes.bool.isRequired
   })
   .isRequired,
   handleHover: PropTypes.func.isRequired,
-  cardId: PropTypes.string.isRequired
+  cardId: PropTypes.string.isRequired,
+  onPlaceCardClick: PropTypes.func.isRequired
+};
+
+PremiumMark.propTypes = {
+  isPremium: PropTypes.bool.isRequired
 };
 
 export default PlaceCard;

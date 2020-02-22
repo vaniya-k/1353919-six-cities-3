@@ -232,6 +232,13 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
               onMouseLeave={[Function]}
             >
               <div
+                className="place-card__mark"
+              >
+                <span>
+                  Premium
+                </span>
+              </div>
+              <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
                 <a
@@ -241,7 +248,7 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="img/apartment-03.jpg"
                     width="260"
                   />
                 </a>
@@ -311,7 +318,8 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    href="/dev-place-page"
+                    onClick={[Function]}
                   >
                     Tiny apartment
                   </a>
@@ -338,7 +346,7 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="img/apartment-02.jpg"
                     width="260"
                   />
                 </a>
@@ -408,7 +416,8 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    href="/dev-place-page"
+                    onClick={[Function]}
                   >
                     Spacious loft
                   </a>
@@ -426,6 +435,13 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
               onMouseLeave={[Function]}
             >
               <div
+                className="place-card__mark"
+              >
+                <span>
+                  Premium
+                </span>
+              </div>
+              <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
                 <a
@@ -435,7 +451,7 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="img/apartment-03.jpg"
                     width="260"
                   />
                 </a>
@@ -505,7 +521,8 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    href="/dev-place-page"
+                    onClick={[Function]}
                   >
                     Rustic mansion
                   </a>

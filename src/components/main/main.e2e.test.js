@@ -9,13 +9,14 @@ Enzyme.configure({
 });
 
 it(`Hamburg is clicked on`, () => {
-  const onCityTabClick = jest.fn();
+  const mock1 = jest.fn();
+  const mock2 = jest.fn();
 
   const main = shallow(
-      <Main places={placesListing.places} foundPlacesQnt={placesListing.foundPlacesQnt} onCityTabClick={onCityTabClick}/>
+      <Main places={placesListing.places} foundPlacesQnt={placesListing.foundPlacesQnt} onCityTabClick={mock1} onPlaceCardClick={mock2}/>
   );
 
   main.find(`.tabs__item-hamburg`).simulate(`click`);
 
-  expect(onCityTabClick.mock.calls.length).toBe(1);
+  expect(mock1.mock.calls.length).toBe(1);
 });
