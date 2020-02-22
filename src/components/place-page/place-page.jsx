@@ -8,7 +8,7 @@ const PlaceImage = ({imageName}) => {
 };
 
 const PremiumMark = ({isPremium}) => {
-  return isPremium ? <div className="property__mark"><span>Premium</span></div> : null
+  return isPremium ? <div className="property__mark"><span>Premium</span></div> : null;
 };
 
 const Commodity = ({item}) => {
@@ -20,8 +20,8 @@ const Commodity = ({item}) => {
 const DescParagraph = ({pTagText}) => {
   return <p className="property__text">
     {pTagText}
-  </p>
-}
+  </p>;
+};
 
 class PlacePage extends React.PureComponent {
   constructor(props) {
@@ -29,8 +29,8 @@ class PlacePage extends React.PureComponent {
   }
 
   render() {
-    const {placePageObj} = this.props
-    const {title, price, isPremium, type, rating, bedroomsQnt, guestsMaxQnt, images, commodities, description, host} = placePageObj
+    const {placePageData} = this.props;
+    const {title, price, isPremium, type, rating, bedroomsQnt, guestsMaxQnt, images, commodities, description, host} = placePageData;
 
     return <div className="page">
       <header className="header">
@@ -301,10 +301,10 @@ class PlacePage extends React.PureComponent {
       </main>
     </div>;
   }
-};
+}
 
 PlacePage.propTypes = {
-  placePageObj: PropTypes.shape({
+  placePageData: PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
@@ -321,6 +321,22 @@ PlacePage.propTypes = {
       avaPicName: PropTypes.string.isRequired}).
     isRequired})
   .isRequired
+};
+
+PlaceImage.propTypes = {
+  imageName: PropTypes.string.isRequired
+};
+
+PremiumMark.propTypes = {
+  isPremium: PropTypes.bool.isRequired
+};
+
+Commodity.propTypes = {
+  item: PropTypes.string.isRequired
+};
+
+DescParagraph.propTypes = {
+  pTagText: PropTypes.string.isRequired
 };
 
 export default PlacePage;

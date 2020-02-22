@@ -53,7 +53,8 @@ PlacesList.propTypes = {
         rating: PropTypes.number.isRequired
       })).
     isRequired,
-  foundPlacesQnt: PropTypes.number.isRequired
+  foundPlacesQnt: PropTypes.number.isRequired,
+  onPlaceCardClick: PropTypes.func.isRequired
 };
 
 export default PlacesList;

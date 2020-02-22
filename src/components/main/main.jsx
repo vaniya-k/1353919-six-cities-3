@@ -91,11 +91,14 @@ Main.propTypes = {
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired
-      })).
+        rating: PropTypes.number.isRequired,
+        imageName: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired
+      }).isRequired).
     isRequired,
   foundPlacesQnt: PropTypes.number.isRequired,
-  onCityTabClick: PropTypes.func
+  onCityTabClick: PropTypes.func,
+  onPlaceCardClick: PropTypes.func.isRequired
 };
 
 export default Main;
