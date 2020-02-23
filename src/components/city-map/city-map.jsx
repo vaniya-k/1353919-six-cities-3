@@ -40,7 +40,7 @@ class CityMap extends React.PureComponent {
       })
       .addTo(map);
 
-    placesCoordinates.map((place) => {
+    placesCoordinates.forEach((place) => {
       leaflet
         .marker([place.lat, place.lon], {icon})
         .addTo(map);
