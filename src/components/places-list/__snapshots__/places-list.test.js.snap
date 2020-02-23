@@ -165,7 +165,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
         >
           <a
             href="/dev-place-page"
-            onClick={[Function]}
+            onClick={[MockFunction]}
           >
             Tiny apartment
           </a>
@@ -263,7 +263,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
         >
           <a
             href="/dev-place-page"
-            onClick={[Function]}
+            onClick={[MockFunction]}
           >
             Spacious loft
           </a>
@@ -368,7 +368,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
         >
           <a
             href="/dev-place-page"
-            onClick={[Function]}
+            onClick={[MockFunction]}
           >
             Rustic mansion
           </a>

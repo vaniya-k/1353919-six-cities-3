@@ -319,7 +319,7 @@ exports[`<Main/> should return the whole page with 54 matches and 3 places displ
                 >
                   <a
                     href="/dev-place-page"
-                    onClick={[Function]}
+                    onClick={[MockFunction]}
                   >
                     Tiny apartment
                   </a>
@@ -417,7 +417,7 @@ exports[`<Main/> should return the whole page with 54 matches and 3 places displ
                 >
                   <a
                     href="/dev-place-page"
-                    onClick={[Function]}
+                    onClick={[MockFunction]}
                   >
                     Spacious loft
                   </a>
@@ -522,7 +522,7 @@ exports[`<Main/> should return the whole page with 54 matches and 3 places displ
                 >
                   <a
                     href="/dev-place-page"
-                    onClick={[Function]}
+                    onClick={[MockFunction]}
                   >
                     Rustic mansion
                   </a>

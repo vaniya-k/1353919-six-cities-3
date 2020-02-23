@@ -40,7 +40,7 @@ class PlaceCard extends React.PureComponent {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/dev-place-page" onClick={() => onPlaceCardClick()}>{place.title}</a>
+          <a href="/dev-place-page" onClick={onPlaceCardClick}>{place.title}</a>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>
