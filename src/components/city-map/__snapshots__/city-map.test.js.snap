@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CityMap/> should return the map of Amsterdam with 3 places 1`] = `
+<section
+  className="cities__map map"
+>
+  <div
+    id="mapid"
+    style={
+      Object {
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  />
+</section>
+`;
