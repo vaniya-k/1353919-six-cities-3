@@ -50,9 +50,15 @@ PlacesList.propTypes = {
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired
-      })).
-    isRequired,
+        rating: PropTypes.number.isRequired,
+        imageName: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
+      }).isRequired
+  ).isRequired,
   foundPlacesQnt: PropTypes.number.isRequired,
   onPlaceCardClick: PropTypes.func.isRequired
 };
