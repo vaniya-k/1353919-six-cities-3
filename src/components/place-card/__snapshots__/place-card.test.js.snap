@@ -7,6 +7,13 @@ exports[`<PlaceCard/> should render "Tiny apartment" 1`] = `
   onMouseLeave={[Function]}
 >
   <div
+    className="place-card__mark"
+  >
+    <span>
+      Premium
+    </span>
+  </div>
+  <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
@@ -16,7 +23,7 @@ exports[`<PlaceCard/> should render "Tiny apartment" 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="img/room.jpg"
+        src="img/apartment-03.jpg"
         width="260"
       />
     </a>
@@ -86,7 +93,8 @@ exports[`<PlaceCard/> should render "Tiny apartment" 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/dev-place-page"
+        onClick={[MockFunction]}
       >
         Tiny apartment
       </a>

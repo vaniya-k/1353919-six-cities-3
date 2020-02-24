@@ -8,16 +8,21 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`The first card is hovered on and cardId is passed to handleHover`, () => {
-  const mock = jest.fn();
+it(`The first card is hovered on and cardId is passed to handleHover, then its' title is clicked on`, () => {
+  const mock1 = jest.fn();
+  const mock2 = jest.fn();
 
   const main = shallow(
-      <PlaceCard place={placesListing.places[0]} cardId={`keyXXX`} handleHover={mock}/>
+      <PlaceCard place={placesListing.places[0]} cardId={`keyXXX`} handleHover={mock1} onPlaceCardClick={mock2}/>
   );
 
   main.find(`article`).simulate(`mouseenter`);
 
-  expect(mock).toHaveBeenCalledWith(`keyXXX`);
+  expect(mock1).toHaveBeenCalledWith(`keyXXX`);
+
+  main.find(`.place-card__name a`).simulate(`click`);
+
+  expect(mock2.mock.calls.length).toBe(1);
 });
 
 

@@ -78,6 +78,13 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
       onMouseLeave={[Function]}
     >
       <div
+        className="place-card__mark"
+      >
+        <span>
+          Premium
+        </span>
+      </div>
+      <div
         className="cities__image-wrapper place-card__image-wrapper"
       >
         <a
@@ -87,7 +94,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
             alt="Place image"
             className="place-card__image"
             height="200"
-            src="img/room.jpg"
+            src="img/apartment-03.jpg"
             width="260"
           />
         </a>
@@ -157,7 +164,8 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
           className="place-card__name"
         >
           <a
-            href="#"
+            href="/dev-place-page"
+            onClick={[MockFunction]}
           >
             Tiny apartment
           </a>
@@ -184,7 +192,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
             alt="Place image"
             className="place-card__image"
             height="200"
-            src="img/room.jpg"
+            src="img/apartment-02.jpg"
             width="260"
           />
         </a>
@@ -254,7 +262,8 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
           className="place-card__name"
         >
           <a
-            href="#"
+            href="/dev-place-page"
+            onClick={[MockFunction]}
           >
             Spacious loft
           </a>
@@ -272,6 +281,13 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
       onMouseLeave={[Function]}
     >
       <div
+        className="place-card__mark"
+      >
+        <span>
+          Premium
+        </span>
+      </div>
+      <div
         className="cities__image-wrapper place-card__image-wrapper"
       >
         <a
@@ -281,7 +297,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
             alt="Place image"
             className="place-card__image"
             height="200"
-            src="img/room.jpg"
+            src="img/apartment-03.jpg"
             width="260"
           />
         </a>
@@ -351,7 +367,8 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
           className="place-card__name"
         >
           <a
-            href="#"
+            href="/dev-place-page"
+            onClick={[MockFunction]}
           >
             Rustic mansion
           </a>
