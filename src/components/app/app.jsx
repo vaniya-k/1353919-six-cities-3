@@ -39,12 +39,15 @@ App.propTypes = {
           type: PropTypes.string.isRequired,
           rating: PropTypes.number.isRequired,
           imageName: PropTypes.string.isRequired,
-          isPremium: PropTypes.bool.isRequired
-        }).isRequired)
-      .isRequired,
+          isPremium: PropTypes.bool.isRequired,
+          gps: PropTypes.shape({
+            lat: PropTypes.number.isRequired,
+            lon: PropTypes.number.isRequired
+          }).isRequired
+        }).isRequired
+    ).isRequired,
     foundPlacesQnt: PropTypes.number.isRequired,
-  })
-  .isRequired,
+  }).isRequired,
   placePageData: PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
@@ -59,9 +62,9 @@ App.propTypes = {
     host: PropTypes.shape({
       name: PropTypes.string.isRequired,
       super: PropTypes.bool.isRequired,
-      avaPicName: PropTypes.string.isRequired}).
-    isRequired})
-  .isRequired
+      avaPicName: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired
 };
 
 export default App;

@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlacesList from '../places-list/places-list.jsx';
+import CityMap from '../city-map/city-map.jsx';
 
 class Main extends React.PureComponent {
   constructor(props) {
@@ -11,6 +12,10 @@ class Main extends React.PureComponent {
 
   render() {
     const {places, foundPlacesQnt, onCityTabClick, onPlaceCardClick} = this.props;
+
+    const placesCoordinates = places.map((place) => {
+      return {lat: place.gps.lat, lon: place.gps.lon};
+    });
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -78,7 +83,7 @@ class Main extends React.PureComponent {
           <div className="cities__places-container container">
             <PlacesList places={places} foundPlacesQnt={foundPlacesQnt} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <CityMap placesCoordinates={placesCoordinates}/>
             </div>
           </div>
         </div>
@@ -95,9 +100,13 @@ Main.propTypes = {
         type: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
         imageName: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool.isRequired
-      }).isRequired).
-    isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
+      }).isRequired
+  ).isRequired,
   foundPlacesQnt: PropTypes.number.isRequired,
   onCityTabClick: PropTypes.func,
   onPlaceCardClick: PropTypes.func.isRequired

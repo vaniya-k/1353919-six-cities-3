@@ -55,9 +55,12 @@ PlaceCard.propTypes = {
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     imageName: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired
-  })
-  .isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    gps: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired
+    }).isRequired
+  }).isRequired,
   handleHover: PropTypes.func.isRequired,
   cardId: PropTypes.string.isRequired,
   onPlaceCardClick: PropTypes.func.isRequired

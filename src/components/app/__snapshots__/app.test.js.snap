@@ -541,7 +541,17 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
         >
           <section
             className="cities__map map"
-          />
+          >
+            <div
+              id="mapid"
+              style={
+                Object {
+                  "height": "100%",
+                  "width": "100%",
+                }
+              }
+            />
+          </section>
         </div>
       </div>
     </div>
