@@ -27,10 +27,13 @@ class CityMap extends React.PureComponent {
       marker: true
     });
 
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
+    const Icon = leaflet.Icon.extend ({
+      options: { iconSize: [30, 30]}
     });
+
+    const defaultPin = new Icon ({iconUrl: `img/pin.svg`});
+
+    const orangePin = new Icon ({iconUrl: `img/pin-orange.svg`});
 
     map.setView(city, zoom);
 
@@ -40,19 +43,25 @@ class CityMap extends React.PureComponent {
       })
       .addTo(map);
 
-    placesCoordinates.forEach((place) => {
+    placesCoordinates.forEach((place) => { if(place.isActive) {
       leaflet
-        .marker([place.lat, place.lon], {icon})
+        .marker([place.lat, place.lon], {icon: orangePin})
         .addTo(map);
+      } else {
+      leaflet
+        .marker([place.lat, place.lon], {icon: defaultPin})
+        .addTo(map);
+      };
     });
   }
-}
+};
 
 CityMap.propTypes = {
   placesCoordinates: PropTypes.arrayOf(
       PropTypes.shape({
         lat: PropTypes.number.isRequired,
-        lon: PropTypes.number.isRequired
+        lon: PropTypes.number.isRequired,
+        isActive: PropTypes.bool.isRequired
       }).isRequired
   ).isRequired
 };

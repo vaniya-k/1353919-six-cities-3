@@ -8,7 +8,7 @@ const places = [
     rating: 80,
     isPremium: true,
     imageName: `apartment-03`,
-    gps: {lat: 52.3909553943508, lon: 4.85309666406198}
+    gps: {lat: 52.3909553943508, lon: 4.85309666406198, isActive: false}
   },
   {
     title: `Spacious apartment`,
@@ -17,7 +17,7 @@ const places = [
     rating: 100,
     isPremium: false,
     imageName: `apartment-02`,
-    gps: {lat: 52.369553943508, lon: 4.85309666406198}
+    gps: {lat: 52.369553943508, lon: 4.85309666406198, isActive: false}
   },
   {
     title: `Rustic cabin`,
@@ -26,7 +26,7 @@ const places = [
     rating: 80,
     isPremium: false,
     imageName: `apartment-01`,
-    gps: {lat: 52.3909553943508, lon: 4.929309666406198}
+    gps: {lat: 52.3909553943508, lon: 4.929309666406198, isActive: false}
   },
   {
     title: `Authentic fachwerk house`,
@@ -35,7 +35,7 @@ const places = [
     rating: 100,
     isPremium: true,
     imageName: `apartment-03`,
-    gps: {lat: 52.3809553943508, lon: 4.939309666406198}
+    gps: {lat: 52.3809553943508, lon: 4.939309666406198, isActive: false}
   }
 ];
 

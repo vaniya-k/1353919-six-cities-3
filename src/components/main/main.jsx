@@ -12,8 +12,10 @@ class Main extends React.PureComponent {
     const {places, foundPlacesQnt, onCityTabClick, onPlaceCardClick} = this.props;
 
     const placesCoordinates = places.map((place) => {
-      return {lat: place.gps.lat, lon: place.gps.lon};
+      return {lat: place.gps.lat, lon: place.gps.lon, isActive: place.gps.isActive};
     });
+
+    console.log(placesCoordinates);
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -101,7 +103,8 @@ Main.propTypes = {
         isPremium: PropTypes.bool.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
-          lon: PropTypes.number.isRequired
+          lon: PropTypes.number.isRequired,
+          isActive: PropTypes.bool.isRequired
         }).isRequired
       }).isRequired
   ).isRequired,
