@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
+import CityMap from '../city-map/city-map.jsx';
 
 const PlaceImage = ({imageName}) => {
   return <div className="property__image-wrapper">
@@ -30,8 +31,8 @@ class PlacePage extends React.PureComponent {
   }
 
   render() {
-    const {placePageData} = this.props;
-    const {title, price, isPremium, type, rating, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
+    const {placePageData, placesCoordinates} = this.props;
+    const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
 
     return <div className="page">
       <header className="header">
@@ -123,7 +124,7 @@ class PlacePage extends React.PureComponent {
               <ReviewsList reviewsQnt={reviews.length} reviews={reviews}/>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`property__map`} activePlaceCoordinates={gps}/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -239,6 +240,10 @@ PlacePage.propTypes = {
     type: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
+    gps: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired
+    }).isRequired,
     bedroomsQnt: PropTypes.number.isRequired,
     guestsMaxQnt: PropTypes.number.isRequired,
     images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,

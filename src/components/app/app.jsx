@@ -13,16 +13,20 @@ class App extends React.PureComponent {
   render() {
     const {placesListing, placePageData} = this.props;
 
+    const placesCoordinates = placesListing.places.map((place) => {
+      return {lat: place.gps.lat, lon: place.gps.lon};
+    });
+
     if (this.state.currentUrl === `/dev-place-page`) {
       return <PlacePage placePageData={placePageData}/>;
     } else {
       return <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main foundPlacesQnt={placesListing.foundPlacesQnt} places={placesListing.places} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
+            <Main foundPlacesQnt={placesListing.foundPlacesQnt} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
           <Route exact path="/dev-place-page">
-            <PlacePage placePageData={placePageData}/>
+            <PlacePage placePageData={placePageData} placesCoordinates={placesCoordinates}/>
           </Route>
         </Switch>
       </BrowserRouter>;
@@ -54,6 +58,10 @@ App.propTypes = {
     type: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
+    gps: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired
+    }).isRequired,
     bedroomsQnt: PropTypes.number.isRequired,
     guestsMaxQnt: PropTypes.number.isRequired,
     images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,

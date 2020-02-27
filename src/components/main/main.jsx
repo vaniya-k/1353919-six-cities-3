@@ -9,13 +9,7 @@ class Main extends React.PureComponent {
   }
 
   render() {
-    const {places, foundPlacesQnt, onCityTabClick, onPlaceCardClick} = this.props;
-
-    const placesCoordinates = places.map((place) => {
-      return {lat: place.gps.lat, lon: place.gps.lon, isActive: place.gps.isActive};
-    });
-
-    console.log(placesCoordinates);
+    const {places, foundPlacesQnt, onCityTabClick, onPlaceCardClick, placesCoordinates} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -83,7 +77,7 @@ class Main extends React.PureComponent {
           <div className="cities__places-container container">
             <PlacesList places={places} foundPlacesQnt={foundPlacesQnt} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
-              <CityMap placesCoordinates={placesCoordinates}/>
+              <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`}/>
             </div>
           </div>
         </div>
@@ -103,8 +97,7 @@ Main.propTypes = {
         isPremium: PropTypes.bool.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
-          lon: PropTypes.number.isRequired,
-          isActive: PropTypes.bool.isRequired
+          lon: PropTypes.number.isRequired
         }).isRequired
       }).isRequired
   ).isRequired,

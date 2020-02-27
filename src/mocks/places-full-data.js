@@ -24,6 +24,7 @@ const placesFullData = [
     type: placeTypes[0],
     isPremium: true,
     rating: 4.7,
+    gps: {lat: 52.3809553943508, lon: 4.939309666406198},
     bedroomsQnt: 3,
     guestsMaxQnt: 4,
     images: [`apartment-01`, `apartment-02`, `apartment-03`, `room`, `studio-01`, `apartment-01`],

@@ -8,13 +8,15 @@ class CityMap extends React.PureComponent {
   }
 
   render() {
-    return <section className="cities__map map">
+    const {sectionLocationClass} = this.props;
+
+    return <section className={`${sectionLocationClass} map`}>
       <div id="mapid" style={{width: `100%`, height: `100%`}}></div>
     </section>;
   }
 
   componentDidMount() {
-    const {placesCoordinates} = this.props;
+    const {placesCoordinates, activePlaceCoordinates} = this.props;
 
     const city = [52.38333, 4.9];
 
@@ -33,7 +35,7 @@ class CityMap extends React.PureComponent {
 
     const defaultPin = new Icon ({iconUrl: `img/pin.svg`});
 
-    const orangePin = new Icon ({iconUrl: `img/pin-orange.svg`});
+    const orangePin = new Icon ({iconUrl: `img/pin-active.svg`});
 
     map.setView(city, zoom);
 
@@ -43,27 +45,32 @@ class CityMap extends React.PureComponent {
       })
       .addTo(map);
 
-    placesCoordinates.forEach((place) => { if(place.isActive) {
-      leaflet
-        .marker([place.lat, place.lon], {icon: orangePin})
-        .addTo(map);
-      } else {
+    placesCoordinates.forEach((place) => {
       leaflet
         .marker([place.lat, place.lon], {icon: defaultPin})
         .addTo(map);
-      };
     });
+
+    if (typeof(activePlaceCoordinates) === `object`) {
+      leaflet
+      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: orangePin})
+      .addTo(map);
+    };
   }
 };
 
 CityMap.propTypes = {
+  sectionLocationClass: PropTypes.string.isRequired,
   placesCoordinates: PropTypes.arrayOf(
       PropTypes.shape({
         lat: PropTypes.number.isRequired,
-        lon: PropTypes.number.isRequired,
-        isActive: PropTypes.bool.isRequired
+        lon: PropTypes.number.isRequired
       }).isRequired
-  ).isRequired
+  ).isRequired,
+  activePlaceCoordinates: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired
+  })
 };
 
 export default CityMap;
