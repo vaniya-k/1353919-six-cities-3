@@ -63,7 +63,16 @@ App.propTypes = {
       name: PropTypes.string.isRequired,
       super: PropTypes.bool.isRequired,
       avaPicName: PropTypes.string.isRequired
-    }).isRequired
+    }).isRequired,
+    reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        name:  PropTypes.string.isRequired,
+        avaPicName: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired
+    ).isRequired
   }).isRequired
 };
 
