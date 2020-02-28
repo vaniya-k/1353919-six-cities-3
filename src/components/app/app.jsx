@@ -18,7 +18,7 @@ class App extends React.PureComponent {
     });
 
     if (this.state.currentUrl === `/dev-place-page`) {
-      return <PlacePage placePageData={placePageData}/>;
+      return <PlacePage placePageData={placePageData} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>;
     } else {
       return <BrowserRouter>
         <Switch>
@@ -26,7 +26,7 @@ class App extends React.PureComponent {
             <Main foundPlacesQnt={placesListing.foundPlacesQnt} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
           <Route exact path="/dev-place-page">
-            <PlacePage placePageData={placePageData} placesCoordinates={placesCoordinates}/>
+            <PlacePage placePageData={placePageData} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
         </Switch>
       </BrowserRouter>;
@@ -73,13 +73,13 @@ App.propTypes = {
       avaPicName: PropTypes.string.isRequired
     }).isRequired,
     reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        name:  PropTypes.string.isRequired,
-        avaPicName: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }).isRequired
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          avaPicName: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          text: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        }).isRequired
     ).isRequired
   }).isRequired
 };

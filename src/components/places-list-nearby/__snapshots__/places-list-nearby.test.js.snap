@@ -1,79 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
+exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
 <section
-  className="cities__places places"
+  className="near-places places"
 >
   <h2
-    className="visually-hidden"
+    className="near-places__title"
   >
-    Places
+    Other places in the neighbourhood
   </h2>
-  <b
-    className="places__found"
-  >
-    54
-     places to stay in Amsterdam
-  </b>
-  <form
-    action="#"
-    className="places__sorting"
-    method="get"
-  >
-    <span
-      className="places__sorting-caption"
-    >
-      Sort by
-    </span>
-    <span
-      className="places__sorting-type"
-      tabIndex="0"
-    >
-      Popular
-      <svg
-        className="places__sorting-arrow"
-        height="4"
-        width="7"
-      >
-        <use
-          href="#icon-arrow-select"
-        />
-      </svg>
-    </span>
-    <ul
-      className="places__options places__options--custom places__options--opened"
-    >
-      <li
-        className="places__option places__option--active"
-        tabIndex="0"
-      >
-        Popular
-      </li>
-      <li
-        className="places__option"
-        tabIndex="0"
-      >
-        Price: low to high
-      </li>
-      <li
-        className="places__option"
-        tabIndex="0"
-      >
-        Price: high to low
-      </li>
-      <li
-        className="places__option"
-        tabIndex="0"
-      >
-        Top rated first
-      </li>
-    </ul>
-  </form>
   <div
-    className="cities__places-list places__list tabs__content"
+    className="near-places__list places__list"
   >
     <article
-      className="cities__place-card place-card"
+      className="near-places__card place-card"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -85,7 +25,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
         </span>
       </div>
       <div
-        className="cities__image-wrapper place-card__image-wrapper"
+        className="near-places__image-wrapper place-card__image-wrapper"
       >
         <a
           href="#"
@@ -178,12 +118,12 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
       </div>
     </article>
     <article
-      className="cities__place-card place-card"
+      className="near-places__card place-card"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
       <div
-        className="cities__image-wrapper place-card__image-wrapper"
+        className="near-places__image-wrapper place-card__image-wrapper"
       >
         <a
           href="#"
@@ -276,7 +216,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
       </div>
     </article>
     <article
-      className="cities__place-card place-card"
+      className="near-places__card place-card"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -288,7 +228,7 @@ exports[`<PlaceList/>  with 54 matches and 3 places displayed 1`] = `
         </span>
       </div>
       <div
-        className="cities__image-wrapper place-card__image-wrapper"
+        className="near-places__image-wrapper place-card__image-wrapper"
       >
         <a
           href="#"

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import CityMap from '../city-map/city-map.jsx';
+import PlacesListNearby from '../places-list-nearby/places-list-nearby.jsx';
 
 const PlaceImage = ({imageName}) => {
   return <div className="property__image-wrapper">
@@ -31,7 +32,7 @@ class PlacePage extends React.PureComponent {
   }
 
   render() {
-    const {placePageData, placesCoordinates} = this.props;
+    const {placePageData, placesCoordinates, onPlaceCardClick, places} = this.props;
     const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
 
     return <div className="page">
@@ -127,106 +128,7 @@ class PlacePage extends React.PureComponent {
           <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`property__map`} activePlaceCoordinates={gps}/>
         </section>
         <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"></img>
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;80</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use href="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">In bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: `80%`}}></span>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Wood and stone place</a>
-                  </h2>
-                  <p className="place-card__type">Private room</p>
-                </div>
-              </article>
-
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image"></img>
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;132</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use href="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: `80%`}}></span>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Canal View Prinsengracht</a>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
-
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image"></img>
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;180</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use href="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: `80%`}}></span>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Nice, cozy, warm big bed apartment</a>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
-            </div>
-          </section>
+          <PlacesListNearby places={places.splice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
         </div>
       </main>
     </div>;
@@ -255,15 +157,36 @@ PlacePage.propTypes = {
       avaPicName: PropTypes.string.isRequired
     }).isRequired,
     reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        name:  PropTypes.string.isRequired,
-        avaPicName: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }).isRequired
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          avaPicName: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          text: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        }).isRequired
     ).isRequired
-  }).isRequired
+  }).isRequired,
+  placesCoordinates: PropTypes.arrayOf(
+      PropTypes.shape({
+        lat: PropTypes.number.isRequired,
+        lon: PropTypes.number.isRequired
+      }).isRequired
+  ).isRequired,
+  onPlaceCardClick: PropTypes.func.isRequired,
+  places: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        imageName: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
+      }).isRequired
+  ).isRequired
 };
 
 PlaceImage.propTypes = {

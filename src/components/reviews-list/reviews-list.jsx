@@ -7,7 +7,7 @@ class ReviewsList extends React.PureComponent {
     super(props);
   }
 
-  render () {
+  render() {
     const {reviewsQnt, reviews} = this.props;
 
     return <section className="property__reviews reviews">
@@ -16,19 +16,19 @@ class ReviewsList extends React.PureComponent {
         {reviews.map((review, i) => <ReviewItem key={`key${i}`} name={review.name} avaPicName={review.avaPicName} rating={review.rating} text={review.text} date={review.date}/>)}
       </ul>
     </section>;
-  };
-};
+  }
+}
 
 ReviewsList.propTypes = {
   reviewsQnt: PropTypes.number.isRequired,
   reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      name:  PropTypes.string.isRequired,
-      avaPicName: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-    }).isRequired
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        avaPicName: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired
   ).isRequired
 };
 

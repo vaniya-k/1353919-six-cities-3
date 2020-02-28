@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
 
-class PlacesList extends React.PureComponent {
+class PlacesListMain extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,13 +38,13 @@ class PlacesList extends React.PureComponent {
         </ul>
       </form>
       <div className="cities__places-list places__list tabs__content">
-        {places.map((place, i) => <PlaceCard key={`key${i}`} cardId={`key${i}`} place={place} handleHover={this.handleHover} onPlaceCardClick={onPlaceCardClick} />)}
+        {places.map((place, i) => <PlaceCard key={`key${i}`} cardId={`key${i}`} place={place} handleHover={this.handleHover} onPlaceCardClick={onPlaceCardClick} articleLocationClass={`cities`}/>)}
       </div>
     </section>;
   }
 }
 
-PlacesList.propTypes = {
+PlacesListMain.propTypes = {
   places: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -63,4 +63,4 @@ PlacesList.propTypes = {
   onPlaceCardClick: PropTypes.func.isRequired
 };
 
-export default PlacesList;
+export default PlacesListMain;
