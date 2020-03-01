@@ -25,7 +25,7 @@ class App extends React.PureComponent {
       return <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main foundPlacesQnt={placesListing.foundPlacesQnt} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
+            <Main onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
           <Route exact path="/dev-place-page">
             <PlacePage placePageData={placePageData} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>

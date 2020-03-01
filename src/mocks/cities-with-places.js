@@ -66,11 +66,6 @@ const offers = [
     city: CITIES[5],
     places: []
   },
-]
+];
 
-const placesListing = {
-  foundPlacesQnt: 432,
-  places: [...places]
-};
-
-export default placesListing;
+export default offers;
