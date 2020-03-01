@@ -4,18 +4,19 @@ import PropTypes from 'prop-types';
 class ReviewItem extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.dateStamp = this.dateStamp.bind(this);
   }
+
+  dateStamp = (date) => {
+    const dateObj = new Date(`${date}`);
+
+    const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
+
+    return `${MONTHS[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+  };
 
   render() {
     const {name, avaPicName, rating, text, date} = this.props;
-
-    const dateStamp = () => {
-      const dateObj = new Date(`${date}`);
-
-      const months = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
-
-      return `${months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
-    };
 
     return <li className="reviews__item">
       <div className="reviews__user user">
@@ -32,7 +33,7 @@ class ReviewItem extends React.PureComponent {
           </div>
         </div>
         <p className="reviews__text">{text}</p>
-        <time className="reviews__time" dateTime={date}>{`${dateStamp()}`}</time>
+        <time className="reviews__time" dateTime={date}>{`${this.dateStamp(date)}`}</time>
       </div>
     </li>;
   }
