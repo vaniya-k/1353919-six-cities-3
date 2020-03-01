@@ -1,4 +1,3 @@
-import {extend} from "./utils.js";
 import offers from '../src/mocks/cities-with-places.js';
 
 const initialState = {
@@ -12,17 +11,18 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  changeCity: (payload) => ({
+  changeCity: (cityId) => ({
     type: ActionType.CHANGE_CITY,
-    payload: payload,
+    payload: cityId
   }),
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      return extend(state, {
-        activeCity: action.payload,
+      return Object.assign({}, state, {
+        activeCity: offers[action.payload].city,
+        places: offers[action.payload].places,
       });
 
     case ActionType.GET_PLACES:
