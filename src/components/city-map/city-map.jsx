@@ -47,7 +47,7 @@ class CityMap extends React.PureComponent {
         .addTo(map);
     });
 
-    if (typeof (activePlaceCoordinates) === `object`) {
+    if (activePlaceCoordinates) {
       leaflet
       .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: orangePin})
       .addTo(map);
