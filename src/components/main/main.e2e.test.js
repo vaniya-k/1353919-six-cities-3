@@ -13,7 +13,7 @@ it(`Hamburg is clicked on`, () => {
   const mock2 = jest.fn();
 
   const main = shallow(
-      <Main places={placesListing.places} foundPlacesQnt={placesListing.foundPlacesQnt} onCityTabClick={mock1} onPlaceCardClick={mock2}/>
+      <Main places={placesListing.places} foundPlacesQnt={placesListing.foundPlacesQnt} onCityTabClick={mock1} onPlaceCardClick={mock2} placesCoordinates={placesListing.coordinates}/>
   );
 
   main.find(`.tabs__item-hamburg`).simulate(`click`);

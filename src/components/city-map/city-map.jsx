@@ -8,13 +8,15 @@ class CityMap extends React.PureComponent {
   }
 
   render() {
-    return <section className="cities__map map">
+    const {sectionLocationClass} = this.props;
+
+    return <section className={`${sectionLocationClass} map`}>
       <div id="mapid" style={{width: `100%`, height: `100%`}}></div>
     </section>;
   }
 
   componentDidMount() {
-    const {placesCoordinates} = this.props;
+    const {placesCoordinates, activePlaceCoordinates} = this.props;
 
     const city = [52.38333, 4.9];
 
@@ -27,10 +29,9 @@ class CityMap extends React.PureComponent {
       marker: true
     });
 
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
+    const defaultPin = leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin.svg`});
+
+    const orangePin = leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`});
 
     map.setView(city, zoom);
 
@@ -42,19 +43,30 @@ class CityMap extends React.PureComponent {
 
     placesCoordinates.forEach((place) => {
       leaflet
-        .marker([place.lat, place.lon], {icon})
+        .marker([place.lat, place.lon], {icon: defaultPin})
         .addTo(map);
     });
+
+    if (activePlaceCoordinates) {
+      leaflet
+      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: orangePin})
+      .addTo(map);
+    }
   }
 }
 
 CityMap.propTypes = {
+  sectionLocationClass: PropTypes.string.isRequired,
   placesCoordinates: PropTypes.arrayOf(
       PropTypes.shape({
         lat: PropTypes.number.isRequired,
         lon: PropTypes.number.isRequired
       }).isRequired
-  ).isRequired
+  ).isRequired,
+  activePlaceCoordinates: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired
+  })
 };
 
 export default CityMap;

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlacesList from '../places-list/places-list.jsx';
+import PlacesListMain from '../places-list-main/places-list-main.jsx';
 import CityMap from '../city-map/city-map.jsx';
 
 class Main extends React.PureComponent {
@@ -11,11 +11,7 @@ class Main extends React.PureComponent {
   }
 
   render() {
-    const {places, foundPlacesQnt, onCityTabClick, onPlaceCardClick} = this.props;
-
-    const placesCoordinates = places.map((place) => {
-      return {lat: place.gps.lat, lon: place.gps.lon};
-    });
+    const {places, foundPlacesQnt, onCityTabClick, onPlaceCardClick, placesCoordinates} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -81,9 +77,9 @@ class Main extends React.PureComponent {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <PlacesList places={places} foundPlacesQnt={foundPlacesQnt} onPlaceCardClick={onPlaceCardClick}/>
+            <PlacesListMain places={places} foundPlacesQnt={foundPlacesQnt} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
-              <CityMap placesCoordinates={placesCoordinates}/>
+              <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`}/>
             </div>
           </div>
         </div>
@@ -105,6 +101,12 @@ Main.propTypes = {
           lat: PropTypes.number.isRequired,
           lon: PropTypes.number.isRequired
         }).isRequired
+      }).isRequired
+  ).isRequired,
+  placesCoordinates: PropTypes.arrayOf(
+      PropTypes.shape({
+        lat: PropTypes.number.isRequired,
+        lon: PropTypes.number.isRequired
       }).isRequired
   ).isRequired,
   foundPlacesQnt: PropTypes.number.isRequired,
