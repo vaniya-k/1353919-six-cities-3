@@ -4,11 +4,11 @@ import PlaceCard from '../place-card/place-card.jsx';
 import {withActiveCardSwitcher} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 
 const PlacesListMain = (props) => {
-  const {activeCity, places, foundPlacesQnt, onPlaceCardClick, handleHover} = props;
+  const {activeCityName, places, foundPlacesQnt, onPlaceCardClick, handleHover} = props;
 
   return <section className="cities__places places">
     <h2 className="visually-hidden">Places</h2>
-    <b className="places__found">{foundPlacesQnt} places to stay in {activeCity}</b>
+    <b className="places__found">{foundPlacesQnt} places to stay in {activeCityName}</b>
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex="0">
@@ -31,7 +31,7 @@ const PlacesListMain = (props) => {
 };
 
 PlacesListMain.propTypes = {
-  activeCity: PropTypes.string.isRequired,
+  activeCityName: PropTypes.string.isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,

@@ -1,8 +1,11 @@
 import offers from '../src/mocks/cities-with-places.js';
 
+const firstActiveCity = 0;
+
 const initialState = {
-  activeCity: offers[0].city,
-  places: offers[0].places,
+  activeCityId: firstActiveCity,
+  activeCityName: offers[firstActiveCity].city,
+  places: offers[firstActiveCity].places,
 };
 
 const ActionType = {
@@ -21,7 +24,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {
-        activeCity: offers[action.payload].city,
+        activeCityId: action.payload,
+        activeCityName: offers[action.payload].city,
         places: offers[action.payload].places,
       });
 
