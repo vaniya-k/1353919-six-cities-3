@@ -5,6 +5,34 @@ import leaflet from 'leaflet';
 class CityMap extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+    };
+  }
+
+  handleMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
+    const markers = [];
+  
+    placesCoordinates.forEach((place) => {
+      const marker = leaflet
+        .marker([place.lat, place.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin.svg`})})
+        .addTo(map);
+
+      markers.push(marker);
+    });
+
+    this.setState({
+      markers: markers
+    });
+  
+    if (activePlaceCoordinates) {
+      const activeMarker = leaflet
+      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`})})
+      .addTo(map);
+  
+      this.setState({
+        activeMarker: activeMarker
+      });
+    }
   }
 
   render() {
@@ -29,9 +57,7 @@ class CityMap extends React.PureComponent {
       marker: true
     });
 
-    const defaultPin = leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin.svg`});
-
-    const orangePin = leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`});
+    this.setState({map: map})
 
     map.setView(city, zoom);
 
@@ -40,17 +66,19 @@ class CityMap extends React.PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(map);
+    
+    this.handleMarkers(placesCoordinates, activePlaceCoordinates, map);
+  };
 
-    placesCoordinates.forEach((place) => {
-      leaflet
-        .marker([place.lat, place.lon], {icon: defaultPin})
-        .addTo(map);
-    });
+  componentDidUpdate(prevProps) {
+    if(this.props !== prevProps) {
+      const map = this.state.map;
 
-    if (typeof (activePlaceCoordinates) === `object`) {
-      leaflet
-      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: orangePin})
-      .addTo(map);
+      const {placesCoordinates, activePlaceCoordinates} = this.props;
+
+      this.state.markers.forEach((marker) => map.removeLayer(marker));
+
+      this.handleMarkers(placesCoordinates, activePlaceCoordinates, map);
     }
   }
 }
