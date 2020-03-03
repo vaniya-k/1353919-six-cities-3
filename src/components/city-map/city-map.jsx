@@ -9,7 +9,7 @@ class CityMap extends React.PureComponent {
     };
   }
 
-  handleMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
+  renderMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
     const markers = [];
   
     placesCoordinates.forEach((place) => {
@@ -67,7 +67,7 @@ class CityMap extends React.PureComponent {
       })
       .addTo(map);
     
-    this.handleMarkers(placesCoordinates, activePlaceCoordinates, map);
+    this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
   };
 
   componentDidUpdate(prevProps) {
@@ -78,7 +78,7 @@ class CityMap extends React.PureComponent {
 
       this.state.markers.forEach((marker) => map.removeLayer(marker));
 
-      this.handleMarkers(placesCoordinates, activePlaceCoordinates, map);
+      this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
     }
   }
 }
