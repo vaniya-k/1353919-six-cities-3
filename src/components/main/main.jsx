@@ -23,7 +23,7 @@ class Main extends React.PureComponent {
   })
 
   render() {
-    const {places, onCityTabClick, onPlaceCardClick} = this.props;
+    const {places, activeCity, onCityTabClick, onPlaceCardClick} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -54,7 +54,7 @@ class Main extends React.PureComponent {
         <CitiesNavigation cities={this.citiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
         <div className="cities">
           <div className="cities__places-container container">
-            <PlacesListMain places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
+            <PlacesListMain activeCity={activeCity} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
               <CityMap placesCoordinates={this.placesCoordinates(places)} sectionLocationClass={`cities__map`}/>
             </div>
@@ -66,6 +66,7 @@ class Main extends React.PureComponent {
 }
 
 Main.propTypes = {
+  activeCity: PropTypes.string.isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -85,7 +86,8 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  places: state.places,
+  activeCity: state.activeCity,
+  places: state.places
 });
 
 const mapDispatchToProps = (dispatch) => ({

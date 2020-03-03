@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const CityTab = ({city, onCityTabClick, cityId}) => {
 
@@ -26,6 +26,11 @@ class CitiesNavigation extends React.PureComponent {
     </section>
   </div>;
   };
+};
+
+CitiesNavigation.propTypes = {
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onCityTabClick: PropTypes.func
 };
 
 export default CitiesNavigation;
