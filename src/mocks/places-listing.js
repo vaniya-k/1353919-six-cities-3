@@ -44,18 +44,18 @@ const places = [
 const offers = [
   {
     city: CITIES[0],
-    places: places
+    places
   },
   {
     city: CITIES[1],
-    places: places.slice(0,2)
+    places: places.slice(0, 2)
   },
   {
     city: CITIES[2],
-    places: places.slice(1,3)
+    places: places.slice(1, 3)
   },
   {
-    city:  CITIES[3],
+    city: CITIES[3],
     places: []
   },
   {
@@ -66,11 +66,6 @@ const offers = [
     city: CITIES[5],
     places: []
   },
-]
+];
 
-const placesListing = {
-  foundPlacesQnt: 432,
-  places: [...places]
-};
-
-export default placesListing;
+export default offers;

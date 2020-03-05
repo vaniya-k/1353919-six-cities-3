@@ -7,11 +7,12 @@ class CityMap extends React.PureComponent {
     super(props);
     this.state = {
     };
+    this.renderMarkers = this.renderMarkers.bind(this);
   }
 
   renderMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
     const markers = [];
-  
+
     placesCoordinates.forEach((place) => {
       const marker = leaflet
         .marker([place.lat, place.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin.svg`})})
@@ -21,16 +22,16 @@ class CityMap extends React.PureComponent {
     });
 
     this.setState({
-      markers: markers
+      markers
     });
-  
+
     if (activePlaceCoordinates) {
       const activeMarker = leaflet
       .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`})})
       .addTo(map);
-  
+
       this.setState({
-        activeMarker: activeMarker
+        activeMarker
       });
     }
   }
@@ -57,7 +58,7 @@ class CityMap extends React.PureComponent {
       marker: true
     });
 
-    this.setState({map: map})
+    this.setState({map});
 
     map.setView(city, zoom);
 
@@ -66,12 +67,12 @@ class CityMap extends React.PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(map);
-    
+
     this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
-  };
+  }
 
   componentDidUpdate(prevProps) {
-    if(this.props !== prevProps) {
+    if (this.props !== prevProps) {
       const map = this.state.map;
 
       const {placesCoordinates, activePlaceCoordinates} = this.props;

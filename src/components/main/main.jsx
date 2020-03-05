@@ -18,7 +18,7 @@ class Main extends React.PureComponent {
     return {lat: place.gps.lat, lon: place.gps.lon};
   });
 
-  getCitiesTabsList = (offers) => offers.map((offer) => {
+  getCitiesTabsList = (data) => data.map((offer) => {
     return offer.city;
   });
 

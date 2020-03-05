@@ -27,7 +27,7 @@ const DescParagraph = ({pTagText}) => {
 };
 
 const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places}) => {
-    const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
+  const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
 
   return <div className="page">
     <header className="header">
@@ -126,6 +126,22 @@ const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places})
       </div>
     </main>
   </div>;
+};
+
+PlaceImage.propTypes = {
+  imageName: PropTypes.string.isRequired
+};
+
+PremiumMark.propTypes = {
+  isPremium: PropTypes.bool.isRequired
+};
+
+Commodity.propTypes = {
+  item: PropTypes.string.isRequired
+};
+
+DescParagraph.propTypes = {
+  pTagText: PropTypes.string.isRequired
 };
 
 PlacePage.propTypes = {

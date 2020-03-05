@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const ReviewItem = ({name, avaPicName, rating, text, date}) => {
 
-  const dateStamp = (date) => {
-    const dateObj = new Date(`${date}`);
+  const dateStamp = (numericDate) => {
+    const dateObj = new Date(`${numericDate}`);
 
     const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
 
@@ -29,7 +29,7 @@ const ReviewItem = ({name, avaPicName, rating, text, date}) => {
       <time className="reviews__time" dateTime={date}>{`${dateStamp(date)}`}</time>
     </div>
   </li>;
-}
+};
 
 ReviewItem.propTypes = {
   name: PropTypes.string.isRequired,
