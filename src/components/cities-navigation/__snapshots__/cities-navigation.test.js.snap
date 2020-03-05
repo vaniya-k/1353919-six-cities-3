@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CitiesNavigation/> should return 6 cities starting with Bucharest 1`] = `
+<div
+  className="tabs"
+>
+  <section
+    className="locations container"
+  >
+    <ul
+      className="locations__list tabs__list"
+    >
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item null"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Bucharest
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item null"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Wroclaw
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item tabs__item--active"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Prague
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item null"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Wien
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item null"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Minsk
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item null"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Moscow
+          </span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</div>
+`;

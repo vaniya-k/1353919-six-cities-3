@@ -34,11 +34,14 @@ const coordinates = places.map((place) => {
   return {lat: place.gps.lat, lon: place.gps.lon};
 });
 
+const activeCityName = `Bucharest`;
+
 const placesListing = {
   foundPlacesQnt: 54,
   places: [...places],
   handleHover: jest.fn(),
-  coordinates
+  coordinates,
+  activeCityName
 };
 
 export default placesListing;

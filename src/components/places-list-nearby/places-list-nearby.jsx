@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
 import {withActiveCardSwitcher} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 
-const PlacesListNearby = (props) => {
-  const {places, onPlaceCardClick, handleHover} = props;
-
+const PlacesListNearby = ({places, onPlaceCardClick, handleHover}) => {
   return <section className="near-places places">
     <h2 className="near-places__title">Other places in the neighbourhood</h2>
     <div className="near-places__list places__list">
