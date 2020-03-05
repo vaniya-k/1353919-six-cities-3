@@ -1,10 +1,9 @@
 import React from 'react';
 import Main from '../main/main.jsx';
 import PlacePage from '../place-page/place-page.jsx';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -36,68 +35,60 @@ class App extends React.PureComponent {
   }
 }
 
-// App.propTypes = {
-//   placesListing: PropTypes.shape({
-//     places: PropTypes.arrayOf(
-//         PropTypes.shape({
-//           title: PropTypes.string.isRequired,
-//           price: PropTypes.number.isRequired,
-//           type: PropTypes.string.isRequired,
-//           rating: PropTypes.number.isRequired,
-//           imageName: PropTypes.string.isRequired,
-//           isPremium: PropTypes.bool.isRequired,
-//           gps: PropTypes.shape({
-//             lat: PropTypes.number.isRequired,
-//             lon: PropTypes.number.isRequired
-//           }).isRequired
-//         }).isRequired
-//     ).isRequired,
-//     foundPlacesQnt: PropTypes.number.isRequired,
-//   }).isRequired,
-//   placePageData: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     type: PropTypes.string.isRequired,
-//     isPremium: PropTypes.bool.isRequired,
-//     rating: PropTypes.number.isRequired,
-//     gps: PropTypes.shape({
-//       lat: PropTypes.number.isRequired,
-//       lon: PropTypes.number.isRequired
-//     }).isRequired,
-//     bedroomsQnt: PropTypes.number.isRequired,
-//     guestsMaxQnt: PropTypes.number.isRequired,
-//     images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     commodities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     host: PropTypes.shape({
-//       name: PropTypes.string.isRequired,
-//       super: PropTypes.bool.isRequired,
-//       avaPicName: PropTypes.string.isRequired
-//     }).isRequired,
-//     reviews: PropTypes.arrayOf(
-//         PropTypes.shape({
-//           name: PropTypes.string.isRequired,
-//           avaPicName: PropTypes.string.isRequired,
-//           rating: PropTypes.number.isRequired,
-//           text: PropTypes.string.isRequired,
-//           date: PropTypes.string.isRequired,
-//         }).isRequired
-//     ).isRequired
-//   }).isRequired
-// };
+App.propTypes = {
+  placesListing: PropTypes.shape({
+    places: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string.isRequired,
+          price: PropTypes.number.isRequired,
+          type: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          imageName: PropTypes.string.isRequired,
+          isPremium: PropTypes.bool.isRequired,
+          gps: PropTypes.shape({
+            lat: PropTypes.number.isRequired,
+            lon: PropTypes.number.isRequired
+          }).isRequired
+        }).isRequired
+    ).isRequired,
+    foundPlacesQnt: PropTypes.number.isRequired,
+  }).isRequired,
+  placePageData: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    gps: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired
+    }).isRequired,
+    bedroomsQnt: PropTypes.number.isRequired,
+    guestsMaxQnt: PropTypes.number.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    commodities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    host: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      super: PropTypes.bool.isRequired,
+      avaPicName: PropTypes.string.isRequired
+    }).isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          avaPicName: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          text: PropTypes.string.isRequired,
+          date: PropTypes.string.isRequired,
+        }).isRequired
+    ).isRequired
+  }).isRequired
+};
 
 const mapStateToProps = (state) => ({
   places: state.places,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onWelcomeButtonClick() {
-    dispatch(ActionCreator.incrementStep());
-  },
-  onUserAnswer() {
-    dispatch(ActionCreator.incrementStep());
-  },
-});
-
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default connect(mapStateToProps)(App);

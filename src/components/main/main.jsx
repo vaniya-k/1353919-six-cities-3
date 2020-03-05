@@ -10,17 +10,17 @@ import CitiesNavigation from '../cities-navigation/cities-navigation.jsx';
 class Main extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.placesCoordinates = this.placesCoordinates.bind(this);
-    this.citiesTabsList = this.citiesTabsList.bind(this);
+    this.getPlacesCoordinates = this.getPlacesCoordinates.bind(this);
+    this.getCitiesTabsList = this.getCitiesTabsList.bind(this);
   }
 
-  placesCoordinates = (places) => places.map((place) => {
+  getPlacesCoordinates = (places) => places.map((place) => {
     return {lat: place.gps.lat, lon: place.gps.lon};
   });
 
-  citiesTabsList = (offers) => offers.map((offer) => {
+  getCitiesTabsList = (offers) => offers.map((offer) => {
     return offer.city;
-  })
+  });
 
   render() {
     const {places, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
@@ -51,12 +51,12 @@ class Main extends React.PureComponent {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesNavigation activeCityId={activeCityId} cities={this.citiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
+        <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
         <div className="cities">
           <div className="cities__places-container container">
             <PlacesListMain activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
-              <CityMap placesCoordinates={this.placesCoordinates(places)} sectionLocationClass={`cities__map`}/>
+              <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`}/>
             </div>
           </div>
         </div>
@@ -81,8 +81,9 @@ Main.propTypes = {
         }).isRequired
       }).isRequired
   ).isRequired,
-  onCityTabClick: PropTypes.func,
-  onPlaceCardClick: PropTypes.func.isRequired
+  onCityTabClick: PropTypes.func.isRequired,
+  onPlaceCardClick: PropTypes.func.isRequired,
+  activeCityId: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
