@@ -28,7 +28,11 @@ class CityMap extends React.PureComponent {
       markers: markers
     });
 
-    if (activePlaceCoordinates) {
+    if (activePlaceCoordinates.lat !== null && activePlaceCoordinates.lon !== null) {
+      if (this.state.activeMarker !== null) {
+        map.removeLayer(this.state.activeMarker)
+      };
+
       const activeMarker = leaflet
       .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`})})
       .addTo(map);
@@ -98,8 +102,12 @@ CityMap.propTypes = {
       }).isRequired
   ).isRequired,
   activePlaceCoordinates: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lon: PropTypes.number.isRequired
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  }),
+  placePageCoordinates: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
   })
 };
 

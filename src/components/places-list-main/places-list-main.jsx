@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
-import {withActiveCardSwitcher} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 
 const PlacesListMain = (props) => {
   const {activeCityName, places, foundPlacesQnt, onPlaceCardClick, handleHover} = props;
@@ -51,4 +50,4 @@ PlacesListMain.propTypes = {
   handleHover: PropTypes.func.isRequired
 };
 
-export default withActiveCardSwitcher(PlacesListMain);
+export default PlacesListMain;

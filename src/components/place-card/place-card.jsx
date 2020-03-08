@@ -36,7 +36,7 @@ class PlaceCard extends React.PureComponent {
   render() {
     const {place, onPlaceCardClick, handleHover, placeLatLon, articleLocationClass} = this.props;
 
-    return <article className={`${(articleLocationClass) === `cities` ? `cities__place-card` : `near-places__card`} place-card`} onMouseEnter={() => handleHover(placeLatLon)} onMouseLeave={() => handleHover(placeLatLon)}>
+    return <article className={`${(articleLocationClass) === `cities` ? `cities__place-card` : `near-places__card`} place-card`} onMouseEnter={() => handleHover(placeLatLon)} onMouseLeave={() => handleHover({lat: null, lon: null})}>
       {place.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className={`${articleLocationClass}__image-wrapper place-card__image-wrapper`}>
         <a href="#">

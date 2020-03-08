@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import offers from '../../mocks/cities-with-places.js';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
-import PlacesListMain from '../places-list-main/places-list-main.jsx';
+import {PlacesListMainWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 import CityMap from '../city-map/city-map.jsx';
 import CitiesNavigation from '../cities-navigation/cities-navigation.jsx';
 
@@ -24,6 +24,8 @@ class Main extends React.PureComponent {
 
   render() {
     const {places, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
+
+    console.log(this.props.activeCardLatLon)
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -54,9 +56,9 @@ class Main extends React.PureComponent {
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
         <div className="cities">
           <div className="cities__places-container container">
-            <PlacesListMain activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
+            <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
-              <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`}/>
+              <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`} activePlaceCoordinates={this.props.activeCardLatLon}/>
             </div>
           </div>
         </div>
@@ -89,7 +91,8 @@ Main.propTypes = {
 const mapStateToProps = (state) => ({
   activeCityName: state.activeCityName,
   activeCityId: state.activeCityId,
-  places: state.places
+  places: state.places,
+  activeCardLatLon: state.activeCardLatLon
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -98,5 +101,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export {Main};
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

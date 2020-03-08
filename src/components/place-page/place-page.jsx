@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import CityMap from '../city-map/city-map.jsx';
-import PlacesListNearby from '../places-list-nearby/places-list-nearby.jsx';
+import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 
 const PlaceImage = ({imageName}) => {
   return <div className="property__image-wrapper">
@@ -28,6 +29,8 @@ const DescParagraph = ({pTagText}) => {
 
 const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places}) => {
   const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
+
+  // console.log(props.activeCardLatLon);
 
   return <div className="page">
     <header className="header">
@@ -119,10 +122,10 @@ const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places})
             <ReviewsList reviewsQnt={reviews.length} reviews={reviews}/>
           </div>
         </div>
-        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`property__map`} activePlaceCoordinates={gps}/>
+        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={{lat: 52.3909553943508, lon: 4.929309666406198}}/>
       </section>
       <div className="container">
-        <PlacesListNearby places={places.splice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
+        <PlacesListNearbyWrapped places={places.slice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
       </div>
     </main>
   </div>;
@@ -195,7 +198,15 @@ PlacePage.propTypes = {
           lon: PropTypes.number.isRequired
         }).isRequired
       }).isRequired
-  ).isRequired
+  ).isRequired,
+  activeCardLatLon: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  })
 };
 
-export default PlacePage;
+const mapStateToProps = (state) => ({
+  activeCardLatLon: state.activeCardLatLon
+});
+
+export default connect(mapStateToProps, null)(PlacePage);

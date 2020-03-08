@@ -6,11 +6,13 @@ const initialState = {
   activeCityId: firstActiveCity,
   activeCityName: offers[firstActiveCity].city,
   places: offers[firstActiveCity].places,
+  activeCardLatLon: {lat: null, lon: null}
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_PLACES: `GET_PLACES`
+  GET_PLACES: `GET_PLACES`,
+  SET_ACTIVE_CARD_LAT_LON: `SET_ACTIVE_CARD_LAT_LON`
 };
 
 const ActionCreator = {
@@ -18,6 +20,10 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: cityId
   }),
+  setActiveCardLatLon: (activeCardLatLon) => ({
+    type:  ActionType.SET_ACTIVE_CARD_LAT_LON,
+    payload: activeCardLatLon
+  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,11 +32,16 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         activeCityId: action.payload,
         activeCityName: offers[action.payload].city,
-        places: offers[action.payload].places,
+        places: offers[action.payload].places
       });
 
     case ActionType.GET_PLACES:
       return state.places;
+
+    case ActionType.SET_ACTIVE_CARD_LAT_LON:
+      return Object.assign({}, state, {
+        activeCardLatLon: {lat: action.payload.lat, lon: action.payload.lon}
+      });
   }
 
   return state;

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
-import {withActiveCardSwitcher} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 
 const PlacesListNearby = ({places, onPlaceCardClick, handleHover}) => {
   return <section className="near-places places">
@@ -31,4 +30,5 @@ PlacesListNearby.propTypes = {
   handleHover: PropTypes.func.isRequired
 };
 
-export default withActiveCardSwitcher(PlacesListNearby);
+export default PlacesListNearby;
+
