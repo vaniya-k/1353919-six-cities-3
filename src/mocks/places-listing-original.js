@@ -1,7 +1,5 @@
 const PLACE_TYPES = [`Apartment`, `House`, `Private Room`, `Hotel`];
 
-const CITIES = [`Amsterdam`, `Wien`, `Prague`, `Berlin`, `London`, `Brussels`];
-
 const places = [
   {
     title: `Cozy flat`,
@@ -41,31 +39,9 @@ const places = [
   }
 ];
 
-const offers = [
-  {
-    city: CITIES[0],
-    places
-  },
-  {
-    city: CITIES[1],
-    places: places.slice(0, 2)
-  },
-  {
-    city: CITIES[2],
-    places: places.slice(1, 3)
-  },
-  {
-    city: CITIES[3],
-    places: []
-  },
-  {
-    city: CITIES[4],
-    places: []
-  },
-  {
-    city: CITIES[5],
-    places: []
-  },
-];
+const placesListing = {
+  foundPlacesQnt: 432,
+  places: [...places]
+};
 
-export default offers;
+export default placesListing;

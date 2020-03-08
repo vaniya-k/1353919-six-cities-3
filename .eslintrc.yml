@@ -8,6 +8,9 @@ extends: ['htmlacademy/es6', 'plugin:react/recommended']
 
 parser: 'babel-eslint'
 
+rules: 
+  no-invalid-this: 0
+  
 parserOptions:
   ecmaFeatures:
     jsx: true

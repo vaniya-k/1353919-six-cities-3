@@ -1,19 +1,31 @@
+/* eslint react/prop-types: 0 */
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlacesList from '../places-list/places-list.jsx';
+import offers from '../../mocks/cities-with-places.js';
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer.js";
+import PlacesListMain from '../places-list-main/places-list-main.jsx';
 import CityMap from '../city-map/city-map.jsx';
+import CitiesNavigation from '../cities-navigation/cities-navigation.jsx';
 
 class Main extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.getPlacesCoordinates = this.getPlacesCoordinates.bind(this);
+    this.getCitiesTabsList = this.getCitiesTabsList.bind(this);
   }
 
-  render() {
-    const {places, foundPlacesQnt, onCityTabClick, onPlaceCardClick} = this.props;
+  getPlacesCoordinates = (places) => places.map((place) => {
+    return {lat: place.gps.lat, lon: place.gps.lon};
+  });
 
-    const placesCoordinates = places.map((place) => {
-      return {lat: place.gps.lat, lon: place.gps.lon};
-    });
+  getCitiesTabsList = (data) => data.map((offer) => {
+    return offer.city;
+  });
+
+  render() {
+    const {places, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -41,47 +53,12 @@ class Main extends React.PureComponent {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span className="tabs__item-hamburg" onClick={onCityTabClick}>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
         <div className="cities">
           <div className="cities__places-container container">
-            <PlacesList places={places} foundPlacesQnt={foundPlacesQnt} onPlaceCardClick={onPlaceCardClick}/>
+            <PlacesListMain activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
-              <CityMap placesCoordinates={placesCoordinates}/>
+              <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`}/>
             </div>
           </div>
         </div>
@@ -91,6 +68,7 @@ class Main extends React.PureComponent {
 }
 
 Main.propTypes = {
+  activeCityName: PropTypes.string.isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -105,9 +83,22 @@ Main.propTypes = {
         }).isRequired
       }).isRequired
   ).isRequired,
-  foundPlacesQnt: PropTypes.number.isRequired,
-  onCityTabClick: PropTypes.func,
-  onPlaceCardClick: PropTypes.func.isRequired
+  onCityTabClick: PropTypes.func.isRequired,
+  onPlaceCardClick: PropTypes.func.isRequired,
+  activeCityId: PropTypes.number.isRequired
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  activeCityName: state.activeCityName,
+  activeCityId: state.activeCityId,
+  places: state.places
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityTabClick(cityId) {
+    dispatch(ActionCreator.changeCity(cityId));
+  },
+});
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
