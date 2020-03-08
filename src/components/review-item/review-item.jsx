@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const dateStamp = (numericDate) => {
+  const dateObj = new Date(`${numericDate}`);
+
+  const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
+
+  return `${MONTHS[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+};
+
 const ReviewItem = ({name, avaPicName, rating, text, date}) => {
-
-  const dateStamp = (numericDate) => {
-    const dateObj = new Date(`${numericDate}`);
-
-    const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
-
-    return `${MONTHS[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
-  };
-
   return <li className="reviews__item">
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">

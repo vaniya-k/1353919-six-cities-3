@@ -6,6 +6,9 @@ class CityMap extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      markers: null,
+      activeMarker: null,
+      map: null
     };
     this.renderMarkers = this.renderMarkers.bind(this);
   }
@@ -22,7 +25,7 @@ class CityMap extends React.PureComponent {
     });
 
     this.setState({
-      markers
+      markers: markers
     });
 
     if (activePlaceCoordinates) {
@@ -31,7 +34,7 @@ class CityMap extends React.PureComponent {
       .addTo(map);
 
       this.setState({
-        activeMarker
+        activeMarker: activeMarker
       });
     }
   }
@@ -58,7 +61,9 @@ class CityMap extends React.PureComponent {
       marker: true
     });
 
-    this.setState({map});
+    this.setState({
+      map: map
+    });
 
     map.setView(city, zoom);
 
