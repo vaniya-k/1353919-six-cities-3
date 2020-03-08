@@ -5,14 +5,14 @@ export const withActiveCardSwitcher = (Component) => {
     constructor(props) {
       super(props);
       this.state = {
-        activeCardId: null
+        activePlaceLatLon: null
       };
       this.handleHover = this.handleHover.bind(this);
     }
 
-    handleHover(cardId) {
-      const value = (cardId === this.state.activeCardId) ? null : cardId;
-      this.setState({activeCardId: value});
+    handleHover(placeLatLon) {
+      const value = (placeLatLon === this.state.activePlaceLatLon) ? null : placeLatLon;
+      this.setState({activePlaceLatLon: value});
     }
 
     render() {
