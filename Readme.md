@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
-* Студент: [Ваня](https://up.htmlacademy.ru/react/3/user/1353919)
-* Наставник: [Андрей](https://htmlacademy.ru/profile/id773165)
+* Студент: [Ваня](https://up.htmlacademy.ru/react/3/user/1353919).
+* Наставник: [Андрей](https://htmlacademy.ru/profile/id773165).
 
 ---
 
