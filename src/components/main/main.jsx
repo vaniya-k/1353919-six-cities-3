@@ -12,6 +12,7 @@ class Main extends React.PureComponent {
     super(props);
     this.getPlacesCoordinates = this.getPlacesCoordinates.bind(this);
     this.getCitiesTabsList = this.getCitiesTabsList.bind(this);
+    this.sortPlaces = this.sortPlaces.bind(this);
   }
 
   getPlacesCoordinates = (places) => places.map((place) => {
@@ -22,10 +23,26 @@ class Main extends React.PureComponent {
     return offer.city;
   });
 
+  sortPlaces = (places, sortType) => {
+    const sortedPlaces = [...places]
+    switch (sortType) {
+      case 0:
+        break;
+      case 1:
+        sortedPlaces.sort((a,b) => (a.price > b.price) ? 1 : -1)
+        break;
+      case 2:
+        sortedPlaces.sort((a,b) => (a.price > b.price) ? -1 : 1)
+        break;
+      case 3:
+        sortedPlaces.sort((a,b) => (a.rating > b.rating) ? -1 : 1)
+        break;
+    }
+    return sortedPlaces;
+  }
+
   render() {
     const {places, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
-
-    console.log(this.props.activeCardLatLon)
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -56,7 +73,7 @@ class Main extends React.PureComponent {
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
         <div className="cities">
           <div className="cities__places-container container">
-            <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
+            <PlacesListMainWrapped activeCityName={activeCityName} places={this.sortPlaces(places, 1)} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
               <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`} activePlaceCoordinates={this.props.activeCardLatLon}/>
             </div>
