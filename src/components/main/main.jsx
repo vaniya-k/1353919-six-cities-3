@@ -42,7 +42,7 @@ class Main extends React.PureComponent {
   }
 
   render() {
-    const {places, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
+    const {places, activeSortType, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -73,7 +73,7 @@ class Main extends React.PureComponent {
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
         <div className="cities">
           <div className="cities__places-container container">
-            <PlacesListMainWrapped activeCityName={activeCityName} places={this.sortPlaces(places, 1)} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
+            <PlacesListMainWrapped activeCityName={activeCityName} places={this.sortPlaces(places, activeSortType)} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
               <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`} activePlaceCoordinates={this.props.activeCardLatLon}/>
             </div>
@@ -102,14 +102,16 @@ Main.propTypes = {
   ).isRequired,
   onCityTabClick: PropTypes.func.isRequired,
   onPlaceCardClick: PropTypes.func.isRequired,
-  activeCityId: PropTypes.number.isRequired
+  activeCityId: PropTypes.number.isRequired,
+  activeSortType: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
   activeCityName: state.activeCityName,
   activeCityId: state.activeCityId,
   places: state.places,
-  activeCardLatLon: state.activeCardLatLon
+  activeCardLatLon: state.activeCardLatLon,
+  activeSortType: state.activeSortType
 });
 
 const mapDispatchToProps = (dispatch) => ({
