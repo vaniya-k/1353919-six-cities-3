@@ -6,7 +6,7 @@ import PlacesListNearby from '../../components/places-list-nearby/places-list-ne
 import PlacesListMain from '../../components/places-list-main/places-list-main.jsx';
 
 const withActiveCardSwitcher = (Component) => {
-  return class ActiveCardSwitcher extends React.PureComponent {
+  class ActiveCardSwitcher extends React.PureComponent {
     constructor(props) {
       super(props);
       this.handleHover = this.handleHover.bind(this);
@@ -20,7 +20,11 @@ const withActiveCardSwitcher = (Component) => {
     render() {
       return <Component {...this.props} handleHover={this.handleHover}/>;
     }
-  };
+  }
+
+  ActiveCardSwitcher.propTypes = withActiveCardSwitcher.propTypes;
+
+  return ActiveCardSwitcher;
 };
 
 withActiveCardSwitcher.propTypes = {
