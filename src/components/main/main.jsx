@@ -24,18 +24,18 @@ class Main extends React.PureComponent {
   });
 
   sortPlaces = (places, sortType) => {
-    const sortedPlaces = [...places]
+    const sortedPlaces = [...places];
     switch (sortType) {
       case 0:
         break;
       case 1:
-        sortedPlaces.sort((a,b) => (a.price > b.price) ? 1 : -1)
+        sortedPlaces.sort((a, b) => (a.price > b.price) ? 1 : -1);
         break;
       case 2:
-        sortedPlaces.sort((a,b) => (a.price > b.price) ? -1 : 1)
+        sortedPlaces.sort((a, b) => (a.price > b.price) ? -1 : 1);
         break;
       case 3:
-        sortedPlaces.sort((a,b) => (a.rating > b.rating) ? -1 : 1)
+        sortedPlaces.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
         break;
     }
     return sortedPlaces;
@@ -103,7 +103,11 @@ Main.propTypes = {
   onCityTabClick: PropTypes.func.isRequired,
   onPlaceCardClick: PropTypes.func.isRequired,
   activeCityId: PropTypes.number.isRequired,
-  activeSortType: PropTypes.number.isRequired
+  activeSortType: PropTypes.number.isRequired,
+  activeCardLatLon: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  })
 };
 
 const mapStateToProps = (state) => ({

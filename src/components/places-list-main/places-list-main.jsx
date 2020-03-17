@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
-import PlacesListSorting from '../places-list-sorting/places-list-sorting.jsx'
+import PlacesListSorting from '../places-list-sorting/places-list-sorting.jsx';
 
 const PlacesListMain = (props) => {
   const {activeCityName, places, foundPlacesQnt, onPlaceCardClick, handleHover} = props;

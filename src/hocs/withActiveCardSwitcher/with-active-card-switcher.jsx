@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import PlacesListNearby from '../../components/places-list-nearby/places-list-nearby.jsx';
-import PlacesListMain from '../../components/places-list-main/places-list-main.jsx'
+import PlacesListMain from '../../components/places-list-main/places-list-main.jsx';
 
 const withActiveCardSwitcher = (Component) => {
   return class ActiveCardSwitcher extends React.PureComponent {
@@ -20,6 +21,20 @@ const withActiveCardSwitcher = (Component) => {
       return <Component {...this.props} handleHover={this.handleHover}/>;
     }
   };
+};
+
+withActiveCardSwitcher.propTypes = {
+  setActiveCardLatLon: PropTypes.shape({
+    type: PropTypes.oneOf([`SET_ACTIVE_CARD_LAT_LON`]),
+    payload: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired
+    }).isRequired
+  }).isRequired,
+  activeCardLatLon: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired
+  })
 };
 
 const mapStateToProps = (state) => ({

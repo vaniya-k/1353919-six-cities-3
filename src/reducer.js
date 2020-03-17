@@ -23,11 +23,11 @@ const ActionCreator = {
     payload: cityId
   }),
   setActiveCardLatLon: (activeCardLatLon) => ({
-    type:  ActionType.SET_ACTIVE_CARD_LAT_LON,
+    type: ActionType.SET_ACTIVE_CARD_LAT_LON,
     payload: activeCardLatLon
   }),
   changeSorting: (selectedSortType) => ({
-    type:  ActionType.CHANGE_SORTING,
+    type: ActionType.CHANGE_SORTING,
     payload: selectedSortType
   })
 };
@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         activeCardLatLon: {lat: action.payload.lat, lon: action.payload.lon}
       });
-    
+
     case ActionType.CHANGE_SORTING:
       return Object.assign({}, state, {
         activeSortType: action.payload

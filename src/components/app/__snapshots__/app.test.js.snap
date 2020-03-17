@@ -183,10 +183,11 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
             <span
               className="places__sorting-caption"
             >
-              Sort by
+              Sort by 
             </span>
             <span
               className="places__sorting-type"
+              onClick={[Function]}
               tabIndex="0"
             >
               Popular
@@ -201,28 +202,32 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom null"
             >
               <li
                 className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Popular
               </li>
               <li
                 className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: low to high
               </li>
               <li
                 className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: high to low
               </li>
               <li
                 className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Top rated first
@@ -407,7 +412,7 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     <span
                       style={
                         Object {
-                          "width": "100%",
+                          "width": "80%",
                         }
                       }
                     />
@@ -505,7 +510,7 @@ exports[`<App/> should return the whole page with 54 matches and 3 places displa
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
