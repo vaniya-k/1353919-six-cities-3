@@ -16,7 +16,7 @@ const places = [
     title: `Spacious apartment`,
     price: 170,
     type: PLACE_TYPES[0],
-    rating: 100,
+    rating: 80,
     isPremium: false,
     imageName: `apartment-02`,
     gps: {lat: 52.369553943508, lon: 4.85309666406198}
@@ -25,7 +25,7 @@ const places = [
     title: `Rustic cabin`,
     price: 140,
     type: PLACE_TYPES[1],
-    rating: 80,
+    rating: 100,
     isPremium: false,
     imageName: `apartment-01`,
     gps: {lat: 52.3909553943508, lon: 4.929309666406198}

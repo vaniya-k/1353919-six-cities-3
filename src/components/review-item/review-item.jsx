@@ -1,43 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class ReviewItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.dateStamp = this.dateStamp.bind(this);
-  }
+const dateStamp = (numericDate) => {
+  const dateObj = new Date(`${numericDate}`);
 
-  dateStamp = (date) => {
-    const dateObj = new Date(`${date}`);
+  const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
 
-    const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
+  return `${MONTHS[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+};
 
-    return `${MONTHS[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
-  };
-
-  render() {
-    const {name, avaPicName, rating, text, date} = this.props;
-
-    return <li className="reviews__item">
-      <div className="reviews__user user">
-        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={`img/${avaPicName}.jpg`} width="54" height="54" alt="Reviews avatar"></img>
-        </div>
-        <span className="reviews__user-name">{name}</span>
+const ReviewItem = ({name, avaPicName, rating, text, date}) => {
+  return <li className="reviews__item">
+    <div className="reviews__user user">
+      <div className="reviews__avatar-wrapper user__avatar-wrapper">
+        <img className="reviews__avatar user__avatar" src={`img/${avaPicName}.jpg`} width="54" height="54" alt="Reviews avatar"></img>
       </div>
-      <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{width: `${rating}%`}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
+      <span className="reviews__user-name">{name}</span>
+    </div>
+    <div className="reviews__info">
+      <div className="reviews__rating rating">
+        <div className="reviews__stars rating__stars">
+          <span style={{width: `${rating}%`}}></span>
+          <span className="visually-hidden">Rating</span>
         </div>
-        <p className="reviews__text">{text}</p>
-        <time className="reviews__time" dateTime={date}>{`${this.dateStamp(date)}`}</time>
       </div>
-    </li>;
-  }
-}
+      <p className="reviews__text">{text}</p>
+      <time className="reviews__time" dateTime={date}>{`${dateStamp(date)}`}</time>
+    </div>
+  </li>;
+};
 
 ReviewItem.propTypes = {
   name: PropTypes.string.isRequired,

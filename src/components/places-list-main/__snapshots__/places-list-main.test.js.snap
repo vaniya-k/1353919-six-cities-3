@@ -13,7 +13,8 @@ exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
     className="places__found"
   >
     54
-     places to stay in Amsterdam
+     places to stay in 
+    Bucharest
   </b>
   <form
     action="#"
@@ -23,10 +24,11 @@ exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
     <span
       className="places__sorting-caption"
     >
-      Sort by
+      Sort by 
     </span>
     <span
       className="places__sorting-type"
+      onClick={[Function]}
       tabIndex="0"
     >
       Popular
@@ -41,28 +43,32 @@ exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
       </svg>
     </span>
     <ul
-      className="places__options places__options--custom places__options--opened"
+      className="places__options places__options--custom null"
     >
       <li
         className="places__option places__option--active"
+        onClick={[Function]}
         tabIndex="0"
       >
         Popular
       </li>
       <li
         className="places__option"
+        onClick={[Function]}
         tabIndex="0"
       >
         Price: low to high
       </li>
       <li
         className="places__option"
+        onClick={[Function]}
         tabIndex="0"
       >
         Price: high to low
       </li>
       <li
         className="places__option"
+        onClick={[Function]}
         tabIndex="0"
       >
         Top rated first

@@ -5,6 +5,42 @@ import leaflet from 'leaflet';
 class CityMap extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      activeMarker: null
+    };
+    this.renderMarkers = this.renderMarkers.bind(this);
+  }
+
+  markers = null;
+
+  mapObj = null;
+
+  renderMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
+    const markers = [];
+
+    placesCoordinates.forEach((place) => {
+      const marker = leaflet
+        .marker([place.lat, place.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin.svg`})})
+        .addTo(map);
+
+      markers.push(marker);
+    });
+
+    this.markers = markers;
+
+    if (activePlaceCoordinates.lat !== null && activePlaceCoordinates.lon !== null) {
+      if (this.state.activeMarker !== null) {
+        map.removeLayer(this.state.activeMarker);
+      }
+
+      const activeMarker = leaflet
+      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`})})
+      .addTo(map);
+
+      this.setState({
+        activeMarker
+      });
+    }
   }
 
   render() {
@@ -29,9 +65,7 @@ class CityMap extends React.PureComponent {
       marker: true
     });
 
-    const defaultPin = leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin.svg`});
-
-    const orangePin = leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`});
+    this.mapObj = map;
 
     map.setView(city, zoom);
 
@@ -41,16 +75,18 @@ class CityMap extends React.PureComponent {
       })
       .addTo(map);
 
-    placesCoordinates.forEach((place) => {
-      leaflet
-        .marker([place.lat, place.lon], {icon: defaultPin})
-        .addTo(map);
-    });
+    this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
+  }
 
-    if (activePlaceCoordinates) {
-      leaflet
-      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: orangePin})
-      .addTo(map);
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      const map = this.mapObj;
+
+      const {placesCoordinates, activePlaceCoordinates} = this.props;
+
+      this.markers.forEach((marker) => map.removeLayer(marker));
+
+      this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
     }
   }
 }
@@ -64,8 +100,12 @@ CityMap.propTypes = {
       }).isRequired
   ).isRequired,
   activePlaceCoordinates: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lon: PropTypes.number.isRequired
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  }),
+  placePageCoordinates: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
   })
 };
 
