@@ -1,5 +1,3 @@
-/* eslint react/prop-types: 0 */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import offers from '../../mocks/cities-with-places.js';
@@ -14,7 +12,6 @@ class Main extends React.PureComponent {
     super(props);
     this.getPlacesCoordinates = this.getPlacesCoordinates.bind(this);
     this.getCitiesTabsList = this.getCitiesTabsList.bind(this);
-    this.sortPlaces = this.sortPlaces.bind(this);
   }
 
   getPlacesCoordinates = (places) => places.map((place) => {
@@ -25,26 +22,26 @@ class Main extends React.PureComponent {
     return offer.city;
   });
 
-  sortPlaces = (places, sortType) => {
-    const sortedPlaces = [...places];
-    switch (sortType) {
-      case 0:
-        break;
-      case 1:
-        sortedPlaces.sort((a, b) => (a.price > b.price) ? 1 : -1);
-        break;
-      case 2:
-        sortedPlaces.sort((a, b) => (a.price > b.price) ? -1 : 1);
-        break;
-      case 3:
-        sortedPlaces.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
-        break;
-    }
-    return sortedPlaces;
-  }
-
   render() {
-    const {places, activeSortType, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
+    const {places, placesLowToHigh, placesHighToLow, placesTopRating, activeSortType, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
+
+    const sortPlaces = (sortType) => {
+      let sortedPlaces = [...places];
+      switch (sortType) {
+        case 0:
+          break;
+        case 1:
+          sortedPlaces = placesLowToHigh;
+          break;
+        case 2:
+          sortedPlaces = placesHighToLow;
+          break;
+        case 3:
+          sortedPlaces = placesTopRating;
+          break;
+      }
+      return sortedPlaces;
+    };
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -75,7 +72,7 @@ class Main extends React.PureComponent {
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
         <div className="cities">
           <div className="cities__places-container container">
-            <PlacesListMainWrapped activeCityName={activeCityName} places={this.sortPlaces(places, activeSortType)} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
+            <PlacesListMainWrapped activeCityName={activeCityName} places={sortPlaces(activeSortType)} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
             <div className="cities__right-section">
               <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`} activePlaceCoordinates={this.props.activeCardLatLon}/>
             </div>
@@ -89,6 +86,48 @@ class Main extends React.PureComponent {
 Main.propTypes = {
   activeCityName: PropTypes.string.isRequired,
   places: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        imageName: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
+      }).isRequired
+  ).isRequired,
+  placesLowToHigh: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        imageName: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
+      }).isRequired
+  ).isRequired,
+  placesHighToLow: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        imageName: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
+      }).isRequired
+  ).isRequired,
+  placesTopRating: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
@@ -116,6 +155,9 @@ const mapStateToProps = (state) => ({
   activeCityName: state.activeCityName,
   activeCityId: state.activeCityId,
   places: state.places,
+  placesLowToHigh: [...state.places].sort((a, b) => (a.price > b.price) ? 1 : -1),
+  placesHighToLow: [...state.places].sort((a, b) => (a.price > b.price) ? -1 : 1),
+  placesTopRating: [...state.places].sort((a, b) => (a.rating > b.rating) ? -1 : 1),
   activeCardLatLon: state.activeCardLatLon,
   activeSortType: state.activeSortType
 });

@@ -30,8 +30,6 @@ const DescParagraph = ({pTagText}) => {
 const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places}) => {
   const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
 
-  // console.log(props.activeCardLatLon);
-
   return <div className="page">
     <header className="header">
       <div className="container">

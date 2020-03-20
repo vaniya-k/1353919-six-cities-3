@@ -42,7 +42,7 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.GET_PLACES:
-      return state.places;
+      return state;
 
     case ActionType.SET_ACTIVE_CARD_LAT_LON:
       return Object.assign({}, state, {

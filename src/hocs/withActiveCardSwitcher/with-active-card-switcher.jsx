@@ -28,16 +28,10 @@ const withActiveCardSwitcher = (Component) => {
 };
 
 withActiveCardSwitcher.propTypes = {
-  setActiveCardLatLon: PropTypes.shape({
-    type: PropTypes.oneOf([`SET_ACTIVE_CARD_LAT_LON`]),
-    payload: PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lon: PropTypes.number.isRequired
-    }).isRequired
-  }).isRequired,
+  setActiveCardLatLon: PropTypes.func.isRequired,
   activeCardLatLon: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lon: PropTypes.number.isRequired
+    lat: PropTypes.number,
+    lon: PropTypes.number
   })
 };
 

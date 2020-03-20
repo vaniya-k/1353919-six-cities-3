@@ -31,15 +31,15 @@ class PlacesListSorting extends React.PureComponent {
     }
 
     generateLiItems = () => {
-      const LiItems = [];
+      const liItems = [];
 
       for (let i = 0; i < SORT_TYPES.length; i++) {
-        LiItems.push(<li className={this.generateStyleClasses(this.props.activeSortType, i)} key={`key${i}`} onClick={() => {
+        liItems.push(<li className={this.generateStyleClasses(this.props.activeSortType, i)} key={`key${i}`} onClick={() => {
           this.props.handleTypeItemClick(i); this.toggleDropDown();
         }} tabIndex="0">{SORT_TYPES[i]}</li>);
       }
 
-      return LiItems;
+      return liItems;
     }
 
     render() {
