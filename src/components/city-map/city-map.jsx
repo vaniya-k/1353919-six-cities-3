@@ -8,7 +8,6 @@ class CityMap extends React.PureComponent {
     this.state = {
       activeMarker: null
     };
-    this.renderMarkers = this.renderMarkers.bind(this);
   }
 
   markers = null;
