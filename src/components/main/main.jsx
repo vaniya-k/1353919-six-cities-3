@@ -7,11 +7,34 @@ import {PlacesListMainWrapped} from '../../hocs/withActiveCardSwitcher/with-acti
 import CityMap from '../city-map/city-map.jsx';
 import CitiesNavigation from '../cities-navigation/cities-navigation.jsx';
 
+const CityWithoutOffers = ({activeCityName}) => {
+  return <div className="cities">
+    <div className="cities__places-container cities__places-container--empty container">
+      <section className="cities__no-places">
+        <div className="cities__status-wrapper tabs__content">
+          <b className="cities__status">No places to stay available</b>
+          <p className="cities__status-description">We could not find any property availbale at the moment in {activeCityName}</p>
+        </div>
+      </section>
+      <div className="cities__right-section"></div>
+    </div>
+  </div>;
+};
+
+const CityWithOffers = ({activeCityName, places, onPlaceCardClick, placesCoordinates, activePlaceCoordinates}) => {
+  return <div className="cities">
+    <div className="cities__places-container container">
+      <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
+      <div className="cities__right-section">
+        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={activePlaceCoordinates}/>
+      </div>
+    </div>
+  </div>;
+};
+
 class Main extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.getPlacesCoordinates = this.getPlacesCoordinates.bind(this);
-    this.getCitiesTabsList = this.getCitiesTabsList.bind(this);
   }
 
   getPlacesCoordinates = (places) => places.map((place) => {
@@ -23,25 +46,7 @@ class Main extends React.PureComponent {
   });
 
   render() {
-    const {places, placesLowToHigh, placesHighToLow, placesTopRating, activeSortType, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
-
-    const sortPlaces = (sortType) => {
-      let sortedPlaces = [...places];
-      switch (sortType) {
-        case 0:
-          break;
-        case 1:
-          sortedPlaces = placesLowToHigh;
-          break;
-        case 2:
-          sortedPlaces = placesHighToLow;
-          break;
-        case 3:
-          sortedPlaces = placesTopRating;
-          break;
-      }
-      return sortedPlaces;
-    };
+    const {places, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -67,23 +72,23 @@ class Main extends React.PureComponent {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${(places.length === 0) ? `page__main--index-empty` : null}`}>
         <h1 className="visually-hidden">Cities</h1>
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <PlacesListMainWrapped activeCityName={activeCityName} places={sortPlaces(activeSortType)} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
-            <div className="cities__right-section">
-              <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`} activePlaceCoordinates={this.props.activeCardLatLon}/>
-            </div>
-          </div>
-        </div>
+        {(places.length === 0)
+          ? <CityWithoutOffers activeCityName={activeCityName}/>
+          : <CityWithOffers placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} onPlaceCardClick={onPlaceCardClick} activePlaceCoordinates={this.props.activeCardLatLon}/>
+        }
       </main>
     </div>;
   }
 }
 
-Main.propTypes = {
+CityWithoutOffers.propTypes = {
+  activeCityName: PropTypes.string.isRequired
+};
+
+CityWithOffers.propTypes = {
   activeCityName: PropTypes.string.isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
@@ -99,35 +104,22 @@ Main.propTypes = {
         }).isRequired
       }).isRequired
   ).isRequired,
-  placesLowToHigh: PropTypes.arrayOf(
+  onPlaceCardClick: PropTypes.func.isRequired,
+  placesCoordinates: PropTypes.arrayOf(
       PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        imageName: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        gps: PropTypes.shape({
-          lat: PropTypes.number.isRequired,
-          lon: PropTypes.number.isRequired
-        }).isRequired
+        lat: PropTypes.number.isRequired,
+        lon: PropTypes.number.isRequired
       }).isRequired
-  ).isRequired,
-  placesHighToLow: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        imageName: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        gps: PropTypes.shape({
-          lat: PropTypes.number.isRequired,
-          lon: PropTypes.number.isRequired
-        }).isRequired
-      }).isRequired
-  ).isRequired,
-  placesTopRating: PropTypes.arrayOf(
+  ),
+  activePlaceCoordinates: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  }).isRequired
+};
+
+Main.propTypes = {
+  activeCityName: PropTypes.string.isRequired,
+  places: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
@@ -151,16 +143,43 @@ Main.propTypes = {
   })
 };
 
-const mapStateToProps = (state) => ({
-  activeCityName: state.activeCityName,
-  activeCityId: state.activeCityId,
-  places: state.places,
-  placesLowToHigh: [...state.places].sort((a, b) => (a.price > b.price) ? 1 : -1),
-  placesHighToLow: [...state.places].sort((a, b) => (a.price > b.price) ? -1 : 1),
-  placesTopRating: [...state.places].sort((a, b) => (a.rating > b.rating) ? -1 : 1),
-  activeCardLatLon: state.activeCardLatLon,
-  activeSortType: state.activeSortType
-});
+const mapStateToProps = (state) => {
+  let {places, activeSortType} = state;
+
+  const sortPlaces = (sortType) => {
+    let sortedPlaces = [];
+
+    switch (sortType) {
+      case 0:
+        sortedPlaces = places;
+        break;
+      case 1:
+        sortedPlaces = places.sort((a, b) => (a.price > b.price) ? 1 : -1);
+        break;
+      case 2:
+        sortedPlaces = places.sort((a, b) => (a.price > b.price) ? -1 : 1);
+        break;
+      case 3:
+        sortedPlaces = places.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
+        break;
+      default:
+        sortedPlaces = places;
+        break;
+    }
+
+    return sortedPlaces;
+  };
+
+  places = sortPlaces(activeSortType);
+
+  return {
+    activeCityName: state.activeCityName,
+    activeCityId: state.activeCityId,
+    places,
+    activeCardLatLon: state.activeCardLatLon,
+    activeSortType: state.activeSortType
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   onCityTabClick(cityId) {

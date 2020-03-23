@@ -57,7 +57,7 @@ exports[`<Main/> should return the whole page with 54 matches and 3 places displ
     </div>
   </header>
   <main
-    className="page__main page__main--index"
+    className="page__main page__main--index null"
   >
     <h1
       className="visually-hidden"

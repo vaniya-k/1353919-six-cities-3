@@ -11,9 +11,9 @@ class PlacesListSorting extends React.PureComponent {
     this.state = {
       isOpened: false
     };
-    this.generateStyleClasses = this.generateStyleClasses.bind(this);
-    this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.generateLiItems = this.generateLiItems.bind(this);
+    // this.generateStyleClasses = this.generateStyleClasses.bind(this);
+    // this.toggleDropDown = this.toggleDropDown.bind(this);
+    // this.generateLiItems = this.generateLiItems.bind(this);
   }
 
     generateStyleClasses = (activeSortType, itemSortType) => {
