@@ -7,6 +7,31 @@ import {PlacesListMainWrapped} from '../../hocs/withActiveCardSwitcher/with-acti
 import CityMap from '../city-map/city-map.jsx';
 import CitiesNavigation from '../cities-navigation/cities-navigation.jsx';
 
+const CityWithoutOffers = ({activeCityName}) => {
+  return <div className="cities">
+    <div className="cities__places-container cities__places-container--empty container">
+      <section className="cities__no-places">
+        <div className="cities__status-wrapper tabs__content">
+          <b className="cities__status">No places to stay available</b>
+          <p className="cities__status-description">We could not find any property availbale at the moment in {activeCityName}</p>
+        </div>
+      </section>
+      <div className="cities__right-section"></div>
+    </div>
+  </div>;
+};
+
+const CityWithOffers = ({activeCityName, places, onPlaceCardClick, placesCoordinates, activePlaceCoordinates}) => {
+  return <div className="cities">
+    <div className="cities__places-container container">
+      <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
+      <div className="cities__right-section">
+        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={activePlaceCoordinates}/>
+      </div>
+    </div>
+  </div>;
+};
+
 class Main extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -47,21 +72,50 @@ class Main extends React.PureComponent {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${(places.length === 0) ? `page__main--index-empty` : null}`}>
         <h1 className="visually-hidden">Cities</h1>
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
-            <div className="cities__right-section">
-              <CityMap placesCoordinates={this.getPlacesCoordinates(places)} sectionLocationClass={`cities__map`} activePlaceCoordinates={this.props.activeCardLatLon}/>
-            </div>
-          </div>
-        </div>
+        {(places.length === 0)
+          ? <CityWithoutOffers activeCityName={activeCityName}/>
+          : <CityWithOffers placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} onPlaceCardClick={onPlaceCardClick} activePlaceCoordinates={this.props.activeCardLatLon}/>
+        }
       </main>
     </div>;
   }
 }
+
+CityWithoutOffers.propTypes = {
+  activeCityName: PropTypes.string.isRequired
+};
+
+CityWithOffers.propTypes = {
+  activeCityName: PropTypes.string.isRequired,
+  places: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        imageName: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
+      }).isRequired
+  ).isRequired,
+  onPlaceCardClick: PropTypes.func.isRequired,
+  placesCoordinates: PropTypes.arrayOf(
+      PropTypes.shape({
+        lat: PropTypes.number.isRequired,
+        lon: PropTypes.number.isRequired
+      }).isRequired
+  ),
+  activePlaceCoordinates: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  }).isRequired
+};
 
 Main.propTypes = {
   activeCityName: PropTypes.string.isRequired,
