@@ -1,15 +1,12 @@
-import offers from '../src/mocks/cities-with-places.js';
 import getAllOffers from '../src/adapter.js';
 
-const firstActiveCity = 0;
-
 const initialState = {
-  activeCityId: firstActiveCity,
-  activeCityName: offers[firstActiveCity].city,
-  places: offers[firstActiveCity].places,
+  activeCityId: 0,
+  activeCityName: ``,
+  places: [],
   activeCardLatLon: {lat: null, lon: null},
   activeSortType: 0,
-  allOffers: null,
+  allOffers: [],
 };
 
 const ActionType = {
@@ -52,12 +49,15 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {
         activeCityId: action.payload,
-        activeCityName: offers[action.payload].city,
-        places: offers[action.payload].places
+        activeCityName: state.allOffers[action.payload].city,
+        places: state.allOffers[action.payload].places
       });
 
     case ActionType.GET_ALL_OFFERS:
       return Object.assign({}, state, {
+        activeCityId: 0,
+        activeCityName: action.payload[0].city,
+        places: action.payload[0].places,
         allOffers: action.payload
       });
 

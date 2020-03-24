@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import offers from '../../mocks/cities-with-places.js';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import {PlacesListMainWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
@@ -46,7 +45,7 @@ class Main extends React.PureComponent {
   });
 
   render() {
-    const {places, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
+    const {places, allOffers, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -74,7 +73,7 @@ class Main extends React.PureComponent {
 
       <main className={`page__main page__main--index ${(places.length === 0) ? `page__main--index-empty` : null}`}>
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
+        <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(allOffers)} onCityTabClick={onCityTabClick}/>
         {(places.length === 0)
           ? <CityWithoutOffers activeCityName={activeCityName}/>
           : <CityWithOffers placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} onPlaceCardClick={onPlaceCardClick} activePlaceCoordinates={this.props.activeCardLatLon}/>
@@ -177,7 +176,8 @@ const mapStateToProps = (state) => {
     activeCityId: state.activeCityId,
     places,
     activeCardLatLon: state.activeCardLatLon,
-    activeSortType: state.activeSortType
+    activeSortType: state.activeSortType,
+    allOffers: state.allOffers
   };
 };
 
