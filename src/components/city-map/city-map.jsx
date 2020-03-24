@@ -51,9 +51,9 @@ class CityMap extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {placesCoordinates, activePlaceCoordinates} = this.props;
+    const {placesCoordinates, activePlaceCoordinates, cityLatLon} = this.props;
 
-    const city = [52.38333, 4.9];
+    const city = [cityLatLon.lat, cityLatLon.lon];
 
     const zoom = 12;
 
@@ -81,6 +81,8 @@ class CityMap extends React.PureComponent {
     if (this.props !== prevProps) {
       const map = this.mapObj;
 
+      map.setView([this.props.cityLatLon.lat, this.props.cityLatLon.lon], 13);
+
       const {placesCoordinates, activePlaceCoordinates} = this.props;
 
       this.markers.forEach((marker) => map.removeLayer(marker));
@@ -102,6 +104,10 @@ CityMap.propTypes = {
     lat: PropTypes.number,
     lon: PropTypes.number
   }),
+  cityLatLon: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  }).isRequired,
   placePageCoordinates: PropTypes.shape({
     lat: PropTypes.number,
     lon: PropTypes.number

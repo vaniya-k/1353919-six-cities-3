@@ -40,7 +40,7 @@ class PlaceCard extends React.PureComponent {
       {place.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className={`${articleLocationClass}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={`img/${place.imageName}.jpg`} width="260" height="200" alt="Place image"></img>
+          <img className="place-card__image" src={place.previewUrl} width="260" height="200" alt="Place image"></img>
         </a>
       </div>
       <PlaceCardInfo place={place} onPlaceCardClick={onPlaceCardClick}/>
@@ -54,12 +54,13 @@ PlaceCardInfo.propTypes = {
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
-    imageName: PropTypes.string.isRequired,
+    previewUrl: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
     gps: PropTypes.shape({
       lat: PropTypes.number.isRequired,
       lon: PropTypes.number.isRequired
-    }).isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
   onPlaceCardClick: PropTypes.func.isRequired
 };
@@ -70,7 +71,7 @@ PlaceCard.propTypes = {
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
-    imageName: PropTypes.string.isRequired,
+    previewUrl: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
     gps: PropTypes.shape({
       lat: PropTypes.number.isRequired,

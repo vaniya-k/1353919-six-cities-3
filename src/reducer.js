@@ -1,18 +1,17 @@
-import offers from '../src/mocks/cities-with-places.js';
-
-const firstActiveCity = 0;
+import getAllOffers from '../src/adapter.js';
 
 const initialState = {
-  activeCityId: firstActiveCity,
-  activeCityName: offers[firstActiveCity].city,
-  places: offers[firstActiveCity].places,
+  activeCityId: 0,
+  activeCityName: ``,
+  places: [],
   activeCardLatLon: {lat: null, lon: null},
-  activeSortType: 0
+  activeSortType: 0,
+  allOffers: [],
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_PLACES: `GET_PLACES`,
+  GET_ALL_OFFERS: `GET_ALL_OFFERS`,
   SET_ACTIVE_CARD_LAT_LON: `SET_ACTIVE_CARD_LAT_LON`,
   CHANGE_SORTING: `CHANGE_SORTING`
 };
@@ -29,7 +28,20 @@ const ActionCreator = {
   changeSorting: (selectedSortType) => ({
     type: ActionType.CHANGE_SORTING,
     payload: selectedSortType
+  }),
+  getAllOffers: (apiReturn) => ({
+    type: ActionType.GET_ALL_OFFERS,
+    payload: getAllOffers(apiReturn)
   })
+};
+
+const ApiManager = {
+  getAllOffers: () => (dispatch, getState, api) => {
+    return api.get(`/hotels`)
+      .then((response) => {
+        dispatch(ActionCreator.getAllOffers(response.data));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,12 +49,17 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {
         activeCityId: action.payload,
-        activeCityName: offers[action.payload].city,
-        places: offers[action.payload].places
+        activeCityName: state.allOffers[action.payload].city,
+        places: state.allOffers[action.payload].places
       });
 
-    case ActionType.GET_PLACES:
-      return state;
+    case ActionType.GET_ALL_OFFERS:
+      return Object.assign({}, state, {
+        activeCityId: 0,
+        activeCityName: action.payload[0].city,
+        places: action.payload[0].places,
+        allOffers: action.payload
+      });
 
     case ActionType.SET_ACTIVE_CARD_LAT_LON:
       return Object.assign({}, state, {
@@ -58,4 +75,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, ActionType, ActionCreator, ApiManager};

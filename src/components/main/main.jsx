@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import offers from '../../mocks/cities-with-places.js';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import {PlacesListMainWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
@@ -21,12 +20,12 @@ const CityWithoutOffers = ({activeCityName}) => {
   </div>;
 };
 
-const CityWithOffers = ({activeCityName, places, onPlaceCardClick, placesCoordinates, activePlaceCoordinates}) => {
+const CityWithOffers = ({cityLatLon, activeCityName, places, onPlaceCardClick, placesCoordinates, activePlaceCoordinates}) => {
   return <div className="cities">
     <div className="cities__places-container container">
       <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
       <div className="cities__right-section">
-        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={activePlaceCoordinates}/>
+        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={activePlaceCoordinates} cityLatLon={cityLatLon}/>
       </div>
     </div>
   </div>;
@@ -46,7 +45,7 @@ class Main extends React.PureComponent {
   });
 
   render() {
-    const {places, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
+    const {places, allOffers, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -74,10 +73,10 @@ class Main extends React.PureComponent {
 
       <main className={`page__main page__main--index ${(places.length === 0) ? `page__main--index-empty` : null}`}>
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(offers)} onCityTabClick={onCityTabClick}/>
+        <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(allOffers)} onCityTabClick={onCityTabClick}/>
         {(places.length === 0)
           ? <CityWithoutOffers activeCityName={activeCityName}/>
-          : <CityWithOffers placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} onPlaceCardClick={onPlaceCardClick} activePlaceCoordinates={this.props.activeCardLatLon}/>
+          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} onPlaceCardClick={onPlaceCardClick} activePlaceCoordinates={this.props.activeCardLatLon}/>
         }
       </main>
     </div>;
@@ -90,13 +89,17 @@ CityWithoutOffers.propTypes = {
 
 CityWithOffers.propTypes = {
   activeCityName: PropTypes.string.isRequired,
+  cityLatLon: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired
+  }).isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
-        imageName: PropTypes.string.isRequired,
+        previewUrl: PropTypes.string.isRequired,
         isPremium: PropTypes.bool.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
@@ -125,12 +128,35 @@ Main.propTypes = {
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
-        imageName: PropTypes.string.isRequired,
+        previewUrl: PropTypes.string.isRequired,
         isPremium: PropTypes.bool.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
           lon: PropTypes.number.isRequired
         }).isRequired
+      }).isRequired
+  ).isRequired,
+  allOffers: PropTypes.arrayOf(
+      PropTypes.shape({
+        city: PropTypes.string.isRequired,
+        cityLatLon: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired,
+        places: PropTypes.arrayOf(
+            PropTypes.shape({
+              title: PropTypes.string.isRequired,
+              price: PropTypes.number.isRequired,
+              type: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              previewUrl: PropTypes.string.isRequired,
+              isPremium: PropTypes.bool.isRequired,
+              gps: PropTypes.shape({
+                lat: PropTypes.number.isRequired,
+                lon: PropTypes.number.isRequired
+              }).isRequired
+            }).isRequired
+        ).isRequired,
       }).isRequired
   ).isRequired,
   onCityTabClick: PropTypes.func.isRequired,
@@ -177,7 +203,8 @@ const mapStateToProps = (state) => {
     activeCityId: state.activeCityId,
     places,
     activeCardLatLon: state.activeCardLatLon,
-    activeSortType: state.activeSortType
+    activeSortType: state.activeSortType,
+    allOffers: state.allOffers
   };
 };
 

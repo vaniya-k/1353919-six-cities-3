@@ -18,7 +18,7 @@ PlacesListNearby.propTypes = {
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
-        imageName: PropTypes.string.isRequired,
+        previewUrl: PropTypes.string.isRequired,
         isPremium: PropTypes.bool.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
