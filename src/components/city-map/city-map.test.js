@@ -6,7 +6,7 @@ import CityMap from '../city-map/city-map.jsx';
 it(`<CityMap/> should return the map of Amsterdam with 3 places`, () => {
 
   const tree = renderer
-    .create(<CityMap placesCoordinates={placesListing.coordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={{lat: null, lon: null}}/>)
+    .create(<CityMap placesCoordinates={placesListing.coordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={{lat: null, lon: null}} cityLatLon={{lat: null, lon: null}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

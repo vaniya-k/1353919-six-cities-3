@@ -120,7 +120,7 @@ const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places})
             <ReviewsList reviewsQnt={reviews.length} reviews={reviews}/>
           </div>
         </div>
-        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={{lat: 52.3909553943508, lon: 4.929309666406198}}/>
+        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={{lat: 52.3909553943508, lon: 4.929309666406198}} cityLatLon={{lat: 52.37454, lon: 4.897976}}/>
       </section>
       <div className="container">
         <PlacesListNearbyWrapped places={places.slice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
@@ -189,7 +189,7 @@ PlacePage.propTypes = {
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
-        imageName: PropTypes.string.isRequired,
+        previewUrl: PropTypes.string.isRequired,
         isPremium: PropTypes.bool.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
