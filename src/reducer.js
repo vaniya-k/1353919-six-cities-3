@@ -1,4 +1,5 @@
 import offers from '../src/mocks/cities-with-places.js';
+import getAllOffers from '../src/adapter.js';
 
 const firstActiveCity = 0;
 
@@ -8,12 +9,12 @@ const initialState = {
   places: offers[firstActiveCity].places,
   activeCardLatLon: {lat: null, lon: null},
   activeSortType: 0,
-  apiPlaces: null
+  allOffers: null,
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_PLACES: `GET_PLACES`,
+  GET_ALL_OFFERS: `GET_ALL_OFFERS`,
   SET_ACTIVE_CARD_LAT_LON: `SET_ACTIVE_CARD_LAT_LON`,
   CHANGE_SORTING: `CHANGE_SORTING`
 };
@@ -31,17 +32,17 @@ const ActionCreator = {
     type: ActionType.CHANGE_SORTING,
     payload: selectedSortType
   }),
-  getPlaces: (apiReturn) => ({
-    type: ActionType.GET_PLACES,
-    payload: apiReturn
+  getAllOffers: (apiReturn) => ({
+    type: ActionType.GET_ALL_OFFERS,
+    payload: getAllOffers(apiReturn)
   })
 };
 
 const ApiManager = {
-  getPlaces: () => (dispatch, getState, api) => {
+  getAllOffers: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        dispatch(ActionCreator.getPlaces(response.data));
+        dispatch(ActionCreator.getAllOffers(response.data));
       });
   },
 };
@@ -55,9 +56,9 @@ const reducer = (state = initialState, action) => {
         places: offers[action.payload].places
       });
 
-    case ActionType.GET_PLACES:
+    case ActionType.GET_ALL_OFFERS:
       return Object.assign({}, state, {
-        apiPlaces: action.payload
+        allOffers: action.payload
       });
 
     case ActionType.SET_ACTIVE_CARD_LAT_LON:

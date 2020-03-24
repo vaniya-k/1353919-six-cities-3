@@ -19,7 +19,7 @@ const store = createStore(
   )
 );
 
-store.dispatch(ApiManager.getPlaces());
+store.dispatch(ApiManager.getAllOffers());
   
 ReactDOM.render(
   <Provider store={store}>
