@@ -7,7 +7,8 @@ const initialState = {
   activeCityName: offers[firstActiveCity].city,
   places: offers[firstActiveCity].places,
   activeCardLatLon: {lat: null, lon: null},
-  activeSortType: 0
+  activeSortType: 0,
+  apiPlaces: null
 };
 
 const ActionType = {
@@ -29,7 +30,20 @@ const ActionCreator = {
   changeSorting: (selectedSortType) => ({
     type: ActionType.CHANGE_SORTING,
     payload: selectedSortType
+  }),
+  getPlaces: (apiReturn) => ({
+    type: ActionType.GET_PLACES,
+    payload: apiReturn
   })
+};
+
+const ApiManager = {
+  getPlaces: () => (dispatch, getState, api) => {
+    return api.get(`/hotels`)
+      .then((response) => {
+        dispatch(ActionCreator.getPlaces(response.data));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -42,7 +56,9 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.GET_PLACES:
-      return state;
+      return Object.assign({}, state, {
+        apiPlaces: action.payload
+      });
 
     case ActionType.SET_ACTIVE_CARD_LAT_LON:
       return Object.assign({}, state, {
@@ -58,4 +74,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, ActionType, ActionCreator, ApiManager};
