@@ -1,36 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 import Main from '../main/main.jsx';
 import PlacePage from '../place-page/place-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
-import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {ApiManager as UserApiManager} from '../../reducer/user/user.js';
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {currentUrl: `/`};
+    this.state = {currentUrl: `/dev-main`};
   }
 
   render() {
-    const {placesListing, placePageData} = this.props;
+    const {placesListing, placePageData, login, authorizationStatus} = this.props;
 
     const placesCoordinates = placesListing.places.map((place) => {
       return {lat: place.gps.lat, lon: place.gps.lon};
     });
 
-    if (this.state.currentUrl === `/dev-place-page`) {
-      return <PlacePage placePageData={placePageData} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>;
+    if (this.state.currentUrl === `/dev-main-back-from-sign-in`) {
+      return <Main onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>;
     } else {
       return <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/dev-main">
             <Main onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
           <Route exact path="/dev-place-page">
             <PlacePage placePageData={placePageData} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
           <Route exact path="/dev-sign-in">
-            <SignIn/>
+            <SignIn onSubmit={login} onSubmitGoBack={() => this.setState({currentUrl: `/dev-main-back-from-sign-in`})}/>
           </Route>
         </Switch>
       </BrowserRouter>;
@@ -88,4 +90,15 @@ App.propTypes = {
   }).isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.user.authorizationStatus
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserApiManager.login(authData));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
