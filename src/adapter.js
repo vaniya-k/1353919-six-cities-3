@@ -1,5 +1,5 @@
-const getAllOffers = (apiInput) => {
-  const places = apiInput;
+const getAllOffers = (apiReturn) => {
+  const places = apiReturn;
   const cities = [];
   const citiesLatLon = [];
   const allOffers = [];
