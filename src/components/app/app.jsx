@@ -1,9 +1,9 @@
 import React from 'react';
 import Main from '../main/main.jsx';
 import PlacePage from '../place-page/place-page.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {connect} from "react-redux";
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -28,6 +28,9 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/dev-place-page">
             <PlacePage placePageData={placePageData} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
+          </Route>
+          <Route exact path="/dev-sign-in">
+            <SignIn/>
           </Route>
         </Switch>
       </BrowserRouter>;
@@ -85,10 +88,4 @@ App.propTypes = {
   }).isRequired
 };
 
-const mapStateToProps = (state) => ({
-  places: state.places,
-});
-
-export {App};
-
-export default connect(mapStateToProps)(App);
+export default App;

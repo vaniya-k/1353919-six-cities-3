@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/offers/offers.js";
 import PlacesListNearby from '../../components/places-list-nearby/places-list-nearby.jsx';
 import PlacesListMain from '../../components/places-list-main/places-list-main.jsx';
 
@@ -36,7 +36,7 @@ withActiveCardSwitcher.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeCardLatLon: state.activeCardLatLon
+  activeCardLatLon: state.offers.activeCardLatLon
 });
 
 const mapDispatchToProps = (dispatch) => ({

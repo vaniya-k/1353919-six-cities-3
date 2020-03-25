@@ -204,7 +204,7 @@ PlacePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeCardLatLon: state.activeCardLatLon
+  activeCardLatLon: state.offers.activeCardLatLon
 });
 
 export default connect(mapStateToProps, null)(PlacePage);

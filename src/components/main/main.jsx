@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/offers/offers.js";
 import {PlacesListMainWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 import CityMap from '../city-map/city-map.jsx';
 import CitiesNavigation from '../cities-navigation/cities-navigation.jsx';
@@ -170,7 +170,7 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  let {places, activeSortType} = state;
+  let {places, activeSortType} = state.offers;
 
   const sortPlaces = (sortType) => {
     let sortedPlaces = [];
@@ -199,12 +199,12 @@ const mapStateToProps = (state) => {
   places = sortPlaces(activeSortType);
 
   return {
-    activeCityName: state.activeCityName,
-    activeCityId: state.activeCityId,
+    activeCityName: state.offers.activeCityName,
+    activeCityId: state.offers.activeCityId,
     places,
-    activeCardLatLon: state.activeCardLatLon,
-    activeSortType: state.activeSortType,
-    allOffers: state.allOffers
+    activeCardLatLon: state.offers.activeCardLatLon,
+    activeSortType: state.offers.activeSortType,
+    allOffers: state.offers.allOffers
   };
 };
 
