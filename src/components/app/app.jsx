@@ -11,10 +11,15 @@ class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {currentUrl: `/dev-main`};
+    this.goBackToMain = this.goBackToMain.bind(this);
   }
 
+  goBackToMain = () => {
+    this.setState({currentUrl: `/dev-main-back-from-sign-in`});
+  };
+
   render() {
-    const {placesListing, placePageData, login, authorizationStatus} = this.props;
+    const {placesListing, placePageData, login} = this.props;
 
     const placesCoordinates = placesListing.places.map((place) => {
       return {lat: place.gps.lat, lon: place.gps.lon};
@@ -32,7 +37,7 @@ class App extends React.PureComponent {
             <PlacePage placePageData={placePageData} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
           <Route exact path="/dev-sign-in">
-            <SignIn onSubmit={login} onSubmitGoBack={() => this.setState({currentUrl: `/dev-main-back-from-sign-in`})}/>
+            <SignIn onSubmitLogin={login} onSubmitGoBack={this.goBackToMain}/>
           </Route>
         </Switch>
       </BrowserRouter>;
@@ -41,6 +46,7 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
+  login: PropTypes.func.isRequired,
   placesListing: PropTypes.shape({
     places: PropTypes.arrayOf(
         PropTypes.shape({
@@ -90,10 +96,6 @@ App.propTypes = {
   }).isRequired
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.user.authorizationStatus
-});
-
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserApiManager.login(authData));
@@ -101,4 +103,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

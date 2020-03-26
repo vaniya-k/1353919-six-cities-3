@@ -3,16 +3,23 @@ import renderer from 'react-test-renderer';
 import PlacePage from './place-page.jsx';
 import placesFullData from '../../mocks/places-full-data-test.js';
 import placesListing from '../../mocks/places-listing-test.js';
-import {createStore} from "redux";
+import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
-import {reducer} from "../../reducer.js";
-
+import thunk from "redux-thunk";
+import reducer from "../../reducer/reducer.js";
+import {createAPI} from "../../api.js";
 
 it(`<PlaceCard/> should render "Sweet room"`, () => {
   const mock = jest.fn();
 
+  const api = createAPI(() => {});
+
   const store = createStore(
-      reducer
+      reducer,
+      compose(
+          applyMiddleware(thunk.withExtraArgument(api)),
+          window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+      )
   );
 
   const tree = renderer

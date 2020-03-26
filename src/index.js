@@ -8,12 +8,8 @@ import placesListing from './mocks/places-listing-original.js';
 import placesFullData from './mocks/places-full-data.js';
 import reducer from './reducer/reducer.js';
 import {ApiManager as OffersApiManager} from "./reducer/offers/offers.js";
-import {ActionCreator as UserActionCreator, ApiManager as UserApiManager} from './reducer/user/user.js';
+import {ApiManager as UserApiManager} from './reducer/user/user.js';
 import {createAPI} from "./api.js";
-
-const onUnauthorized = () => {
-  store.dispatch(UserActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
-};
 
 const api = createAPI(() => {});
 
