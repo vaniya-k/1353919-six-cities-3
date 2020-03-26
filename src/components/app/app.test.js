@@ -1,3 +1,5 @@
+//фейковый пулреквест -- хочу прочитать задание к module8-task2
+
 import React from 'react';
 import renderer from 'react-test-renderer';
 import App from './app.jsx';
