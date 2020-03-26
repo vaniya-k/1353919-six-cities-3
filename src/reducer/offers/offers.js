@@ -1,4 +1,4 @@
-import getAllOffers from '../src/adapter.js';
+import getAllOffers from '../../adapter.js';
 
 const initialState = {
   activeCityId: 0,

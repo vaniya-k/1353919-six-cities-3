@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/offers/offers.js";
 
 const SORT_TYPES = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
@@ -11,9 +11,6 @@ class PlacesListSorting extends React.PureComponent {
     this.state = {
       isOpened: false
     };
-    // this.generateStyleClasses = this.generateStyleClasses.bind(this);
-    // this.toggleDropDown = this.toggleDropDown.bind(this);
-    // this.generateLiItems = this.generateLiItems.bind(this);
   }
 
     generateStyleClasses = (activeSortType, itemSortType) => {
@@ -64,7 +61,7 @@ PlacesListSorting.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeSortType: state.activeSortType,
+  activeSortType: state.offers.activeSortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
