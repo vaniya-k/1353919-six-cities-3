@@ -1,14 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import YourReview from '../your-review/your-review.jsx'
 import CityMap from '../city-map/city-map.jsx';
 import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 
-const PlaceImage = ({imageName}) => {
+const PlaceImage = ({imageUrl}) => {
   return <div className="property__image-wrapper">
-    <img className="property__image" src={`img/${imageName}.jpg`} alt={`${imageName}`}></img>
+    <img className="property__image" src={imageUrl}></img>
   </div>;
 };
 
@@ -28,8 +28,8 @@ const DescParagraph = ({pTagText}) => {
   </p>;
 };
 
-const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places}) => {
-  const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
+const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, placesCoordinates, onPlaceCardClick, places}) => {
+  // const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
 
   return <div className="page">
     <header className="header">
@@ -59,7 +59,7 @@ const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places})
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {images.map((imageName, i) => <PlaceImage key={`key${i}`} imageName={imageName}/>)}
+            {images.map((image, i) => <PlaceImage key={`key${i}`} imageUrl={image}/>)}
           </div>
         </div>
         <div className="property__container container">
@@ -134,82 +134,104 @@ const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places})
   </div>;
 };
 
-PlaceImage.propTypes = {
-  imageName: PropTypes.string.isRequired
-};
+// PlaceImage.propTypes = {
+//   imageName: PropTypes.string.isRequired
+// };
 
-PremiumMark.propTypes = {
-  isPremium: PropTypes.bool.isRequired
-};
+// PremiumMark.propTypes = {
+//   isPremium: PropTypes.bool.isRequired
+// };
 
-Commodity.propTypes = {
-  item: PropTypes.string.isRequired
-};
+// Commodity.propTypes = {
+//   item: PropTypes.string.isRequired
+// };
 
-DescParagraph.propTypes = {
-  pTagText: PropTypes.string.isRequired
-};
+// DescParagraph.propTypes = {
+//   pTagText: PropTypes.string.isRequired
+// };
 
-PlacePage.propTypes = {
-  placePageData: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    gps: PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lon: PropTypes.number.isRequired
-    }).isRequired,
-    bedroomsQnt: PropTypes.number.isRequired,
-    guestsMaxQnt: PropTypes.number.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    commodities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    host: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      super: PropTypes.bool.isRequired,
-      avaPicName: PropTypes.string.isRequired
-    }).isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          avaPicName: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-          text: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        }).isRequired
-    ).isRequired
-  }).isRequired,
-  placesCoordinates: PropTypes.arrayOf(
-      PropTypes.shape({
-        lat: PropTypes.number.isRequired,
-        lon: PropTypes.number.isRequired
-      }).isRequired
-  ).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
-  places: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        previewUrl: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        gps: PropTypes.shape({
-          lat: PropTypes.number.isRequired,
-          lon: PropTypes.number.isRequired
-        }).isRequired
-      }).isRequired
-  ).isRequired,
-  activeCardLatLon: PropTypes.shape({
-    lat: PropTypes.number,
-    lon: PropTypes.number
-  })
-};
+// PlacePage.propTypes = {
+//   placePageData: PropTypes.shape({
+//     title: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     type: PropTypes.string.isRequired,
+//     isPremium: PropTypes.bool.isRequired,
+//     rating: PropTypes.number.isRequired,
+//     gps: PropTypes.shape({
+//       lat: PropTypes.number.isRequired,
+//       lon: PropTypes.number.isRequired
+//     }).isRequired,
+//     bedroomsQnt: PropTypes.number.isRequired,
+//     guestsMaxQnt: PropTypes.number.isRequired,
+//     images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+//     commodities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+//     description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+//     host: PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       super: PropTypes.bool.isRequired,
+//       avaPicName: PropTypes.string.isRequired
+//     }).isRequired,
+//     reviews: PropTypes.arrayOf(
+//         PropTypes.shape({
+//           name: PropTypes.string.isRequired,
+//           avaPicName: PropTypes.string.isRequired,
+//           rating: PropTypes.number.isRequired,
+//           text: PropTypes.string.isRequired,
+//           date: PropTypes.string.isRequired,
+//         }).isRequired
+//     ).isRequired
+//   }).isRequired,
+//   placesCoordinates: PropTypes.arrayOf(
+//       PropTypes.shape({
+//         lat: PropTypes.number.isRequired,
+//         lon: PropTypes.number.isRequired
+//       }).isRequired
+//   ).isRequired,
+//   onPlaceCardClick: PropTypes.func.isRequired,
+//   places: PropTypes.arrayOf(
+//       PropTypes.shape({
+//         title: PropTypes.string.isRequired,
+//         price: PropTypes.number.isRequired,
+//         type: PropTypes.string.isRequired,
+//         rating: PropTypes.number.isRequired,
+//         previewUrl: PropTypes.string.isRequired,
+//         isPremium: PropTypes.bool.isRequired,
+//         gps: PropTypes.shape({
+//           lat: PropTypes.number.isRequired,
+//           lon: PropTypes.number.isRequired
+//         }).isRequired
+//       }).isRequired
+//   ).isRequired,
+//   activeCardLatLon: PropTypes.shape({
+//     lat: PropTypes.number,
+//     lon: PropTypes.number
+//   })
+// };
 
-const mapStateToProps = (state) => ({
-  activeCardLatLon: state.offers.activeCardLatLon
-});
+const mapStateToProps = (state) => {
+  const placeObj = state.offers.allOffersWithCompleteData[0];
+
+  const allOffersWithCompleteData = state.offers.allOffersWithCompleteData;
+
+  console.log(allOffersWithCompleteData);
+
+  console.log(placeObj);
+  
+  return {
+  activeCardLatLon: state.offers.activeCardLatLon,
+  title: placeObj.title,
+  price: placeObj.price,
+  isPremium:placeObj.isPremium,
+  type: placeObj.type,
+  rating: placeObj.rating,
+  gps: placeObj.gps,
+  bedroomsQnt: placeObj.bedroomsQnt,
+  guestsMaxQnt: placeObj.guestsMaxQnt,
+  images: placeObj.images,
+  commodities: placeObj.commodities,
+  description: placeObj.description,
+  host: placeObj.host,
+  }
+};
 
 export default connect(mapStateToProps, null)(PlacePage);

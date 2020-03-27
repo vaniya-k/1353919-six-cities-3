@@ -22,6 +22,7 @@ const store = createStore(
 );
 
 store.dispatch(OffersApiManager.getAllOffers());
+store.dispatch(OffersApiManager.getAllOffersWithCompleteData());
 store.dispatch(UserApiManager.checkAuth());
 
 ReactDOM.render(

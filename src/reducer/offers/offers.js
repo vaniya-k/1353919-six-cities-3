@@ -1,4 +1,5 @@
 import getAllOffers from '../../adapter.js';
+import getAllOffersWithCompleteData from '../../adapterAllOffersWithCompleteData.js';
 
 const initialState = {
   activeCityId: 0,
@@ -7,11 +8,13 @@ const initialState = {
   activeCardLatLon: {lat: null, lon: null},
   activeSortType: 0,
   allOffers: [],
+  allOffersWithCompleteData: []
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_ALL_OFFERS: `GET_ALL_OFFERS`,
+  GET_ALL_OFFERS_WITH_COMPLETE_DATA: `GET_ALL_OFFERS_WITH_COMPLETE_DATA`,
   SET_ACTIVE_CARD_LAT_LON: `SET_ACTIVE_CARD_LAT_LON`,
   CHANGE_SORTING: `CHANGE_SORTING`
 };
@@ -32,6 +35,10 @@ const ActionCreator = {
   getAllOffers: (apiReturn) => ({
     type: ActionType.GET_ALL_OFFERS,
     payload: getAllOffers(apiReturn)
+  }),
+  getAllOffersWithCompleteData: (apiReturn) => ({
+    type: ActionType.GET_ALL_OFFERS_WITH_COMPLETE_DATA,
+    payload: getAllOffersWithCompleteData(apiReturn)
   })
 };
 
@@ -42,6 +49,12 @@ const ApiManager = {
         dispatch(ActionCreator.getAllOffers(response.data));
       });
   },
+  getAllOffersWithCompleteData: () => (dispatch, getState, api) => {
+    return api.get(`/hotels`)
+      .then((response) => {
+        dispatch(ActionCreator.getAllOffersWithCompleteData(response.data));
+      });
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -59,6 +72,11 @@ const reducer = (state = initialState, action) => {
         activeCityName: action.payload[0].city,
         places: action.payload[0].places,
         allOffers: action.payload
+      });
+    
+    case ActionType.GET_ALL_OFFERS_WITH_COMPLETE_DATA:
+      return Object.assign({}, state, {
+        allOffersWithCompleteData: action.payload
       });
 
     case ActionType.SET_ACTIVE_CARD_LAT_LON:

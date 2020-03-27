@@ -39,9 +39,27 @@ const places = [
   }
 ];
 
+const reviews = [
+  {
+    name: `Xavier`,
+    avaPicName: `avatar-max`,
+    rating: 100,
+    text: `A nice cozy place that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    date: `2019-04-24`
+  },
+  {
+    name: `Robert`,
+    avaPicName: `avatar-max`,
+    rating: 80,
+    text: `It's strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful. A place to indulge yourself lots of day dreaming.`,
+    date: `2018-11-24`
+  },
+];
+
 const placesListing = {
   foundPlacesQnt: 432,
-  places: [...places]
+  places: [...places],
+  reviews
 };
 
 export default placesListing;
