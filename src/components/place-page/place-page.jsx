@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
+import YourReview from '../your-review/your-review.jsx'
 import CityMap from '../city-map/city-map.jsx';
 import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 
@@ -117,7 +118,11 @@ const PlacePage = ({placePageData, placesCoordinates, onPlaceCardClick, places})
                 {description.map((pTagText, i) => <DescParagraph key={`key${i}`} pTagText={pTagText}/>)}
               </div>
             </div>
-            <ReviewsList reviewsQnt={reviews.length} reviews={reviews}/>
+            <section className="property__reviews reviews">
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+              <ReviewsList reviews={reviews}/>
+              <YourReview/>
+            </section>
           </div>
         </div>
         <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={{lat: 52.3909553943508, lon: 4.929309666406198}} cityLatLon={{lat: 52.37454, lon: 4.897976}}/>
