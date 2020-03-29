@@ -15,6 +15,7 @@ class CityMap extends React.PureComponent {
   mapObj = null;
 
   renderMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
+    
     const markers = [];
 
     placesCoordinates.forEach((place) => {
@@ -51,7 +52,7 @@ class CityMap extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {placesCoordinates, activePlaceCoordinates, cityLatLon} = this.props;
+    const {placesCoordinates, activePlaceCoordinates, cityLatLon, placePageCoordinates} = this.props;
 
     const city = [cityLatLon.lat, cityLatLon.lon];
 
@@ -73,6 +74,12 @@ class CityMap extends React.PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(map);
+
+    if (placePageCoordinates) {
+      leaflet
+      .marker([placePageCoordinates.lat, placePageCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`})})
+      .addTo(map);
+    };
 
     this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
   }

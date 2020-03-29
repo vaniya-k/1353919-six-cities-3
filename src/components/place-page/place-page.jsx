@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import YourReview from '../your-review/your-review.jsx'
@@ -22,15 +22,7 @@ const Commodity = ({item}) => {
   </li>;
 };
 
-const DescParagraph = ({pTagText}) => {
-  return <p className="property__text">
-    {pTagText}
-  </p>;
-};
-
-const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, placesCoordinates, onPlaceCardClick, places}) => {
-  // const {title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews} = placePageData;
-
+const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon}) => {
   return <div className="page">
     <header className="header">
       <div className="container">
@@ -78,10 +70,10 @@ const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, gue
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: `${Math.round(rating) * 20}%`}}></span>
+                <span style={{width: `${Math.round(rating)}%`}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">{rating}</span>
+              <span className="property__rating-value rating__value">{rating / 20}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
@@ -108,14 +100,16 @@ const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, gue
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className={host.super ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`}>
-                  <img className="property__avatar user__avatar" src={`img/${host.avaPicName}.jpg`} width="74" height="74" alt="Host avatar"></img>
+                  <img className="property__avatar user__avatar" src={host.avaPicUrl} width="74" height="74" alt="Host avatar"></img>
                 </div>
                 <span className="property__user-name">
                   {host.name}
                 </span>
               </div>
               <div className="property__description">
-                {description.map((pTagText, i) => <DescParagraph key={`key${i}`} pTagText={pTagText}/>)}
+               <p className="property__text">
+                {description}
+              </p>
               </div>
             </div>
             <section className="property__reviews reviews">
@@ -125,99 +119,95 @@ const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, gue
             </section>
           </div>
         </div>
-        <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={{lat: 52.3909553943508, lon: 4.929309666406198}} cityLatLon={{lat: 52.37454, lon: 4.897976}}/>
+        <CityMap placesCoordinates={placesNearbyCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={activeCardLatLon} cityLatLon={cityLatLon}/>
       </section>
       <div className="container">
-        <PlacesListNearbyWrapped places={places.slice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
+        <PlacesListNearbyWrapped places={placesNearby.slice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
       </div>
     </main>
   </div>;
 };
 
-// PlaceImage.propTypes = {
-//   imageName: PropTypes.string.isRequired
-// };
+PlaceImage.propTypes = {
+  imageUrl: PropTypes.string.isRequired
+};
 
-// PremiumMark.propTypes = {
-//   isPremium: PropTypes.bool.isRequired
-// };
+PremiumMark.propTypes = {
+  isPremium: PropTypes.bool.isRequired
+};
 
-// Commodity.propTypes = {
-//   item: PropTypes.string.isRequired
-// };
+Commodity.propTypes = {
+  item: PropTypes.string.isRequired
+};
 
-// DescParagraph.propTypes = {
-//   pTagText: PropTypes.string.isRequired
-// };
 
-// PlacePage.propTypes = {
-//   placePageData: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     type: PropTypes.string.isRequired,
-//     isPremium: PropTypes.bool.isRequired,
-//     rating: PropTypes.number.isRequired,
-//     gps: PropTypes.shape({
-//       lat: PropTypes.number.isRequired,
-//       lon: PropTypes.number.isRequired
-//     }).isRequired,
-//     bedroomsQnt: PropTypes.number.isRequired,
-//     guestsMaxQnt: PropTypes.number.isRequired,
-//     images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     commodities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     host: PropTypes.shape({
-//       name: PropTypes.string.isRequired,
-//       super: PropTypes.bool.isRequired,
-//       avaPicName: PropTypes.string.isRequired
-//     }).isRequired,
-//     reviews: PropTypes.arrayOf(
-//         PropTypes.shape({
-//           name: PropTypes.string.isRequired,
-//           avaPicName: PropTypes.string.isRequired,
-//           rating: PropTypes.number.isRequired,
-//           text: PropTypes.string.isRequired,
-//           date: PropTypes.string.isRequired,
-//         }).isRequired
-//     ).isRequired
-//   }).isRequired,
-//   placesCoordinates: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         lat: PropTypes.number.isRequired,
-//         lon: PropTypes.number.isRequired
-//       }).isRequired
-//   ).isRequired,
-//   onPlaceCardClick: PropTypes.func.isRequired,
-//   places: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         title: PropTypes.string.isRequired,
-//         price: PropTypes.number.isRequired,
-//         type: PropTypes.string.isRequired,
-//         rating: PropTypes.number.isRequired,
-//         previewUrl: PropTypes.string.isRequired,
-//         isPremium: PropTypes.bool.isRequired,
-//         gps: PropTypes.shape({
-//           lat: PropTypes.number.isRequired,
-//           lon: PropTypes.number.isRequired
-//         }).isRequired
-//       }).isRequired
-//   ).isRequired,
-//   activeCardLatLon: PropTypes.shape({
-//     lat: PropTypes.number,
-//     lon: PropTypes.number
-//   })
-// };
+PlacePage.propTypes = {
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  isPremium: PropTypes.bool.isRequired,
+  rating: PropTypes.number.isRequired,
+  gps: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired
+  }).isRequired,
+  bedroomsQnt: PropTypes.number.isRequired,
+  guestsMaxQnt: PropTypes.number.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  commodities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  description: PropTypes.string.isRequired,
+  host: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    super: PropTypes.bool.isRequired,
+    avaPicUrl: PropTypes.string.isRequired
+  }).isRequired,
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      avaPicName: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  placesCoordinates: PropTypes.arrayOf(
+      PropTypes.shape({
+        lat: PropTypes.number.isRequired,
+        lon: PropTypes.number.isRequired
+      }).isRequired
+  ).isRequired,
+  onPlaceCardClick: PropTypes.func.isRequired,
+  placesNearby: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        previewUrl: PropTypes.string.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
+      }).isRequired
+  ).isRequired,
+  activeCardLatLon: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  })
+};
 
 const mapStateToProps = (state) => {
   const placeObj = state.offers.allOffersWithCompleteData[0];
 
-  const allOffersWithCompleteData = state.offers.allOffersWithCompleteData;
-
-  console.log(allOffersWithCompleteData);
-
-  console.log(placeObj);
+  const placesNearby = [state.offers.allOffers[0].places[1],state.offers.allOffers[0].places[2],state.offers.allOffers[0].places[3]]
   
+  const placesNearbyCoordinates = [{lat: placesNearby[0].gps.lat, lon: placesNearby[0].gps.lon}, {lat: placesNearby[1].gps.lat, lon: placesNearby[1].gps.lon}, {lat: placesNearby[2].gps.lat, lon: placesNearby[2].gps.lon}]
+
   return {
+  placesNearby,
+  placesNearbyCoordinates,
+  cityLatLon: state.offers.allOffers[0].cityLatLon,
   activeCardLatLon: state.offers.activeCardLatLon,
   title: placeObj.title,
   price: placeObj.price,
