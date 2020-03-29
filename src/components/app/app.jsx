@@ -1,11 +1,12 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import Main from '../main/main.jsx';
-import PlacePage from '../place-page/place-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
+import PlacePage from '../place-page/place-page.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {ApiManager as UserApiManager} from '../../reducer/user/user.js';
+import reviews from '../../mocks/places-listing-original.js';
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -19,11 +20,7 @@ class App extends React.PureComponent {
   };
 
   render() {
-    const {placesListing, placePageData, login} = this.props;
-
-    const placesCoordinates = placesListing.places.map((place) => {
-      return {lat: place.gps.lat, lon: place.gps.lon};
-    });
+    const {login} = this.props;
 
     if (this.state.currentUrl === `/dev-main-back-from-sign-in`) {
       return <Main onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>;
@@ -34,7 +31,7 @@ class App extends React.PureComponent {
             <Main onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
           <Route exact path="/dev-place-page">
-            <PlacePage placePageData={placePageData} reviews={placesListing.reviews} places={placesListing.places} placesCoordinates={placesCoordinates} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
+            <PlacePage reviews={reviews} onPlaceCardClick={() => this.setState({currentUrl: `/dev-place-page`})}/>
           </Route>
           <Route exact path="/dev-sign-in">
             <SignIn onSubmitLogin={login} onSubmitGoBack={this.goBackToMain}/>
@@ -45,56 +42,9 @@ class App extends React.PureComponent {
   }
 }
 
-// App.propTypes = {
-//   login: PropTypes.func.isRequired,
-//   placesListing: PropTypes.shape({
-//     places: PropTypes.arrayOf(
-//         PropTypes.shape({
-//           title: PropTypes.string.isRequired,
-//           price: PropTypes.number.isRequired,
-//           type: PropTypes.string.isRequired,
-//           rating: PropTypes.number.isRequired,
-//           imageName: PropTypes.string.isRequired,
-//           isPremium: PropTypes.bool.isRequired,
-//           gps: PropTypes.shape({
-//             lat: PropTypes.number.isRequired,
-//             lon: PropTypes.number.isRequired
-//           }).isRequired
-//         }).isRequired
-//     ).isRequired,
-//     foundPlacesQnt: PropTypes.number.isRequired,
-//   }).isRequired,
-//   placePageData: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     type: PropTypes.string.isRequired,
-//     isPremium: PropTypes.bool.isRequired,
-//     rating: PropTypes.number.isRequired,
-//     gps: PropTypes.shape({
-//       lat: PropTypes.number.isRequired,
-//       lon: PropTypes.number.isRequired
-//     }).isRequired,
-//     bedroomsQnt: PropTypes.number.isRequired,
-//     guestsMaxQnt: PropTypes.number.isRequired,
-//     images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     commodities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//     host: PropTypes.shape({
-//       name: PropTypes.string.isRequired,
-//       super: PropTypes.bool.isRequired,
-//       avaPicName: PropTypes.string.isRequired
-//     }).isRequired,
-//     reviews: PropTypes.arrayOf(
-//         PropTypes.shape({
-//           name: PropTypes.string.isRequired,
-//           avaPicName: PropTypes.string.isRequired,
-//           rating: PropTypes.number.isRequired,
-//           text: PropTypes.string.isRequired,
-//           date: PropTypes.string.isRequired,
-//         }).isRequired
-//     ).isRequired
-//   }).isRequired
-// };
+App.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {

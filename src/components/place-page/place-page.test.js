@@ -1,13 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PlacePage from './place-page.jsx';
-import placesFullData from '../../mocks/places-full-data-test.js';
-import placesListing from '../../mocks/places-listing-test.js';
 import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "../../reducer/reducer.js";
 import {createAPI} from "../../api.js";
+import {ApiManager as OffersApiManager} from '../../reducer/offers/offers.js';
+import reviews from '../../mocks/places-listing-original.js';
 
 it(`<PlaceCard/> should render "Sweet room"`, () => {
   const mock = jest.fn();
@@ -22,9 +22,12 @@ it(`<PlaceCard/> should render "Sweet room"`, () => {
       )
   );
 
-  const tree = renderer
-    .create(<Provider store={store}><PlacePage placePageData={placesFullData[0]} places={placesListing.places} placesCoordinates={placesListing.coordinates} onPlaceCardClick={mock}/></Provider>)
-    .toJSON();
+  store.dispatch(OffersApiManager.getAllOffersWithCompleteData())
+    .then(() => {
+      const tree = renderer
+      .create(<Provider store={store}><PlacePage reviews={reviews} onPlaceCardClick={mock}/></Provider>)
+      .toJSON();
 
-  expect(tree).toMatchSnapshot();
+      expect(tree).toMatchSnapshot();
+    });
 });

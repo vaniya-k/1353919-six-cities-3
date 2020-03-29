@@ -15,7 +15,7 @@ class CityMap extends React.PureComponent {
   mapObj = null;
 
   renderMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
-    
+
     const markers = [];
 
     placesCoordinates.forEach((place) => {
@@ -79,7 +79,7 @@ class CityMap extends React.PureComponent {
       leaflet
       .marker([placePageCoordinates.lat, placePageCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`})})
       .addTo(map);
-    };
+    }
 
     this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
   }

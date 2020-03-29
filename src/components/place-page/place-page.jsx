@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
-import YourReview from '../your-review/your-review.jsx'
+import YourReview from '../your-review/your-review.jsx';
 import CityMap from '../city-map/city-map.jsx';
+import Header from '../header/header.jsx';
 import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 
 const PlaceImage = ({imageUrl}) => {
@@ -24,28 +25,7 @@ const Commodity = ({item}) => {
 
 const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon}) => {
   return <div className="page">
-    <header className="header">
-      <div className="container">
-        <div className="header__wrapper">
-          <div className="header__left">
-            <a className="header__logo-link" href="main.html">
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
-            </a>
-          </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="#">
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
+    <Header/>
 
     <main className="page__main page__main--property">
       <section className="property">
@@ -107,9 +87,9 @@ const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, gue
                 </span>
               </div>
               <div className="property__description">
-               <p className="property__text">
-                {description}
-              </p>
+                <p className="property__text">
+                  {description}
+                </p>
               </div>
             </div>
             <section className="property__reviews reviews">
@@ -162,15 +142,15 @@ PlacePage.propTypes = {
     avaPicUrl: PropTypes.string.isRequired
   }).isRequired,
   reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      avaPicName: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-    }).isRequired
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        avaPicName: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired
   ).isRequired,
-  placesCoordinates: PropTypes.arrayOf(
+  placesNearbyCoordinates: PropTypes.arrayOf(
       PropTypes.shape({
         lat: PropTypes.number.isRequired,
         lon: PropTypes.number.isRequired
@@ -194,34 +174,38 @@ PlacePage.propTypes = {
   activeCardLatLon: PropTypes.shape({
     lat: PropTypes.number,
     lon: PropTypes.number
+  }),
+  cityLatLon: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
   })
 };
 
 const mapStateToProps = (state) => {
   const placeObj = state.offers.allOffersWithCompleteData[0];
 
-  const placesNearby = [state.offers.allOffers[0].places[1],state.offers.allOffers[0].places[2],state.offers.allOffers[0].places[3]]
-  
-  const placesNearbyCoordinates = [{lat: placesNearby[0].gps.lat, lon: placesNearby[0].gps.lon}, {lat: placesNearby[1].gps.lat, lon: placesNearby[1].gps.lon}, {lat: placesNearby[2].gps.lat, lon: placesNearby[2].gps.lon}]
+  const placesNearby = [state.offers.allOffers[0].places[1], state.offers.allOffers[0].places[2], state.offers.allOffers[0].places[3]];
+
+  const placesNearbyCoordinates = [{lat: placesNearby[0].gps.lat, lon: placesNearby[0].gps.lon}, {lat: placesNearby[1].gps.lat, lon: placesNearby[1].gps.lon}, {lat: placesNearby[2].gps.lat, lon: placesNearby[2].gps.lon}];
 
   return {
-  placesNearby,
-  placesNearbyCoordinates,
-  cityLatLon: state.offers.allOffers[0].cityLatLon,
-  activeCardLatLon: state.offers.activeCardLatLon,
-  title: placeObj.title,
-  price: placeObj.price,
-  isPremium:placeObj.isPremium,
-  type: placeObj.type,
-  rating: placeObj.rating,
-  gps: placeObj.gps,
-  bedroomsQnt: placeObj.bedroomsQnt,
-  guestsMaxQnt: placeObj.guestsMaxQnt,
-  images: placeObj.images,
-  commodities: placeObj.commodities,
-  description: placeObj.description,
-  host: placeObj.host,
-  }
+    placesNearby,
+    placesNearbyCoordinates,
+    cityLatLon: state.offers.allOffers[0].cityLatLon,
+    activeCardLatLon: state.offers.activeCardLatLon,
+    title: placeObj.title,
+    price: placeObj.price,
+    isPremium: placeObj.isPremium,
+    type: placeObj.type,
+    rating: placeObj.rating,
+    gps: placeObj.gps,
+    bedroomsQnt: placeObj.bedroomsQnt,
+    guestsMaxQnt: placeObj.guestsMaxQnt,
+    images: placeObj.images,
+    commodities: placeObj.commodities,
+    description: placeObj.description,
+    host: placeObj.host,
+  };
 };
 
 export default connect(mapStateToProps, null)(PlacePage);

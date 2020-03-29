@@ -62,4 +62,4 @@ const placesListing = {
   reviews
 };
 
-export default placesListing;
+export default placesListing.reviews;

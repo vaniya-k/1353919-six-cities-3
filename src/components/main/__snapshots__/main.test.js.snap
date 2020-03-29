@@ -17,7 +17,8 @@ exports[`<Main/> should return the whole page with 54 matches and 3 places displ
           className="header__left"
         >
           <a
-            className="header__logo-link header__logo-link--active"
+            className="header__logo-link"
+            href="main.html"
           >
             <img
               alt="6 cities logo"
@@ -45,9 +46,9 @@ exports[`<Main/> should return the whole page with 54 matches and 3 places displ
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__user-name user__name"
+                  className="header__login"
                 >
-                  Oliver.conner@gmail.com
+                  Sign in
                 </span>
               </a>
             </li>

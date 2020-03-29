@@ -1,5 +1,5 @@
-import getAllOffers from '../../adapter.js';
-import getAllOffersWithCompleteData from '../../adapterAllOffersWithCompleteData.js';
+import getAllOffers from '../../adapter/allOffers.js';
+import getAllOffersWithCompleteData from '../../adapter/allOffersWithCompleteData.js';
 
 const initialState = {
   activeCityId: 0,
@@ -73,7 +73,7 @@ const reducer = (state = initialState, action) => {
         places: action.payload[0].places,
         allOffers: action.payload
       });
-    
+
     case ActionType.GET_ALL_OFFERS_WITH_COMPLETE_DATA:
       return Object.assign({}, state, {
         allOffersWithCompleteData: action.payload

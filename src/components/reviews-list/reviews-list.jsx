@@ -4,7 +4,7 @@ import ReviewItem from '../review-item/review-item.jsx';
 
 const ReviewsList = ({reviews}) => {
   return <ul className="reviews__list">
-      {reviews.map((review, i) => <ReviewItem key={`key${i}`} name={review.name} avaPicName={review.avaPicName} rating={review.rating} text={review.text} date={review.date}/>)}
+    {reviews.map((review, i) => <ReviewItem key={`key${i}`} name={review.name} avaPicName={review.avaPicName} rating={review.rating} text={review.text} date={review.date}/>)}
   </ul>;
 };
 
