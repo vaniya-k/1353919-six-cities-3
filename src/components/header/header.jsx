@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
+import {Link} from 'react-router-dom'
 
 const Header = ({authorizationStatus}) => {
   return <header className="header">
@@ -14,11 +15,11 @@ const Header = ({authorizationStatus}) => {
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              <a className="header__nav-link header__nav-link--profile" href="#">
+              <Link className="header__nav-link header__nav-link--profile" to={(authorizationStatus === `AUTH`) ? `/` : `login`}>
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 {(authorizationStatus === `AUTH`) ? <span className="header__user-name user__name">john@doe</span> : <span className="header__login">Sign in</span>}
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

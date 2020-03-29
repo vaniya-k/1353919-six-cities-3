@@ -81,6 +81,7 @@ CityWithOffers.propTypes = {
         rating: PropTypes.number.isRequired,
         previewUrl: PropTypes.string.isRequired,
         isPremium: PropTypes.bool.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
           lon: PropTypes.number.isRequired

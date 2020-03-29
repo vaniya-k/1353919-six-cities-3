@@ -35,6 +35,7 @@ const getAllOffers = (apiReturn) => {
       type: place.type,
       rating: place.rating * 20,
       isPremium: place.is_premium,
+      isFavorite: place.is_favorite,
       previewUrl: place.preview_image,
       gps: {lat: place.location.latitude, lon: place.location.longitude}
     };

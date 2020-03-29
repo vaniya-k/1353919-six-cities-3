@@ -23,7 +23,7 @@ const Commodity = ({item}) => {
   </li>;
 };
 
-const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon}) => {
+const PlacePage = ({title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon}) => {
   return <div className="page">
     <Header/>
 
@@ -41,7 +41,7 @@ const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, gue
               <h1 className="property__name">
                 {title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
+              <button className={`property__bookmark-button ${(isFavorite) ? `property__bookmark-button--active` : null} button`} type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use href="#icon-bookmark"></use>
                 </svg>
@@ -196,6 +196,8 @@ const mapStateToProps = (state) => {
     title: placeObj.title,
     price: placeObj.price,
     isPremium: placeObj.isPremium,
+    isFavorite: placeObj.isFavorite,
+    id: placeObj.id,
     type: placeObj.type,
     rating: placeObj.rating,
     gps: placeObj.gps,
