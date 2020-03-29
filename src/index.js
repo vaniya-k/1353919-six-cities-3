@@ -4,8 +4,6 @@ import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import App from './components/app/app.jsx';
-import placesListing from './mocks/places-listing-original.js';
-import placesFullData from './mocks/places-full-data.js';
 import reducer from './reducer/reducer.js';
 import {ApiManager as OffersApiManager} from "./reducer/offers/offers.js";
 import {ApiManager as UserApiManager} from './reducer/user/user.js';
@@ -21,12 +19,13 @@ const store = createStore(
     )
 );
 
-store.dispatch(OffersApiManager.getAllOffers());
 store.dispatch(UserApiManager.checkAuth());
-
-ReactDOM.render(
-    <Provider store={store}>
-      <App placesListing={placesListing} placePageData={placesFullData[0]}/>
-    </Provider>,
-    document.getElementById(`root`)
-);
+store.dispatch(OffersApiManager.getAllOffers());
+store.dispatch(OffersApiManager.getAllOffersWithCompleteData()).then(() => {
+  ReactDOM.render(
+      <Provider store={store}>
+        <App/>
+      </Provider>,
+      document.getElementById(`root`)
+  );
+});

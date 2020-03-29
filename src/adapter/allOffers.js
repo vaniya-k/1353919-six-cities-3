@@ -29,14 +29,14 @@ const getAllOffers = (apiReturn) => {
 
   const buildPlaceCardObj = (place) => {
     return {
+      id: place.id,
       title: place.title,
       price: place.price,
       type: place.type,
       rating: place.rating * 20,
       isPremium: place.is_premium,
       previewUrl: place.preview_image,
-      gps: {lat: place.location.latitude, lon: place.location.longitude},
-      id: place.id
+      gps: {lat: place.location.latitude, lon: place.location.longitude}
     };
   };
 
