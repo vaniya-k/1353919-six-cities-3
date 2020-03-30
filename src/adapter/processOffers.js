@@ -1,4 +1,4 @@
-const getAllOffers = (apiReturn) => {
+const processOffers = (apiReturn) => {
   const places = apiReturn;
   const cities = [];
   const citiesLatLon = [];
@@ -75,4 +75,4 @@ const getAllOffers = (apiReturn) => {
   return allOffers;
 };
 
-export default getAllOffers;
+export default processOffers;

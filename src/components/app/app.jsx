@@ -12,9 +12,6 @@ const App = () => {
       <Route exact path="/">
         <Main onPlaceCardClick={() => console.log(`onPlaceCardClick`)}/>
       </Route>
-      <Route exact path="/dev-place-page">
-        <PlacePage reviews={reviews}/>
-      </Route>
       <Route path="/place/:routeId" render={() => (
         <PlacePage reviews={reviews}/>
       )}/>

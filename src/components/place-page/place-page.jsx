@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
+// import {ActionCreator as OffersActionCreator, ApiManager as OffersApiManager} from "../../reducer/offers/offers.js";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import YourReview from '../your-review/your-review.jsx';
 import CityMap from '../city-map/city-map.jsx';
 import Header from '../header/header.jsx';
 import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 import history from '../../history.js';
+// import processOffersNearby from '../../adapter/processOffersNearby.js';
+// import {createAPI} from '../../api.js';
 
 const PlaceImage = ({imageUrl}) => {
   return <div className="property__image-wrapper">
@@ -24,7 +27,18 @@ const Commodity = ({item}) => {
   </li>;
 };
 
-const PlacePage = ({title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon}) => {
+const PlacePage = ({title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearbyOrig, placesNearbyCoordinates, activeCardLatLon, cityLatLon}) => {
+  // getOffersNearby();
+
+  // const api = createAPI(() => {});
+
+  // api.get(`/hotels/1/nearby`)
+  //     .then((response) => {
+  //       console.log(processOffersNearby(response.data));
+  //     });
+
+  // OffersApiManager.getOffersNearby();
+  
   return <div className="page">
     <Header/>
 
@@ -103,7 +117,7 @@ const PlacePage = ({title, price, isPremium, isFavorite, type, rating, gps, bedr
         <CityMap placesCoordinates={placesNearbyCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={activeCardLatLon} cityLatLon={cityLatLon}/>
       </section>
       <div className="container">
-        <PlacesListNearbyWrapped places={placesNearby.slice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
+        <PlacesListNearbyWrapped places={placesNearbyOrig.slice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
       </div>
     </main>
   </div>;
@@ -157,7 +171,7 @@ PlacePage.propTypes = {
         lon: PropTypes.number.isRequired
       }).isRequired
   ).isRequired,
-  placesNearby: PropTypes.arrayOf(
+  placesNearbyOrig: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
@@ -186,13 +200,14 @@ const mapStateToProps = (state) => {
 
   const placeObj = state.offers.allOffersWithCompleteData[routeId - 1];
 
-  const placesNearby = [state.offers.allOffers[0].places[1], state.offers.allOffers[0].places[2], state.offers.allOffers[0].places[3]];
+  const placesNearbyOrig = [state.offers.allOffers[0].places[1], state.offers.allOffers[0].places[2], state.offers.allOffers[0].places[3]];
 
-  const placesNearbyCoordinates = [{lat: placesNearby[0].gps.lat, lon: placesNearby[0].gps.lon}, {lat: placesNearby[1].gps.lat, lon: placesNearby[1].gps.lon}, {lat: placesNearby[2].gps.lat, lon: placesNearby[2].gps.lon}];
+  const placesNearbyCoordinates = [{lat: placesNearbyOrig[0].gps.lat, lon: placesNearbyOrig[0].gps.lon}, {lat: placesNearbyOrig[1].gps.lat, lon: placesNearbyOrig[1].gps.lon}, {lat: placesNearbyOrig[2].gps.lat, lon: placesNearbyOrig[2].gps.lon}];
 
   return {
-    placesNearby,
+    placesNearbyOrig,
     placesNearbyCoordinates,
+    placesNearby: state.offers.placesNearby,
     cityLatLon: state.offers.allOffers[0].cityLatLon,
     activeCardLatLon: state.offers.activeCardLatLon,
     title: placeObj.title,
@@ -211,5 +226,11 @@ const mapStateToProps = (state) => {
     host: placeObj.host,
   };
 };
+
+// const mapDispatchToProps = (dispatch) => ({
+//   getOffersNearby() {
+//     dispatch(OffersActionCreator.getOffersNearby());
+//   },
+// });
 
 export default connect(mapStateToProps, null)(PlacePage);

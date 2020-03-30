@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator as UserActionCreator} from "../../reducer/offers/offers.js";
+import {ActionCreator as OffersActionCreator} from "../../reducer/offers/offers.js";
 import {PlacesListMainWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 import Header from '../header/header.jsx';
 import CityMap from '../city-map/city-map.jsx';
@@ -191,7 +191,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onCityTabClick(cityId) {
-    dispatch(UserActionCreator.changeCity(cityId));
+    dispatch(OffersActionCreator.changeCity(cityId));
   },
 });
 

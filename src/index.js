@@ -21,6 +21,7 @@ const store = createStore(
 
 store.dispatch(UserApiManager.checkAuth());
 store.dispatch(OffersApiManager.getAllOffers());
+store.dispatch(OffersApiManager.getOffersNearby());
 store.dispatch(OffersApiManager.getAllOffersWithCompleteData()).then(() => {
   ReactDOM.render(
       <Provider store={store}>

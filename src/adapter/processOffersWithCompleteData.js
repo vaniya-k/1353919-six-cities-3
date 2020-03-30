@@ -1,4 +1,4 @@
-const getAllOffersWithCompleteData = (apiReturn) => {
+const processOffersWithCompleteData = (apiReturn) => {
   const places = apiReturn;
   const allOffersWithCompleteData = [];
 
@@ -31,4 +31,4 @@ const getAllOffersWithCompleteData = (apiReturn) => {
   return allOffersWithCompleteData;
 };
 
-export default getAllOffersWithCompleteData;
+export default processOffersWithCompleteData;
