@@ -20,7 +20,7 @@ class CityMap extends React.PureComponent {
 
     placesCoordinates.forEach((place) => {
       const marker = leaflet
-        .marker([place.lat, place.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin.svg`})})
+        .marker([place.lat, place.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `/img/pin.svg`})})
         .addTo(map);
 
       markers.push(marker);
@@ -34,7 +34,7 @@ class CityMap extends React.PureComponent {
       }
 
       const activeMarker = leaflet
-      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`})})
+      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `/img/pin-active.svg`})})
       .addTo(map);
 
       this.setState({
@@ -77,7 +77,7 @@ class CityMap extends React.PureComponent {
 
     if (placePageCoordinates) {
       leaflet
-      .marker([placePageCoordinates.lat, placePageCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `img/pin-active.svg`})})
+      .marker([placePageCoordinates.lat, placePageCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `/img/pin-active.svg`})})
       .addTo(map);
     }
 

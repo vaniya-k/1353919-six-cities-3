@@ -13,8 +13,11 @@ const App = () => {
         <Main onPlaceCardClick={() => console.log(`onPlaceCardClick`)}/>
       </Route>
       <Route exact path="/dev-place-page">
-        <PlacePage reviews={reviews} onPlaceCardClick={() => console.log(`onPlaceCardClick`)}/>
+        <PlacePage reviews={reviews}/>
       </Route>
+      <Route path="/place/:routeId" render={() => (
+        <PlacePage reviews={reviews}/>
+      )}/>
       <Route exact path="/login">
         <SignIn/>
       </Route>

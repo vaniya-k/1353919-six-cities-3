@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
-const PlaceCardInfo = ({place, onPlaceCardClick}) => {
+const PlaceCardInfo = ({place}) => {
   return <div className="place-card__info">
     <div className="place-card__price-wrapper">
       <div className="place-card__price">
@@ -22,7 +23,7 @@ const PlaceCardInfo = ({place, onPlaceCardClick}) => {
       </div>
     </div>
     <h2 className="place-card__name">
-      <a href="/dev-place-page" onClick={onPlaceCardClick}>{place.title}</a>
+      <Link to={`/place/${place.id}`}>{place.title}</Link>
     </h2>
     <p className="place-card__type">{place.type}</p>
   </div>;
@@ -34,7 +35,7 @@ class PlaceCard extends React.PureComponent {
   }
 
   render() {
-    const {place, onPlaceCardClick, handleHover, placeLatLon, articleLocationClass} = this.props;
+    const {place, handleHover, placeLatLon, articleLocationClass} = this.props;
 
     return <article className={`${(articleLocationClass) === `cities` ? `cities__place-card` : `near-places__card`} place-card`} onMouseEnter={() => handleHover(placeLatLon)} onMouseLeave={() => handleHover({lat: null, lon: null})}>
       {place.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
@@ -43,7 +44,7 @@ class PlaceCard extends React.PureComponent {
           <img className="place-card__image" src={place.previewUrl} width="260" height="200" alt="Place image"></img>
         </a>
       </div>
-      <PlaceCardInfo place={place} onPlaceCardClick={onPlaceCardClick}/>
+      <PlaceCardInfo place={place}/>
     </article>;
   }
 }
@@ -57,13 +58,13 @@ PlaceCardInfo.propTypes = {
     previewUrl: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
     isFavorite: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired,
     gps: PropTypes.shape({
       lat: PropTypes.number.isRequired,
       lon: PropTypes.number.isRequired
     }).isRequired,
     id: PropTypes.number.isRequired,
-  }).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired
+  }).isRequired
 };
 
 PlaceCard.propTypes = {
@@ -74,6 +75,8 @@ PlaceCard.propTypes = {
     rating: PropTypes.number.isRequired,
     previewUrl: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired,
     gps: PropTypes.shape({
       lat: PropTypes.number.isRequired,
       lon: PropTypes.number.isRequired
@@ -84,7 +87,6 @@ PlaceCard.propTypes = {
     lat: PropTypes.number.isRequired,
     lon: PropTypes.number.isRequired
   }).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
   articleLocationClass: PropTypes.string.isRequired
 };
 

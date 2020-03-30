@@ -6,6 +6,7 @@ import YourReview from '../your-review/your-review.jsx';
 import CityMap from '../city-map/city-map.jsx';
 import Header from '../header/header.jsx';
 import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
+import history from '../../history.js';
 
 const PlaceImage = ({imageUrl}) => {
   return <div className="property__image-wrapper">
@@ -80,7 +81,7 @@ const PlacePage = ({title, price, isPremium, isFavorite, type, rating, gps, bedr
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className={host.super ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`}>
-                  <img className="property__avatar user__avatar" src={host.avaPicUrl} width="74" height="74" alt="Host avatar"></img>
+                  <img className="property__avatar user__avatar" src={`/${host.avaPicUrl}`} width="74" height="74" alt="Host avatar"></img>
                 </div>
                 <span className="property__user-name">
                   {host.name}
@@ -156,7 +157,6 @@ PlacePage.propTypes = {
         lon: PropTypes.number.isRequired
       }).isRequired
   ).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
   placesNearby: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -182,7 +182,9 @@ PlacePage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const placeObj = state.offers.allOffersWithCompleteData[0];
+  const routeId = Number(history.location.pathname.slice(7));
+
+  const placeObj = state.offers.allOffersWithCompleteData[routeId - 1];
 
   const placesNearby = [state.offers.allOffers[0].places[1], state.offers.allOffers[0].places[2], state.offers.allOffers[0].places[3]];
 

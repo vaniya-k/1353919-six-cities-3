@@ -15,7 +15,7 @@ const Header = ({authorizationStatus}) => {
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              <Link className="header__nav-link header__nav-link--profile" to={(authorizationStatus === `AUTH`) ? `/` : `login`}>
+              <Link className="header__nav-link header__nav-link--profile" to={(authorizationStatus === `AUTH`) ? `/` : `/login`}>
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 {(authorizationStatus === `AUTH`) ? <span className="header__user-name user__name">john@doe</span> : <span className="header__login">Sign in</span>}
