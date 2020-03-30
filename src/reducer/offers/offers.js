@@ -1,7 +1,7 @@
 import processOffers from '../../adapter/processOffers.js';
 import processOffersNearby from '../../adapter/processOffersNearby.js';
 import processOffersWithCompleteData from '../../adapter/processOffersWithCompleteData.js';
-// import history from '../../history.js';
+import history from '../../history.js';
 
 const initialState = {
   activeCityId: 0,
@@ -64,8 +64,9 @@ const ApiManager = {
       });
   },
   getOffersNearby: () => (dispatch, getState, api) => {
-  //  return api.get(`/hotels/${Number(history.location.pathname.slice(7))}/nearby`)
-    return api.get(`/hotels/1/nearby`)
+    console.log(Number(history.location.pathname.slice(7)));
+
+    return api.get(`/hotels/${Number(history.location.pathname.slice(7))}/nearby`)
       .then((response) => {
         dispatch(ActionCreator.getOffersNearby(response.data));
       });

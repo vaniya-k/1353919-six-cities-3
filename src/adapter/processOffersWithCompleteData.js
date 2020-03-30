@@ -23,6 +23,7 @@ const processOffersWithCompleteData = (apiReturn) => {
         super: place.host.is_pro,
         avaPicUrl: place.host.avatar_url,
       },
+      cityLatLon: {lat: place.city.location.latitude, lon: place.city.location.longitude}
     };
   };
 
