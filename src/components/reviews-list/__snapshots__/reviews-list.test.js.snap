@@ -17,7 +17,7 @@ exports[`<ReviewList/> should return two reviews -- from Tom and William 1`] = `
           alt="Reviews avatar"
           className="reviews__avatar user__avatar"
           height="54"
-          src="img/avatar-max.jpg"
+          src="/img/avatar-max.jpg"
           width="54"
         />
       </div>
@@ -76,7 +76,7 @@ exports[`<ReviewList/> should return two reviews -- from Tom and William 1`] = `
           alt="Reviews avatar"
           className="reviews__avatar user__avatar"
           height="54"
-          src="img/avatar-max.jpg"
+          src="/img/avatar-max.jpg"
           width="54"
         />
       </div>

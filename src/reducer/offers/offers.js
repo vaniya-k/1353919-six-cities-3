@@ -70,8 +70,6 @@ const ApiManager = {
       });
   },
   getOffersNearby: () => (dispatch, getState, api) => {
-    console.log(Number(history.location.pathname.slice(7)));
-
     return api.get(`/hotels/${Number(history.location.pathname.slice(7))}/nearby`)
       .then((response) => {
         dispatch(ActionCreator.getOffersNearby(response.data));
@@ -100,7 +98,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         allOffersWithCompleteData: action.payload
       });
-    
+
     case ActionType.GET_OFFERS_NEARBY:
       return Object.assign({}, state, {
         placesNearby: action.payload
@@ -110,7 +108,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         activeCardLatLon: {lat: action.payload.lat, lon: action.payload.lon}
       });
-    
+
     case ActionType.SET_ACTIVE_PLACE_PAGE_ID:
       return Object.assign({}, state, {
         activePlacePageId: action.payload

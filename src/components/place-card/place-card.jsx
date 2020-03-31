@@ -58,7 +58,6 @@ PlaceCardInfo.propTypes = {
     previewUrl: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
     isFavorite: PropTypes.bool.isRequired,
-    id: PropTypes.number.isRequired,
     gps: PropTypes.shape({
       lat: PropTypes.number.isRequired,
       lon: PropTypes.number.isRequired

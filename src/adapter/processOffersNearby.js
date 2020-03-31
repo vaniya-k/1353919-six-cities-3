@@ -16,7 +16,9 @@ const processOffersNearby = (apiReturn) => {
     };
   };
 
-  places.map((place) => {placesNearby.push(buildPlaceCardObj(place))});
+  places.map((place) => {
+    placesNearby.push(buildPlaceCardObj(place));
+  });
 
   return placesNearby;
 };

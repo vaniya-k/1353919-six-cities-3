@@ -21,10 +21,10 @@ const CityWithoutOffers = ({activeCityName}) => {
   </div>;
 };
 
-const CityWithOffers = ({cityLatLon, activeCityName, places, onPlaceCardClick, placesCoordinates, activePlaceCoordinates}) => {
+const CityWithOffers = ({cityLatLon, activeCityName, places, placesCoordinates, activePlaceCoordinates}) => {
   return <div className="cities">
     <div className="cities__places-container container">
-      <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length} onPlaceCardClick={onPlaceCardClick}/>
+      <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length}/>
       <div className="cities__right-section">
         <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={activePlaceCoordinates} cityLatLon={cityLatLon}/>
       </div>
@@ -46,7 +46,7 @@ class Main extends React.PureComponent {
   });
 
   render() {
-    const {places, allOffers, activeCityName, activeCityId, onCityTabClick, onPlaceCardClick} = this.props;
+    const {places, allOffers, activeCityName, activeCityId, onCityTabClick} = this.props;
 
     return <div className="page page--gray page--main">
       <Header/>
@@ -56,7 +56,7 @@ class Main extends React.PureComponent {
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(allOffers)} onCityTabClick={onCityTabClick}/>
         {(places.length === 0)
           ? <CityWithoutOffers activeCityName={activeCityName}/>
-          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} onPlaceCardClick={onPlaceCardClick} activePlaceCoordinates={this.props.activeCardLatLon}/>
+          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} activePlaceCoordinates={this.props.activeCardLatLon}/>
         }
       </main>
     </div>;
@@ -88,7 +88,6 @@ CityWithOffers.propTypes = {
         }).isRequired
       }).isRequired
   ).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
   placesCoordinates: PropTypes.arrayOf(
       PropTypes.shape({
         lat: PropTypes.number.isRequired,
@@ -141,7 +140,6 @@ Main.propTypes = {
       }).isRequired
   ).isRequired,
   onCityTabClick: PropTypes.func.isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
   activeCityId: PropTypes.number.isRequired,
   activeSortType: PropTypes.number.isRequired,
   activeCardLatLon: PropTypes.shape({

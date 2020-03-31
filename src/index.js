@@ -24,7 +24,7 @@ store.dispatch(OffersApiManager.getAllOffers());
 store.dispatch(OffersApiManager.getAllOffersWithCompleteData()).then(() => {
   ReactDOM.render(
       <Provider store={store}>
-        <App getOffersNearby={() => store.dispatch(OffersApiManager.getOffersNearby())} />
+        <App/>
       </Provider>,
       document.getElementById(`root`)
   );

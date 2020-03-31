@@ -10,7 +10,7 @@ const processOffersWithCompleteData = (apiReturn) => {
       type: place.type,
       rating: place.rating * 20,
       isPremium: place.is_premium,
-      isFavorite: places.is_favorite,
+      isFavorite: place.is_favorite,
       gps: {lat: place.location.latitude, lon: place.location.longitude},
       bedroomsQnt: place.bedrooms,
       guestsMaxQnt: place.max_adults,
