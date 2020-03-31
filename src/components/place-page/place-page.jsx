@@ -236,12 +236,10 @@ const mapStateToProps = (state) => {
 
   const shouldUpdatePlacesNearby = () => {
     if (activePlacePageId === routeId && placesNearby.length === 3) {
-      placesNearbyProps.push(placesNearby[0]);
-      placesNearbyProps.push(placesNearby[1]);
-      placesNearbyProps.push(placesNearby[2]);
-      placesNearbyPropsCoordinates.push({lat: placesNearbyProps[0].gps.lat, lon: placesNearbyProps[0].gps.lon});
-      placesNearbyPropsCoordinates.push({lat: placesNearbyProps[1].gps.lat, lon: placesNearbyProps[1].gps.lon});
-      placesNearbyPropsCoordinates.push({lat: placesNearbyProps[2].gps.lat, lon: placesNearbyProps[2].gps.lon});
+      for (let i = 0; i < 3; i++) {
+        placesNearbyProps.push(placesNearby[i]);
+        placesNearbyPropsCoordinates.push({lat: placesNearbyProps[i].gps.lat, lon: placesNearbyProps[i].gps.lon});
+      }
     }
   };
 
