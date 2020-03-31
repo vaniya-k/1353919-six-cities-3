@@ -29,6 +29,8 @@ const PlaceCardInfo = ({place}) => {
   </div>;
 };
 
+// {/* <div class="favorites__card-info place-card__info"></div> */}
+
 class PlaceCard extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -48,6 +50,14 @@ class PlaceCard extends React.PureComponent {
     </article>;
   }
 }
+
+// {/* <article className="favorites__card place-card">
+//                   <div className="favorites__image-wrapper place-card__image-wrapper">
+//                     <a href="#">
+//                       <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place image"></img>
+//                     </a>
+//                   </div>
+//                 </article>  */}
 
 PlaceCardInfo.propTypes = {
   place: PropTypes.shape({

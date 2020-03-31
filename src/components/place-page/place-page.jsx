@@ -15,20 +15,10 @@ const PlaceImage = ({imageUrl}) => {
   </div>;
 };
 
-const PremiumMark = ({isPremium}) => {
-  return isPremium ? <div className="property__mark"><span>Premium</span></div> : null;
-};
-
 const Commodity = ({item}) => {
   return <li className="property__inside-item">
     {`${item}`}
   </li>;
-};
-
-const PlacesListNearbyNotLoaded = () => {
-  return <section className="near-places places">
-    <h2 className="near-places__title">Loading other places in the neighbourhood</h2>
-  </section>;
 };
 
 class PlacePage extends React.PureComponent {
@@ -67,7 +57,12 @@ class PlacePage extends React.PureComponent {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <PremiumMark isPremium={isPremium}/>
+            {(isPremium)
+            ? <div className="property__mark">
+                <span>Premium</span>
+              </div>
+            : null
+            }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -138,7 +133,9 @@ class PlacePage extends React.PureComponent {
         <div className="container">
           {(placesNearby.length === 3 && activePlacePageId === id)
             ? <PlacesListNearbyWrapped places={placesNearby}/>
-            : <PlacesListNearbyNotLoaded/>
+            : <section className="near-places places">
+                <h2 className="near-places__title">Loading other places in the neighbourhood</h2>
+              </section>
           }
         </div>
       </main>
@@ -151,14 +148,9 @@ PlaceImage.propTypes = {
   imageUrl: PropTypes.string.isRequired
 };
 
-PremiumMark.propTypes = {
-  isPremium: PropTypes.bool.isRequired
-};
-
 Commodity.propTypes = {
   item: PropTypes.string.isRequired
 };
-
 
 PlacePage.propTypes = {
   activePlacePageId: PropTypes.number,
