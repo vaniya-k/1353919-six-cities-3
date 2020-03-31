@@ -6,6 +6,7 @@ import history from '../../history.js';
 const initialState = {
   activeCityId: 0,
   activeCityName: ``,
+  activePlacePageId: null,
   places: [],
   placesNearby: [],
   activeCardLatLon: {lat: null, lon: null},
@@ -20,6 +21,7 @@ const ActionType = {
   GET_ALL_OFFERS_WITH_COMPLETE_DATA: `GET_ALL_OFFERS_WITH_COMPLETE_DATA`,
   GET_OFFERS_NEARBY: `GET_OFFERS_NEARBY`,
   SET_ACTIVE_CARD_LAT_LON: `SET_ACTIVE_CARD_LAT_LON`,
+  SET_ACTIVE_PLACE_PAGE_ID: `SET_ACTIVE_PLACE_PAGE_ID`,
   CHANGE_SORTING: `CHANGE_SORTING`
 };
 
@@ -31,6 +33,10 @@ const ActionCreator = {
   setActiveCardLatLon: (activeCardLatLon) => ({
     type: ActionType.SET_ACTIVE_CARD_LAT_LON,
     payload: activeCardLatLon
+  }),
+  setActivePlacePageId: (activePlacePageId) => ({
+    type: ActionType.SET_ACTIVE_PLACE_PAGE_ID,
+    payload: activePlacePageId
   }),
   changeSorting: (selectedSortType) => ({
     type: ActionType.CHANGE_SORTING,
@@ -103,6 +109,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_ACTIVE_CARD_LAT_LON:
       return Object.assign({}, state, {
         activeCardLatLon: {lat: action.payload.lat, lon: action.payload.lon}
+      });
+    
+    case ActionType.SET_ACTIVE_PLACE_PAGE_ID:
+      return Object.assign({}, state, {
+        activePlacePageId: action.payload
       });
 
     case ActionType.CHANGE_SORTING:

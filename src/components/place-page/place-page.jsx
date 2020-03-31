@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
+import {ApiManager as OffersApiManager, ActionCreator as OffersActionCreator} from "../../reducer/offers/offers.js";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import YourReview from '../your-review/your-review.jsx';
 import CityMap from '../city-map/city-map.jsx';
@@ -24,9 +25,37 @@ const Commodity = ({item}) => {
   </li>;
 };
 
-const PlacePage = ({title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon}) => {
-  
-  return <div className="page">
+const PlacesListNearbyNotLoaded = () => {
+  return <section className="near-places places">
+  <h2 className="near-places__title">Loading other places in the neighbourhood</h2>
+  </section>;
+};
+
+class PlacePage extends React.PureComponent {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    const {getOffersNearby, setActivePlacePageId, id} = this.props;
+
+    getOffersNearby();
+    setActivePlacePageId(id);
+  }
+
+  componentDidUpdate() {
+    const {getOffersNearby, setActivePlacePageId, id, activePlacePageId} = this.props;
+
+    if(activePlacePageId !== id) {
+      getOffersNearby();
+      setActivePlacePageId(id);
+    };
+  }
+
+  render() {
+    const {title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon} = this.props;
+
+    return <div className="page">
     <Header/>
 
     <main className="page__main page__main--property">
@@ -104,11 +133,16 @@ const PlacePage = ({title, price, isPremium, isFavorite, type, rating, gps, bedr
         <CityMap placesCoordinates={placesNearbyCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={activeCardLatLon} cityLatLon={cityLatLon}/>
       </section>
       <div className="container">
-        <PlacesListNearbyWrapped places={placesNearby} onPlaceCardClick={onPlaceCardClick}/>
+        {(placesNearby.length === 3)
+          ? <PlacesListNearbyWrapped places={placesNearby} onPlaceCardClick={onPlaceCardClick}/>
+          : <PlacesListNearbyNotLoaded/>
+        }
       </div>
     </main>
   </div>;
-};
+  }
+}
+
 
 PlaceImage.propTypes = {
   imageUrl: PropTypes.string.isRequired
@@ -169,15 +203,33 @@ PlacePage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  const {activePlacePageId, placesNearby} = state.offers;
+
   const routeId = Number(history.location.pathname.slice(7));
 
   const placeObj = state.offers.allOffersWithCompleteData[routeId - 1];
 
-  const placesNearbyCoordinates = [{lat: state.offers.placesNearby[0].gps.lat, lon: state.offers.placesNearby[0].gps.lon}, {lat: state.offers.placesNearby[1].gps.lat, lon: state.offers.placesNearby[1].gps.lon}, {lat: state.offers.placesNearby[2].gps.lat, lon: state.offers.placesNearby[2].gps.lon}];
+  const placesNearbyProps = [];
+
+  const placesNearbyPropsCoordinates = [];
+
+  const shouldUpdatePlacesNearby = () => {
+    if(activePlacePageId === routeId && placesNearby.length === 3) {
+      placesNearbyProps.push(placesNearby[0]);
+      placesNearbyProps.push(placesNearby[1]);
+      placesNearbyProps.push(placesNearby[2]);
+      placesNearbyPropsCoordinates.push({lat: placesNearbyProps[0].gps.lat, lon: placesNearbyProps[0].gps.lon});
+      placesNearbyPropsCoordinates.push({lat: placesNearbyProps[1].gps.lat, lon: placesNearbyProps[1].gps.lon});
+      placesNearbyPropsCoordinates.push({lat: placesNearbyProps[2].gps.lat, lon: placesNearbyProps[2].gps.lon});
+    }
+  };
+
+  shouldUpdatePlacesNearby();
 
   return {
-    placesNearbyCoordinates,
-    placesNearby: state.offers.placesNearby,
+    activePlacePageId: activePlacePageId,
+    placesNearby: placesNearbyProps,
+    placesNearbyCoordinates: placesNearbyPropsCoordinates,
     cityLatLon: placeObj.cityLatLon,
     activeCardLatLon: state.offers.activeCardLatLon,
     title: placeObj.title,
@@ -197,4 +249,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(PlacePage);
+const mapDispatchToProps = (dispatch) => ({
+  getOffersNearby() {
+    dispatch(OffersApiManager.getOffersNearby());
+  },
+  setActivePlacePageId(activePlacePageId) {
+    dispatch(OffersActionCreator.setActivePlacePageId(activePlacePageId));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlacePage);

@@ -15,7 +15,7 @@ const App = ({getOffersNearby}) => {
       </Route>
       <Route path="/place/:routeId" render={() =>
         {
-          getOffersNearby();
+          // getOffersNearby();
           return <PlacePage reviews={reviews}/>
         }
       }/>
