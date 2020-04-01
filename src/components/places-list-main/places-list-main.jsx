@@ -11,7 +11,7 @@ const PlacesListMain = (props) => {
     <b className="places__found">{foundPlacesQnt} places to stay in {activeCityName}</b>
     <PlacesListSorting/>
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} handleHover={handleHover} articleLocationClass={`cities`}/>)}
+      {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} handleHover={handleHover}/>)}
     </div>
   </section>;
 };

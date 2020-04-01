@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Header from '../header/header.jsx';
+import PlaceCard from '../place-card/place-card.jsx';
 
-const Favorites = ({testData}) => {
-  console.log(testData)
+const FavoritesPage = ({testData}) => {
   return <div className="page">
     <Header/>
     <main className="page__main page__main--favorites">
@@ -126,6 +126,7 @@ const Favorites = ({testData}) => {
                     <p className="place-card__type">Apartment</p>
                   </div>
                 </article>
+                <PlaceCard place={testData[0].places[0]} page={`favorites`}/>
               </div>
             </li>
           </ul>
@@ -149,12 +150,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, null)(Favorites);
-
-// const mapDispatchToProps = (dispatch) => ({
-//   handleTypeItemClick(selectedSortType) {
-//     dispatch(ActionCreator.changeSorting(selectedSortType));
-//   },
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps, null)(FavoritesPage);

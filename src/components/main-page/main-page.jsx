@@ -32,7 +32,7 @@ const CityWithOffers = ({cityLatLon, activeCityName, places, placesCoordinates, 
   </div>;
 };
 
-class Main extends React.PureComponent {
+class MainPage extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -100,7 +100,7 @@ CityWithOffers.propTypes = {
   }).isRequired
 };
 
-Main.propTypes = {
+MainPage.propTypes = {
   activeCityName: PropTypes.string.isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
@@ -193,4 +193,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

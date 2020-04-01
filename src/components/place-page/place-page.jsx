@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import {ApiManager as OffersApiManager, ActionCreator as OffersActionCreator} from "../../reducer/offers/offers.js";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
@@ -139,6 +140,11 @@ class PlacePage extends React.PureComponent {
           }
         </div>
       </main>
+      <footer className="footer container">
+        <Link className="footer__logo-link" to="/">
+          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
+        </Link>
+      </footer>
     </div>;
   }
 }

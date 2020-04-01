@@ -29,35 +29,45 @@ const PlaceCardInfo = ({place}) => {
   </div>;
 };
 
-// {/* <div class="favorites__card-info place-card__info"></div> */}
-
 class PlaceCard extends React.PureComponent {
   constructor(props) {
     super(props);
   }
 
-  render() {
-    const {place, handleHover, placeLatLon, articleLocationClass} = this.props;
+  setActicleLocationClass = (page) => {
+    if (page.includes(`place`)) {
+      return `near-places__card place-card`;
+    } else if (page.includes(`favorites`)) {
+      return `favorites__card place-card`;
+    } else {
+      return `cities__place-card place-card`;
+    }
+  }
 
-    return <article className={`${(articleLocationClass) === `cities` ? `cities__place-card` : `near-places__card`} place-card`} onMouseEnter={() => handleHover(placeLatLon)} onMouseLeave={() => handleHover({lat: null, lon: null})}>
+  setDivLocationClass = (page) => {
+    if (page.includes(`place`)) {
+      return `near-places__image-wrapper place-card__image-wrapper`;
+    } else if (page.includes(`favorites`)) {
+      return `favorites__image-wrapper place-card__image-wrapper`;
+    } else {
+      return `cities__image-wrapper place-card__image-wrapper`;
+    }
+  }
+
+  render() {
+    const {place, handleHover, placeLatLon, page = `/`} = this.props;
+
+    return <article className={this.setActicleLocationClass(page)} onMouseEnter={(handleHover) ? () => handleHover(placeLatLon) : null} onMouseLeave={(handleHover) ? () => handleHover({lat: null, lon: null}) : null}>
       {place.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
-      <div className={`${articleLocationClass}__image-wrapper place-card__image-wrapper`}>
+      <div className={this.setDivLocationClass(page)}>
         <a href="#">
-          <img className="place-card__image" src={place.previewUrl} width="260" height="200" alt="Place image"></img>
+          <img className="place-card__image" src={place.previewUrl} width={(page.includes(`favorites`)) ? `150` : `260`} height={(page.includes(`favorites`)) ? `200` : `110`} alt="Place image"></img>
         </a>
       </div>
       <PlaceCardInfo place={place}/>
     </article>;
   }
 }
-
-// {/* <article className="favorites__card place-card">
-//                   <div className="favorites__image-wrapper place-card__image-wrapper">
-//                     <a href="#">
-//                       <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place image"></img>
-//                     </a>
-//                   </div>
-//                 </article>  */}
 
 PlaceCardInfo.propTypes = {
   place: PropTypes.shape({
@@ -91,12 +101,12 @@ PlaceCard.propTypes = {
       lon: PropTypes.number.isRequired
     }).isRequired
   }).isRequired,
-  handleHover: PropTypes.func.isRequired,
+  handleHover: PropTypes.func,
   placeLatLon: PropTypes.shape({
     lat: PropTypes.number.isRequired,
     lon: PropTypes.number.isRequired
-  }).isRequired,
-  articleLocationClass: PropTypes.string.isRequired
+  }),
+  page: PropTypes.string
 };
 
 export default PlaceCard;

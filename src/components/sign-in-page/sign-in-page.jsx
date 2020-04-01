@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {ApiManager as UserApiManager} from '../../reducer/user/user.js';
 import Header from '../header/header.jsx';
 
-class SignIn extends React.PureComponent {
+class SignInPage extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -62,7 +62,7 @@ class SignIn extends React.PureComponent {
   }
 }
 
-SignIn.propTypes = {
+SignInPage.propTypes = {
   logIn: PropTypes.func.isRequired,
 };
 
@@ -72,5 +72,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {SignIn};
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignInPage);
