@@ -7,6 +7,7 @@ import ReviewsList from '../reviews-list/reviews-list.jsx';
 import YourReview from '../your-review/your-review.jsx';
 import CityMap from '../city-map/city-map.jsx';
 import Header from '../header/header.jsx';
+import Bookmark from '../bookmark/bookmark.jsx';
 import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 import history from '../../history.js';
 
@@ -68,12 +69,7 @@ class PlacePage extends React.PureComponent {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`property__bookmark-button ${(isFavorite) ? `property__bookmark-button--active` : null} button`} type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use href="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <Bookmark id={id} isFavorite={isFavorite} isOnPlacePage={true}/>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

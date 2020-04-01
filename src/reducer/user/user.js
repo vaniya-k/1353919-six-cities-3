@@ -37,9 +37,7 @@ const ApiManager = {
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })
-      .catch((err) => {
-        throw err;
-      });
+      .catch(() => {});
   },
 
   logIn: (authData) => (dispatch, getState, api) => {

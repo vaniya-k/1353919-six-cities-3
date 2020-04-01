@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import Bookmark from '../bookmark/bookmark.jsx';
 
 const PlaceCardInfo = ({place}) => {
   return <div className="place-card__info">
@@ -9,12 +10,7 @@ const PlaceCardInfo = ({place}) => {
         <b className="place-card__price-value">&euro;{place.price}</b>
         <span className="place-card__price-text">&#47;&nbsp;night</span>
       </div>
-      <button className={`place-card__bookmark-button ${(place.isFavorite) ? `place-card__bookmark-button--active` : null} button`} type="button">
-        <svg className="place-card__bookmark-icon" width="18" height="19">
-          <use href="#icon-bookmark"></use>
-        </svg>
-        <span className="visually-hidden">In bookmarks</span>
-      </button>
+      <Bookmark id={place.id} isFavorite={place.isFavorite}/>
     </div>
     <div className="place-card__rating rating">
       <div className="place-card__stars rating__stars">
@@ -55,7 +51,7 @@ class PlaceCard extends React.PureComponent {
   }
 
   render() {
-    const {place, handleHover, placeLatLon, page = `/`} = this.props;
+    const {place, handleHover, placeLatLon, page = `/`, getAllOffers, getAllOffersWithCompleteData} = this.props;
 
     return <article className={this.setActicleLocationClass(page)} onMouseEnter={(handleHover) ? () => handleHover(placeLatLon) : null} onMouseLeave={(handleHover) ? () => handleHover({lat: null, lon: null}) : null}>
       {place.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
@@ -64,7 +60,7 @@ class PlaceCard extends React.PureComponent {
           <img className="place-card__image" src={place.previewUrl} width={(page.includes(`favorites`)) ? `150` : `260`} height={(page.includes(`favorites`)) ? `200` : `110`} alt="Place image"></img>
         </a>
       </div>
-      <PlaceCardInfo place={place}/>
+      <PlaceCardInfo place={place} getAllOffers={getAllOffers} getAllOffersWithCompleteData={getAllOffersWithCompleteData}/>
     </article>;
   }
 }

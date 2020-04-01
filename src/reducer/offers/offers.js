@@ -88,9 +88,7 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.GET_ALL_OFFERS:
       return Object.assign({}, state, {
-        activeCityId: 0,
-        activeCityName: action.payload[0].city,
-        places: action.payload[0].places,
+        places: action.payload[state.activeCityId].places,
         allOffers: action.payload
       });
 
