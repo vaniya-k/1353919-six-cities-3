@@ -14,7 +14,7 @@ const toggleFav = (authorizationStatus, placeId, getAllOffers, getAllOffersWithC
       .then(() => {
         getAllOffers();
         getAllOffersWithCompleteData();
-      })
+      });
   }
 };
 
@@ -32,11 +32,11 @@ const generateButtonStyleClass = (authorizationStatus, isFavorite, isOnPlacePage
 
 const Bookmark = ({authorizationStatus, isFavorite, id, getAllOffers, getAllOffersWithCompleteData, isOnPlacePage = false}) => {
   return <button className={generateButtonStyleClass(authorizationStatus, isFavorite, isOnPlacePage)} type="button" onClick={(isFavorite) ? () => toggleFav(authorizationStatus, id, getAllOffers, getAllOffersWithCompleteData, 0) : () => toggleFav(authorizationStatus, id, getAllOffers, getAllOffersWithCompleteData, 1)}>
-  <svg className={(isOnPlacePage) ? `property__bookmark-icon` : `place-card__bookmark-icon`} width={(isOnPlacePage) ? `31` : `18`} height={(isOnPlacePage) ? `33` : `19`}>
-    <use href="#icon-bookmark"></use>
-  </svg>
-  <span className="visually-hidden">In bookmarks</span>
-  </button>
+    <svg className={(isOnPlacePage) ? `property__bookmark-icon` : `place-card__bookmark-icon`} width={(isOnPlacePage) ? `31` : `18`} height={(isOnPlacePage) ? `33` : `19`}>
+      <use href="#icon-bookmark"></use>
+    </svg>
+    <span className="visually-hidden">In bookmarks</span>
+  </button>;
 };
 
 const mapStateToProps = (state) => ({

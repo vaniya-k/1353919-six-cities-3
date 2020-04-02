@@ -16,7 +16,7 @@ const App = () => {
       <Route path="/place/:routeId"
         render={() => {
           window.scrollTo(0, 0);
-          return <PlacePage reviews={reviews}/>
+          return <PlacePage reviews={reviews}/>;
         }}
       />
       <Route exact path="/login">

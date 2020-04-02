@@ -1,4 +1,10 @@
 import React from 'react';
+import {createAPI} from '../../api.js';
+import history from '../../history.js';
+import {connect} from "react-redux";
+import {ApiManager as OffersApiManager, ActionCreator as OffersActionCreator} from "../../reducer/offers/offers.js";
+
+const api = createAPI(() => {});
 
 class YourReview extends React.PureComponent {
   constructor() {
@@ -16,13 +22,13 @@ class YourReview extends React.PureComponent {
   }
 
   handleTypeReview = (e) => {
-    if (this.state.review.length < 300) {
+    if (this.state.review.length < 301) {
       this.setState({
         review: e.target.value
       });
     } else {
       this.setState({
-        review: e.target.value.slice(0, -1)
+        review: e.target.value.slice(0, 300)
       });
     }
   }
@@ -30,11 +36,24 @@ class YourReview extends React.PureComponent {
   handleSumbit = (e) => {
     e.preventDefault();
 
-    if (this.state.review.length > 49) {
+    if (this.state.review.length > 49 && this.state.review.length < 301) {
+      const params = {
+        "comment": this.state.review,
+        "rating": this.state.rating
+      };
+
       this.setState({
         rating: null,
         review: ``
       });
+
+      api.post(`/comments/${Number(history.location.pathname.slice(7))}/`, params)
+        .then(() => {
+          window.scrollTo(0, 0);
+          this.props.getOffersNearby();
+          this.props.setActivePlacePageId(Number(history.location.pathname.slice(7)));
+          this.props.getCurrentReviews();
+        });
     }
   }
 
@@ -90,4 +109,16 @@ class YourReview extends React.PureComponent {
   }
 }
 
-export default YourReview;
+const mapDispatchToProps = (dispatch) => ({
+  getCurrentReviews() {
+    dispatch(OffersApiManager.getCurrentReviews());
+  },
+  getOffersNearby() {
+    dispatch(OffersApiManager.getOffersNearby());
+  },
+  setActivePlacePageId(activePlacePageId) {
+    dispatch(OffersActionCreator.setActivePlacePageId(activePlacePageId));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(YourReview);

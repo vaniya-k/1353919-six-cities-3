@@ -29,23 +29,25 @@ class PlacePage extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {getOffersNearby, setActivePlacePageId, id} = this.props;
+    const {getCurrentReviews, getOffersNearby, setActivePlacePageId, id} = this.props;
 
     getOffersNearby();
     setActivePlacePageId(id);
+    getCurrentReviews();
   }
 
   componentDidUpdate() {
-    const {getOffersNearby, setActivePlacePageId, id, activePlacePageId} = this.props;
+    const {getCurrentReviews, getOffersNearby, setActivePlacePageId, id, activePlacePageId} = this.props;
 
     if (activePlacePageId !== id) {
       getOffersNearby();
       setActivePlacePageId(id);
+      getCurrentReviews();
     }
   }
 
   render() {
-    const {title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, activePlacePageId, id, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon} = this.props;
+    const {currentReviews, currentReviewsQnt, authorizationStatus, title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, activePlacePageId, id, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon} = this.props;
 
     return <div className="page">
       <Header/>
@@ -59,12 +61,12 @@ class PlacePage extends React.PureComponent {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-            {(isPremium)
-            ? <div className="property__mark">
-                <span>Premium</span>
-              </div>
-            : null
-            }
+              {(isPremium)
+                ? <div className="property__mark">
+                  <span>Premium</span>
+                </div>
+                : null
+              }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -116,9 +118,19 @@ class PlacePage extends React.PureComponent {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={reviews}/>
-                <YourReview/>
+                {(currentReviews && currentReviews.length !== 0)
+                  ? <React.Fragment>
+                    <h2 className="reviews__title">
+                        Reviews &middot; <span className="reviews__amount">{currentReviewsQnt}</span>
+                    </h2>
+                    <ReviewsList reviews={currentReviews}/>
+                  </React.Fragment>
+                  : <h2 className="reviews__title">There're no reviews for this place yet</h2>
+                }
+                {(authorizationStatus === `AUTH`)
+                  ? <YourReview/>
+                  : null
+                }
               </section>
             </div>
           </div>
@@ -131,8 +143,8 @@ class PlacePage extends React.PureComponent {
           {(placesNearby.length === 3 && activePlacePageId === id)
             ? <PlacesListNearbyWrapped places={placesNearby}/>
             : <section className="near-places places">
-                <h2 className="near-places__title">Loading other places in the neighbourhood</h2>
-              </section>
+              <h2 className="near-places__title">Loading other places in the neighbourhood</h2>
+            </section>
           }
         </div>
       </main>
@@ -155,6 +167,7 @@ Commodity.propTypes = {
 };
 
 PlacePage.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
   activePlacePageId: PropTypes.number,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -220,7 +233,7 @@ PlacePage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {activePlacePageId, placesNearby} = state.offers;
+  const {activePlacePageId, placesNearby, currentReviews} = state.offers;
 
   const routeId = Number(history.location.pathname.slice(7));
 
@@ -239,9 +252,21 @@ const mapStateToProps = (state) => {
 
   shouldUpdatePlacesNearby();
 
+  const sortedReviews = currentReviews.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? -1 : 1);
+
+  let currentReviewsQnt = sortedReviews.length;
+
+  if (sortedReviews.length > 9) {
+    sortedReviews.splice(10);
+    currentReviewsQnt = `10+ (showing most recent ones)`;
+  }
+
   const placeObj = state.offers.allOffersWithCompleteData[routeId - 1];
 
   return {
+    currentReviewsQnt,
+    currentReviews: sortedReviews,
+    authorizationStatus: state.user.authorizationStatus,
     activePlacePageId,
     placesNearby: placesNearbyProps,
     placesNearbyCoordinates: placesNearbyPropsCoordinates,
@@ -265,6 +290,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  getCurrentReviews() {
+    dispatch(OffersApiManager.getCurrentReviews());
+  },
   getOffersNearby() {
     dispatch(OffersApiManager.getOffersNearby());
   },

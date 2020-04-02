@@ -19,7 +19,7 @@ const CityLiItemWithFavs = ({cityObj}) => {
       {places.map((place, i) => <PlaceCard key={`key${i}`} place={place} page={`favorites`}/>)}
     </div>
   </li>;
-}
+};
 
 const FavoritesListEmpty = () => {
   return <main className="page__main page__main--favorites page__main--favorites-empty">
@@ -33,7 +33,7 @@ const FavoritesListEmpty = () => {
       </section>
     </div>
   </main>;
-}
+};
 
 const FavoritesListPopulated = ({favsList}) => {
   return <main className="page__main page__main--favorites">
@@ -46,7 +46,7 @@ const FavoritesListPopulated = ({favsList}) => {
       </section>
     </div>
   </main>;
-}
+};
 
 const FavoritesPage = ({favsList}) => {
   return <div className={`page ${(favsList.length === 0) ? `page--favorites-empty` : null}`}>
@@ -66,20 +66,20 @@ const mapStateToProps = (state) => {
   const allOffersFilteredWithFavs = [];
 
   allOffers.map((cityObj) => {
-    const filteredPlaces = cityObj.places.filter(place => place.isFavorite === true);
+    const filteredPlaces = cityObj.places.filter((place) => place.isFavorite === true);
 
     const filteredCityObj = Object.assign({}, {city: cityObj.city}, {
       places: [...filteredPlaces]
     });
 
-    if(filteredCityObj.places.length !== 0) {
-      allOffersFilteredWithFavs.push(filteredCityObj)
-    };
+    if (filteredCityObj.places.length !== 0) {
+      allOffersFilteredWithFavs.push(filteredCityObj);
+    }
   });
 
   return {
     favsList: allOffersFilteredWithFavs
-  }
+  };
 };
 
 export default connect(mapStateToProps, null)(FavoritesPage);

@@ -41,7 +41,9 @@ const processOffers = (apiReturn) => {
     };
   };
 
-  places.map((place) => {allOffers[cities.indexOf(place.city.name)].places.push(buildPlaceCardObj(place));});
+  places.map((place) => {
+    allOffers[cities.indexOf(place.city.name)].places.push(buildPlaceCardObj(place));
+  });
 
   return allOffers;
 };
