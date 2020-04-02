@@ -22,13 +22,13 @@ const CityLiItemWithFavs = ({cityObj}) => {
 }
 
 const FavoritesListEmpty = () => {
-  return <main class="page__main page__main--favorites page__main--favorites-empty">
-    <div class="page__favorites-container container">
-      <section class="favorites favorites--empty">
-        <h1 class="visually-hidden">Favorites (empty)</h1>
-        <div class="favorites__status-wrapper">
-          <b class="favorites__status">Nothing yet saved.</b>
-          <p class="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
+  return <main className="page__main page__main--favorites page__main--favorites-empty">
+    <div className="page__favorites-container container">
+      <section className="favorites favorites--empty">
+        <h1 className="visually-hidden">Favorites (empty)</h1>
+        <div className="favorites__status-wrapper">
+          <b className="favorites__status">Nothing yet saved.</b>
+          <p className="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
         </div>
       </section>
     </div>
@@ -61,11 +61,24 @@ const FavoritesPage = ({favsList}) => {
 };
 
 const mapStateToProps = (state) => {
+  const allOffers = state.offers.allOffers;
 
-  const testData = [{city: state.offers.allOffers[0].city, places: [{...state.offers.allOffers[0].places[0]},{...state.offers.allOffers[0].places[1]}]},{city: state.offers.allOffers[1].city, places: [{...state.offers.allOffers[1].places[1]}]}]
+  const allOffersFilteredWithFavs = [];
+
+  allOffers.map((cityObj) => {
+    const filteredPlaces = cityObj.places.filter(place => place.isFavorite === true);
+
+    const filteredCityObj = Object.assign({}, {city: cityObj.city}, {
+      places: [...filteredPlaces]
+    });
+
+    if(filteredCityObj.places.length !== 0) {
+      allOffersFilteredWithFavs.push(filteredCityObj)
+    };
+  });
 
   return {
-    favsList: testData
+    favsList: allOffersFilteredWithFavs
   }
 };
 
