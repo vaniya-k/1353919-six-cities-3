@@ -4,24 +4,26 @@ import {Link} from 'react-router-dom';
 import Bookmark from '../bookmark/bookmark.jsx';
 
 const PlaceCardInfo = ({place}) => {
+  const {id, price, isFavorite, rating, title, type} = place;
+
   return <div className="place-card__info">
     <div className="place-card__price-wrapper">
       <div className="place-card__price">
-        <b className="place-card__price-value">&euro;{place.price}</b>
+        <b className="place-card__price-value">&euro;{price}</b>
         <span className="place-card__price-text">&#47;&nbsp;night</span>
       </div>
-      <Bookmark id={place.id} isFavorite={place.isFavorite}/>
+      <Bookmark id={id} isFavorite={isFavorite}/>
     </div>
     <div className="place-card__rating rating">
       <div className="place-card__stars rating__stars">
-        <span style={{width: `${place.rating}%`}}></span>
+        <span style={{width: `${rating}%`}}></span>
         <span className="visually-hidden">Rating</span>
       </div>
     </div>
     <h2 className="place-card__name">
-      <Link to={`/place/${place.id}`}>{place.title}</Link>
+      <Link to={`/place/${id}`}>{title}</Link>
     </h2>
-    <p className="place-card__type">{place.type}</p>
+    <p className="place-card__type">{type}</p>
   </div>;
 };
 
@@ -51,7 +53,7 @@ class PlaceCard extends React.PureComponent {
   }
 
   render() {
-    const {place, handleHover, placeLatLon, page = `/`, getAllOffers, getAllOffersWithCompleteData} = this.props;
+    const {place, handleHover, placeLatLon, page = `/`} = this.props;
 
     return <article className={this.setActicleLocationClass(page)} onMouseEnter={(handleHover) ? () => handleHover(placeLatLon) : null} onMouseLeave={(handleHover) ? () => handleHover({lat: null, lon: null}) : null}>
       {place.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
@@ -60,7 +62,7 @@ class PlaceCard extends React.PureComponent {
           <img className="place-card__image" src={place.previewUrl} width={(page.includes(`favorites`)) ? `150` : `260`} height={(page.includes(`favorites`)) ? `200` : `110`} alt="Place image"></img>
         </a>
       </div>
-      <PlaceCardInfo place={place} getAllOffers={getAllOffers} getAllOffersWithCompleteData={getAllOffersWithCompleteData}/>
+      <PlaceCardInfo place={place}/>
     </article>;
   }
 }

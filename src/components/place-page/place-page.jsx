@@ -47,7 +47,7 @@ class PlacePage extends React.PureComponent {
   }
 
   render() {
-    const {currentReviews, currentReviewsQnt, authorizationStatus, title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, activePlacePageId, id, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon} = this.props;
+    const {currentReviews, currentReviewsQnt, authorizationStatus, title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, activePlacePageId, id, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon} = this.props;
 
     return <div className="page">
       <Header/>
@@ -125,7 +125,7 @@ class PlacePage extends React.PureComponent {
                     </h2>
                     <ReviewsList reviews={currentReviews}/>
                   </React.Fragment>
-                  : <h2 className="reviews__title">There're no reviews for this place yet</h2>
+                  : <h2 className="reviews__title">There are no reviews for this place yet</h2>
                 }
                 {(authorizationStatus === `AUTH`)
                   ? <YourReview/>
@@ -167,6 +167,7 @@ Commodity.propTypes = {
 };
 
 PlacePage.propTypes = {
+  currentReviewsQnt: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   activePlacePageId: PropTypes.number,
   title: PropTypes.string.isRequired,
@@ -190,17 +191,18 @@ PlacePage.propTypes = {
     avaPicUrl: PropTypes.string.isRequired
   }).isRequired,
   id: PropTypes.number.isRequired,
-  reviews: PropTypes.arrayOf(
+  currentReviews: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        avaPicName: PropTypes.string.isRequired,
+        avaPicUrl: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
         text: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
+        date: PropTypes.instanceOf(Date).isRequired,
       }).isRequired
   ).isRequired,
   placesNearby: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
@@ -228,6 +230,7 @@ PlacePage.propTypes = {
     lat: PropTypes.number,
     lon: PropTypes.number
   }),
+  getCurrentReviews: PropTypes.func.isRequired,
   getOffersNearby: PropTypes.func.isRequired,
   setActivePlacePageId: PropTypes.func.isRequired
 };
@@ -254,7 +257,7 @@ const mapStateToProps = (state) => {
 
   const sortedReviews = currentReviews.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? -1 : 1);
 
-  let currentReviewsQnt = sortedReviews.length;
+  let currentReviewsQnt = `` + sortedReviews.length;
 
   if (sortedReviews.length > 9) {
     sortedReviews.splice(10);

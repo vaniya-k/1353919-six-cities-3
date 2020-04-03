@@ -14,43 +14,6 @@ class CityMap extends React.PureComponent {
 
   mapObj = null;
 
-  renderMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
-
-    const markers = [];
-
-    placesCoordinates.forEach((place) => {
-      const marker = leaflet
-        .marker([place.lat, place.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `/img/pin.svg`})})
-        .addTo(map);
-
-      markers.push(marker);
-    });
-
-    this.markers = markers;
-
-    if (activePlaceCoordinates.lat !== null && activePlaceCoordinates.lon !== null) {
-      if (this.state.activeMarker !== null) {
-        map.removeLayer(this.state.activeMarker);
-      }
-
-      const activeMarker = leaflet
-      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `/img/pin-active.svg`})})
-      .addTo(map);
-
-      this.setState({
-        activeMarker
-      });
-    }
-  }
-
-  render() {
-    const {sectionLocationClass} = this.props;
-
-    return <section className={`${sectionLocationClass} map`}>
-      <div id="mapid" style={{width: `100%`, height: `100%`}}></div>
-    </section>;
-  }
-
   componentDidMount() {
     const {placesCoordinates, activePlaceCoordinates, cityLatLon, placePageCoordinates} = this.props;
 
@@ -96,6 +59,43 @@ class CityMap extends React.PureComponent {
 
       this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
     }
+  }
+
+  renderMarkers = (placesCoordinates, activePlaceCoordinates, map) => {
+
+    const markers = [];
+
+    placesCoordinates.forEach((place) => {
+      const marker = leaflet
+        .marker([place.lat, place.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `/img/pin.svg`})})
+        .addTo(map);
+
+      markers.push(marker);
+    });
+
+    this.markers = markers;
+
+    if (activePlaceCoordinates.lat !== null && activePlaceCoordinates.lon !== null) {
+      if (this.state.activeMarker !== null) {
+        map.removeLayer(this.state.activeMarker);
+      }
+
+      const activeMarker = leaflet
+      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: [30, 30], iconUrl: `/img/pin-active.svg`})})
+      .addTo(map);
+
+      this.setState({
+        activeMarker
+      });
+    }
+  }
+
+  render() {
+    const {sectionLocationClass} = this.props;
+
+    return <section className={`${sectionLocationClass} map`}>
+      <div id="mapid" style={{width: `100%`, height: `100%`}}></div>
+    </section>;
   }
 }
 

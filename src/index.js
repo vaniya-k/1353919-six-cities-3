@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import App from './components/app/app.jsx';
 import reducer from './reducer/reducer.js';
-import {ApiManager as OffersApiManager, ActionCreator as OffersActionCreator} from "./reducer/offers/offers.js";
+import {ApiManager as OffersApiManager} from "./reducer/offers/offers.js";
 import {ApiManager as UserApiManager} from './reducer/user/user.js';
 import {createAPI} from "./api.js";
 

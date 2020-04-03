@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import Header from '../header/header.jsx';
@@ -58,6 +59,76 @@ const FavoritesPage = ({favsList}) => {
       </a>
     </footer>
   </div>;
+};
+
+CityLiItemWithFavs.propTypes = {
+  cityObj: PropTypes.shape({
+    city: PropTypes.string.isRequired,
+    places: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string.isRequired,
+          price: PropTypes.number.isRequired,
+          type: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+          previewUrl: PropTypes.string.isRequired,
+          isPremium: PropTypes.bool.isRequired,
+          isFavorite: PropTypes.bool.isRequired,
+          id: PropTypes.number.isRequired,
+          gps: PropTypes.shape({
+            lat: PropTypes.number.isRequired,
+            lon: PropTypes.number.isRequired
+          }).isRequired
+        }).isRequired
+    ).isRequired,
+  }).isRequired,
+};
+
+FavoritesListPopulated.propTypes = {
+  favsList: PropTypes.arrayOf(
+      PropTypes.shape({
+        city: PropTypes.string.isRequired,
+        places: PropTypes.arrayOf(
+            PropTypes.shape({
+              title: PropTypes.string.isRequired,
+              price: PropTypes.number.isRequired,
+              type: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              previewUrl: PropTypes.string.isRequired,
+              isPremium: PropTypes.bool.isRequired,
+              isFavorite: PropTypes.bool.isRequired,
+              id: PropTypes.number.isRequired,
+              gps: PropTypes.shape({
+                lat: PropTypes.number.isRequired,
+                lon: PropTypes.number.isRequired
+              }).isRequired
+            }).isRequired
+        ).isRequired,
+      }).isRequired,
+  ).isRequired,
+};
+
+FavoritesPage.propTypes = {
+  favsList: PropTypes.arrayOf(
+      PropTypes.shape({
+        city: PropTypes.string.isRequired,
+        places: PropTypes.arrayOf(
+            PropTypes.shape({
+              title: PropTypes.string.isRequired,
+              price: PropTypes.number.isRequired,
+              type: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              previewUrl: PropTypes.string.isRequired,
+              isPremium: PropTypes.bool.isRequired,
+              isFavorite: PropTypes.bool.isRequired,
+              id: PropTypes.number.isRequired,
+              gps: PropTypes.shape({
+                lat: PropTypes.number.isRequired,
+                lon: PropTypes.number.isRequired
+              }).isRequired
+            }).isRequired
+        ).isRequired,
+      }),
+  ).isRequired,
 };
 
 const mapStateToProps = (state) => {

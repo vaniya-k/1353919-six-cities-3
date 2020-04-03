@@ -41,12 +41,12 @@ class MainPage extends React.PureComponent {
     return {lat: place.gps.lat, lon: place.gps.lon};
   });
 
-  getCitiesTabsList = (data) => data.map((offer) => {
-    return offer.city;
+  getCitiesTabsList = (alllOffers) => alllOffers.map((cityObj) => {
+    return cityObj.city;
   });
 
   render() {
-    const {places, allOffers, activeCityName, activeCityId, onCityTabClick} = this.props;
+    const {places, allOffers, activeCityName, activeCityId, onCityTabClick, activeCardLatLon} = this.props;
 
     return <div className="page page--gray page--main">
       <Header/>
@@ -56,7 +56,7 @@ class MainPage extends React.PureComponent {
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(allOffers)} onCityTabClick={onCityTabClick}/>
         {(places.length === 0)
           ? <CityWithoutOffers activeCityName={activeCityName}/>
-          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} activePlaceCoordinates={this.props.activeCardLatLon}/>
+          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} activePlaceCoordinates={activeCardLatLon}/>
         }
       </main>
     </div>;
@@ -75,6 +75,7 @@ CityWithOffers.propTypes = {
   }).isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
@@ -104,12 +105,14 @@ MainPage.propTypes = {
   activeCityName: PropTypes.string.isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
         previewUrl: PropTypes.string.isRequired,
         isPremium: PropTypes.bool.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
           lon: PropTypes.number.isRequired
@@ -125,12 +128,14 @@ MainPage.propTypes = {
         }).isRequired,
         places: PropTypes.arrayOf(
             PropTypes.shape({
+              id: PropTypes.number.isRequired,
               title: PropTypes.string.isRequired,
               price: PropTypes.number.isRequired,
               type: PropTypes.string.isRequired,
               rating: PropTypes.number.isRequired,
               previewUrl: PropTypes.string.isRequired,
               isPremium: PropTypes.bool.isRequired,
+              isFavorite: PropTypes.bool.isRequired,
               gps: PropTypes.shape({
                 lat: PropTypes.number.isRequired,
                 lon: PropTypes.number.isRequired

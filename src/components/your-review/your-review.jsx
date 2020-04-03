@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {createAPI} from '../../api.js';
 import history from '../../history.js';
 import {connect} from "react-redux";
@@ -108,6 +109,12 @@ class YourReview extends React.PureComponent {
     </form>;
   }
 }
+
+YourReview.propTypes = {
+  getCurrentReviews: PropTypes.func.isRequired,
+  getOffersNearby: PropTypes.func.isRequired,
+  setActivePlacePageId: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrentReviews() {

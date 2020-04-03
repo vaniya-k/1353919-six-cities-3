@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const dateStamp = (date) => {
   const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
@@ -35,16 +35,24 @@ const ReviewsList = ({reviews}) => {
   </ul>;
 };
 
-// ReviewsList.propTypes = {
-//   reviews: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         name: PropTypes.string.isRequired,
-//         avaPicName: PropTypes.string.isRequired,
-//         rating: PropTypes.number.isRequired,
-//         text: PropTypes.string.isRequired,
-//         date: PropTypes.string.isRequired,
-//       }).isRequired
-//   ).isRequired
-// };
+ReviewItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  avaPicUrl: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired
+};
+
+ReviewsList.propTypes = {
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        avaPicUrl: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        date: PropTypes.instanceOf(Date).isRequired,
+      }).isRequired
+  ).isRequired,
+};
 
 export default ReviewsList;

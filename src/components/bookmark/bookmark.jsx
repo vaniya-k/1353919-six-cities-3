@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {createAPI} from "../../api.js";
 import {connect} from "react-redux";
 import {ApiManager as OffersApiManager} from "../../reducer/offers/offers.js";
@@ -6,12 +7,15 @@ import history from '../../history.js';
 
 const api = createAPI(() => {});
 
-const toggleFav = (authorizationStatus, placeId, getAllOffers, getAllOffersWithCompleteData, shouldBeAdded) => {
+const handleFavToggle = (authorizationStatus, placeId, getAllOffers, getAllOffersWithCompleteData, getOffersNearby, shouldBeAdded) => {
   if (authorizationStatus !== `AUTH`) {
     history.push(`/login`);
   } else {
     api.post(`/favorite/${placeId}/${shouldBeAdded}`)
       .then(() => {
+        if (history.location.pathname.includes(`place`)) {
+          getOffersNearby();
+        }
         getAllOffers();
         getAllOffersWithCompleteData();
       });
@@ -30,13 +34,23 @@ const generateButtonStyleClass = (authorizationStatus, isFavorite, isOnPlacePage
   }
 };
 
-const Bookmark = ({authorizationStatus, isFavorite, id, getAllOffers, getAllOffersWithCompleteData, isOnPlacePage = false}) => {
-  return <button className={generateButtonStyleClass(authorizationStatus, isFavorite, isOnPlacePage)} type="button" onClick={(isFavorite) ? () => toggleFav(authorizationStatus, id, getAllOffers, getAllOffersWithCompleteData, 0) : () => toggleFav(authorizationStatus, id, getAllOffers, getAllOffersWithCompleteData, 1)}>
+const Bookmark = ({authorizationStatus, isFavorite, id, getAllOffers, getAllOffersWithCompleteData, getOffersNearby, isOnPlacePage = false}) => {
+  return <button className={generateButtonStyleClass(authorizationStatus, isFavorite, isOnPlacePage)} type="button" onClick={(isFavorite) ? () => handleFavToggle(authorizationStatus, id, getAllOffers, getAllOffersWithCompleteData, getOffersNearby, 0) : () => handleFavToggle(authorizationStatus, id, getAllOffers, getAllOffersWithCompleteData, getOffersNearby, 1)}>
     <svg className={(isOnPlacePage) ? `property__bookmark-icon` : `place-card__bookmark-icon`} width={(isOnPlacePage) ? `31` : `18`} height={(isOnPlacePage) ? `33` : `19`}>
       <use href="#icon-bookmark"></use>
     </svg>
     <span className="visually-hidden">In bookmarks</span>
   </button>;
+};
+
+Bookmark.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
+  getAllOffers: PropTypes.func.isRequired,
+  getAllOffersWithCompleteData: PropTypes.func.isRequired,
+  getOffersNearby: PropTypes.func.isRequired,
+  isOnPlacePage: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -46,6 +60,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getAllOffers() {
     dispatch(OffersApiManager.getAllOffers());
+  },
+  getOffersNearby() {
+    dispatch(OffersApiManager.getOffersNearby());
   },
   getAllOffersWithCompleteData() {
     dispatch(OffersApiManager.getAllOffersWithCompleteData());
