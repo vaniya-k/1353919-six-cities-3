@@ -5,7 +5,6 @@ import PlacePage from '../place-page/place-page.jsx';
 import FavoritesPage from '../favorites-page/favorites-page.jsx';
 import {Router, Route, Switch} from 'react-router-dom';
 import history from '../../history.js';
-import reviews from '../../mocks/places-listing-original.js';
 
 const App = () => {
   return <Router history={history}>
@@ -16,7 +15,7 @@ const App = () => {
       <Route path="/place/:routeId"
         render={() => {
           window.scrollTo(0, 0);
-          return <PlacePage reviews={reviews}/>;
+          return <PlacePage/>;
         }}
       />
       <Route exact path="/login">

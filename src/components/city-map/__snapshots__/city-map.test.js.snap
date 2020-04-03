@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CityMap/> should return the map of Amsterdam with 3 places 1`] = `
+exports[`<CityMap/> should return a Leaflet container 1`] = `
 <section
   className="cities__map map"
 >

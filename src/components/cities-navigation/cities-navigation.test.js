@@ -1,13 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import CitiesNavigation from './cities-navigation.jsx';
-import citiesNavTestData from '../../mocks/cities-navigation-test.js';
 
-it(`<CitiesNavigation/> should return 6 cities starting with Bucharest`, () => {
+it(`<CitiesNavigation/> should return 6 cities starting with Metropolis`, () => {
   const mock = jest.fn();
 
   const tree = renderer
-    .create(<CitiesNavigation cities={citiesNavTestData.cities} activeCityId={citiesNavTestData.activeCityId} onCityTabClick={mock}/>)
+    .create(<CitiesNavigation cities={[`Metropolis`, `Gotham`, `Utopia`, `Dystopia`, `Inferno`, `Limbo`]} activeCityId={0} onCityTabClick={mock}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

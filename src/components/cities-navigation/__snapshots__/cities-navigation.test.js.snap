@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CitiesNavigation/> should return 6 cities starting with Bucharest 1`] = `
+exports[`<CitiesNavigation/> should return 6 cities starting with Metropolis 1`] = `
 <div
   className="tabs"
 >
@@ -14,38 +14,12 @@ exports[`<CitiesNavigation/> should return 6 cities starting with Bucharest 1`] 
         className="locations__item"
       >
         <a
-          className="locations__item-link tabs__item null"
-          href="#"
-          onClick={[Function]}
-        >
-          <span>
-            Bucharest
-          </span>
-        </a>
-      </li>
-      <li
-        className="locations__item"
-      >
-        <a
-          className="locations__item-link tabs__item null"
-          href="#"
-          onClick={[Function]}
-        >
-          <span>
-            Wroclaw
-          </span>
-        </a>
-      </li>
-      <li
-        className="locations__item"
-      >
-        <a
           className="locations__item-link tabs__item tabs__item--active"
           href="#"
           onClick={[Function]}
         >
           <span>
-            Prague
+            Metropolis
           </span>
         </a>
       </li>
@@ -58,7 +32,7 @@ exports[`<CitiesNavigation/> should return 6 cities starting with Bucharest 1`] 
           onClick={[Function]}
         >
           <span>
-            Wien
+            Gotham
           </span>
         </a>
       </li>
@@ -71,7 +45,7 @@ exports[`<CitiesNavigation/> should return 6 cities starting with Bucharest 1`] 
           onClick={[Function]}
         >
           <span>
-            Minsk
+            Utopia
           </span>
         </a>
       </li>
@@ -84,7 +58,33 @@ exports[`<CitiesNavigation/> should return 6 cities starting with Bucharest 1`] 
           onClick={[Function]}
         >
           <span>
-            Moscow
+            Dystopia
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item null"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Inferno
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item null"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Limbo
           </span>
         </a>
       </li>
