@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PlaceCardMain/> should render "Tiny apartment" 1`] = `
+exports[`<PlaceCard/> should show Wayne Estate rendered for <FavoritesPage/> 1`] = `
 <article
-  className="cities__place-card place-card"
+  className="favorites__card place-card"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
@@ -14,7 +14,7 @@ exports[`<PlaceCardMain/> should render "Tiny apartment" 1`] = `
     </span>
   </div>
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="favorites__image-wrapper place-card__image-wrapper"
   >
     <a
       href="#"
@@ -23,7 +23,8 @@ exports[`<PlaceCardMain/> should render "Tiny apartment" 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        width="260"
+        src="https://"
+        width="150"
       />
     </a>
   </div>
@@ -40,7 +41,7 @@ exports[`<PlaceCardMain/> should render "Tiny apartment" 1`] = `
           className="place-card__price-value"
         >
           €
-          70
+          789
         </b>
         <span
           className="place-card__price-text"
@@ -50,6 +51,7 @@ exports[`<PlaceCardMain/> should render "Tiny apartment" 1`] = `
       </div>
       <button
         className="place-card__bookmark-button place-card__bookmark-button--active button"
+        onClick={[Function]}
         type="button"
       >
         <svg
@@ -77,7 +79,7 @@ exports[`<PlaceCardMain/> should render "Tiny apartment" 1`] = `
         <span
           style={
             Object {
-              "width": "80%",
+              "width": "100%",
             }
           }
         />
@@ -92,16 +94,234 @@ exports[`<PlaceCardMain/> should render "Tiny apartment" 1`] = `
       className="place-card__name"
     >
       <a
-        href="/dev-place-page"
-        onClick={[MockFunction]}
+        href="/place/4"
+        onClick={[Function]}
       >
-        Tiny apartment
+        Wayne Estate
       </a>
     </h2>
     <p
       className="place-card__type"
     >
-      Apartment
+      apartment
+    </p>
+  </div>
+</article>
+`;
+
+exports[`<PlaceCard/> should show Wayne Estate rendered for <MainPage/> 1`] = `
+<article
+  className="cities__place-card place-card"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="place-card__mark"
+  >
+    <span>
+      Premium
+    </span>
+  </div>
+  <div
+    className="cities__image-wrapper place-card__image-wrapper"
+  >
+    <a
+      href="#"
+    >
+      <img
+        alt="Place image"
+        className="place-card__image"
+        height="110"
+        src="https://"
+        width="260"
+      />
+    </a>
+  </div>
+  <div
+    className="place-card__info"
+  >
+    <div
+      className="place-card__price-wrapper"
+    >
+      <div
+        className="place-card__price"
+      >
+        <b
+          className="place-card__price-value"
+        >
+          €
+          789
+        </b>
+        <span
+          className="place-card__price-text"
+        >
+          / night
+        </span>
+      </div>
+      <button
+        className="place-card__bookmark-button place-card__bookmark-button--active button"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          className="place-card__bookmark-icon"
+          height="19"
+          width="18"
+        >
+          <use
+            href="#icon-bookmark"
+          />
+        </svg>
+        <span
+          className="visually-hidden"
+        >
+          In bookmarks
+        </span>
+      </button>
+    </div>
+    <div
+      className="place-card__rating rating"
+    >
+      <div
+        className="place-card__stars rating__stars"
+      >
+        <span
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        />
+        <span
+          className="visually-hidden"
+        >
+          Rating
+        </span>
+      </div>
+    </div>
+    <h2
+      className="place-card__name"
+    >
+      <a
+        href="/place/4"
+        onClick={[Function]}
+      >
+        Wayne Estate
+      </a>
+    </h2>
+    <p
+      className="place-card__type"
+    >
+      apartment
+    </p>
+  </div>
+</article>
+`;
+
+exports[`<PlaceCard/> should show Wayne Estate rendered for <PlacesListNearby/> on <PlacePage> 1`] = `
+<article
+  className="near-places__card place-card"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="place-card__mark"
+  >
+    <span>
+      Premium
+    </span>
+  </div>
+  <div
+    className="near-places__image-wrapper place-card__image-wrapper"
+  >
+    <a
+      href="#"
+    >
+      <img
+        alt="Place image"
+        className="place-card__image"
+        height="110"
+        src="https://"
+        width="260"
+      />
+    </a>
+  </div>
+  <div
+    className="place-card__info"
+  >
+    <div
+      className="place-card__price-wrapper"
+    >
+      <div
+        className="place-card__price"
+      >
+        <b
+          className="place-card__price-value"
+        >
+          €
+          789
+        </b>
+        <span
+          className="place-card__price-text"
+        >
+          / night
+        </span>
+      </div>
+      <button
+        className="place-card__bookmark-button place-card__bookmark-button--active button"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          className="place-card__bookmark-icon"
+          height="19"
+          width="18"
+        >
+          <use
+            href="#icon-bookmark"
+          />
+        </svg>
+        <span
+          className="visually-hidden"
+        >
+          In bookmarks
+        </span>
+      </button>
+    </div>
+    <div
+      className="place-card__rating rating"
+    >
+      <div
+        className="place-card__stars rating__stars"
+      >
+        <span
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        />
+        <span
+          className="visually-hidden"
+        >
+          Rating
+        </span>
+      </div>
+    </div>
+    <h2
+      className="place-card__name"
+    >
+      <a
+        href="/place/4"
+        onClick={[Function]}
+      >
+        Wayne Estate
+      </a>
+    </h2>
+    <p
+      className="place-card__type"
+    >
+      apartment
     </p>
   </div>
 </article>

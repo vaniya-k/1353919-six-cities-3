@@ -1,4 +1,4 @@
-const getAllOffersWithCompleteData = (apiReturn) => {
+const processOffersWithCompleteData = (apiReturn) => {
   const places = apiReturn;
   const allOffersWithCompleteData = [];
 
@@ -10,7 +10,7 @@ const getAllOffersWithCompleteData = (apiReturn) => {
       type: place.type,
       rating: place.rating * 20,
       isPremium: place.is_premium,
-      isFavorite: places.is_favorite,
+      isFavorite: place.is_favorite,
       gps: {lat: place.location.latitude, lon: place.location.longitude},
       bedroomsQnt: place.bedrooms,
       guestsMaxQnt: place.max_adults,
@@ -23,6 +23,7 @@ const getAllOffersWithCompleteData = (apiReturn) => {
         super: place.host.is_pro,
         avaPicUrl: place.host.avatar_url,
       },
+      cityLatLon: {lat: place.city.location.latitude, lon: place.city.location.longitude}
     };
   };
 
@@ -31,4 +32,4 @@ const getAllOffersWithCompleteData = (apiReturn) => {
   return allOffersWithCompleteData;
 };
 
-export default getAllOffersWithCompleteData;
+export default processOffersWithCompleteData;

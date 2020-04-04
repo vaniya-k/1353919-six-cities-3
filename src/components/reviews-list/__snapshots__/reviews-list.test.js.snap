@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ReviewList/> should return two reviews -- from Tom and William 1`] = `
+exports[`<ReviewList/> should render two reviews 1`] = `
 <ul
   className="reviews__list"
 >
@@ -17,14 +17,73 @@ exports[`<ReviewList/> should return two reviews -- from Tom and William 1`] = `
           alt="Reviews avatar"
           className="reviews__avatar user__avatar"
           height="54"
-          src="img/avatar-max.jpg"
+          src="https://localhost"
           width="54"
         />
       </div>
       <span
         className="reviews__user-name"
       >
-        Tom
+        Bruce
+      </span>
+    </div>
+    <div
+      className="reviews__info"
+    >
+      <div
+        className="reviews__rating rating"
+      >
+        <div
+          className="reviews__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "20%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        className="reviews__text"
+      >
+        I couldn't stand beeing there -- it's like desert. Why would anyone live in such a place? It's beyond my comprehension
+      </p>
+      <time
+        className="reviews__time"
+        dateTime={2019-12-17T00:24:00.000Z}
+      >
+        December 2019
+      </time>
+    </div>
+  </li>
+  <li
+    className="reviews__item"
+  >
+    <div
+      className="reviews__user user"
+    >
+      <div
+        className="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Reviews avatar"
+          className="reviews__avatar user__avatar"
+          height="54"
+          src="https://localhost"
+          width="54"
+        />
+      </div>
+      <span
+        className="reviews__user-name"
+      >
+        Clark
       </span>
     </div>
     <div
@@ -53,72 +112,13 @@ exports[`<ReviewList/> should return two reviews -- from Tom and William 1`] = `
       <p
         className="reviews__text"
       >
-        The building is green and from 18th century.
+        Gorgeous ambience, so much light and air! You could even play soccer here!
       </p>
       <time
         className="reviews__time"
-        dateTime="2019-04-24"
+        dateTime={2019-12-25T10:27:00.000Z}
       >
-        April 2019
-      </time>
-    </div>
-  </li>
-  <li
-    className="reviews__item"
-  >
-    <div
-      className="reviews__user user"
-    >
-      <div
-        className="reviews__avatar-wrapper user__avatar-wrapper"
-      >
-        <img
-          alt="Reviews avatar"
-          className="reviews__avatar user__avatar"
-          height="54"
-          src="img/avatar-max.jpg"
-          width="54"
-        />
-      </div>
-      <span
-        className="reviews__user-name"
-      >
-        William
-      </span>
-    </div>
-    <div
-      className="reviews__info"
-    >
-      <div
-        className="reviews__rating rating"
-      >
-        <div
-          className="reviews__stars rating__stars"
-        >
-          <span
-            style={
-              Object {
-                "width": "80%",
-              }
-            }
-          />
-          <span
-            className="visually-hidden"
-          >
-            Rating
-          </span>
-        </div>
-      </div>
-      <p
-        className="reviews__text"
-      >
-        A place to indulge yourself lots of day dreaming.
-      </p>
-      <time
-        className="reviews__time"
-        dateTime="2018-11-24"
-      >
-        November 2018
+        December 2019
       </time>
     </div>
   </li>

@@ -4,5 +4,5 @@ import {reducer as user} from './user/user.js';
 
 export default combineReducers({
   offers,
-  user
+  user,
 });

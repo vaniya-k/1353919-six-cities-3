@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlacesListSorting/> is sorted by price from high to low 1`] = `
+<form
+  action="#"
+  className="places__sorting"
+  method="get"
+>
+  <span
+    className="places__sorting-caption"
+  >
+    Sort by 
+  </span>
+  <span
+    className="places__sorting-type"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Price: high to low
+    <svg
+      className="places__sorting-arrow"
+      height="4"
+      width="7"
+    >
+      <use
+        href="#icon-arrow-select"
+      />
+    </svg>
+  </span>
+  <ul
+    className="places__options places__options--custom null"
+  >
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Popular
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Price: low to high
+    </li>
+    <li
+      className="places__option places__option--active"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Price: high to low
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Top rated first
+    </li>
+  </ul>
+</form>
+`;
+
+exports[`<PlacesListSorting/> is sorted by price from low to high 1`] = `
+<form
+  action="#"
+  className="places__sorting"
+  method="get"
+>
+  <span
+    className="places__sorting-caption"
+  >
+    Sort by 
+  </span>
+  <span
+    className="places__sorting-type"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Price: low to high
+    <svg
+      className="places__sorting-arrow"
+      height="4"
+      width="7"
+    >
+      <use
+        href="#icon-arrow-select"
+      />
+    </svg>
+  </span>
+  <ul
+    className="places__options places__options--custom null"
+  >
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Popular
+    </li>
+    <li
+      className="places__option places__option--active"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Price: low to high
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Price: high to low
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Top rated first
+    </li>
+  </ul>
+</form>
+`;
+
+exports[`<PlacesListSorting/> is sorted with popular first 1`] = `
+<form
+  action="#"
+  className="places__sorting"
+  method="get"
+>
+  <span
+    className="places__sorting-caption"
+  >
+    Sort by 
+  </span>
+  <span
+    className="places__sorting-type"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Popular
+    <svg
+      className="places__sorting-arrow"
+      height="4"
+      width="7"
+    >
+      <use
+        href="#icon-arrow-select"
+      />
+    </svg>
+  </span>
+  <ul
+    className="places__options places__options--custom null"
+  >
+    <li
+      className="places__option places__option--active"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Popular
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Price: low to high
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Price: high to low
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Top rated first
+    </li>
+  </ul>
+</form>
+`;
+
+exports[`<PlacesListSorting/> is sorted with top rated first 1`] = `
+<form
+  action="#"
+  className="places__sorting"
+  method="get"
+>
+  <span
+    className="places__sorting-caption"
+  >
+    Sort by 
+  </span>
+  <span
+    className="places__sorting-type"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Top rated first
+    <svg
+      className="places__sorting-arrow"
+      height="4"
+      width="7"
+    >
+      <use
+        href="#icon-arrow-select"
+      />
+    </svg>
+  </span>
+  <ul
+    className="places__options places__options--custom null"
+  >
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Popular
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Price: low to high
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Price: high to low
+    </li>
+    <li
+      className="places__option places__option--active"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Top rated first
+    </li>
+  </ul>
+</form>
+`;

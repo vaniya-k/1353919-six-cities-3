@@ -1,28 +1,56 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PlacesListMain from './places-list-main.jsx';
-import placesListing from '../../mocks/places-listing-test.js';
-import {createStore, applyMiddleware, compose} from "redux";
+import {createStore} from "redux";
 import {Provider} from "react-redux";
-import thunk from "redux-thunk";
-import reducer from "../../reducer/reducer.js";
-import {createAPI} from "../../api.js";
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
-it(`<PlacesFullList/>  with 54 matches and 3 places displayed`, () => {
-  const mock = jest.fn();
+const mockPlaces = [
+  {
+    id: 1,
+    title: `Solitude Fortress`,
+    price: 123,
+    type: `house`,
+    rating: 100,
+    isPremium: true,
+    isFavorite: true,
+    previewUrl: `https://`,
+    gps: {lat: 123, lon: 123}
+  },
+  {
+    id: 2,
+    title: `Daily Planet Office`,
+    price: 321,
+    type: `apartment`,
+    rating: 20,
+    isPremium: false,
+    isFavorite: true,
+    previewUrl: `https://`,
+    gps: {lat: 123, lon: 123}
+  }
+];
 
-  const api = createAPI(() => {});
+const mockReducer = () => {
+  const state = {
+    offers: {
+      activeSortType: 0
+    },
+    user: {
+      authorizationStatus: `AUTH`
+    }
+  };
 
-  const store = createStore(
-      reducer,
-      compose(
-          applyMiddleware(thunk.withExtraArgument(api)),
-          window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
-      )
-  );
+  return state;
+};
 
+const mockStore = createStore(mockReducer);
+
+const mockFunc = jest.fn();
+
+it(`<PlacesListMain/> shows a couple of places in Metropolis`, () => {
   const tree = renderer
-    .create(<Provider store={store}><PlacesListMain activeCityName={placesListing.activeCityName} places={placesListing.places} foundPlacesQnt={placesListing.foundPlacesQnt} onPlaceCardClick={mock}/></Provider>)
+    .create(<Provider store={mockStore}><Router history={history}><PlacesListMain places={mockPlaces} activeCityName={`Metropolis`} foundPlacesQnt={mockPlaces.length} handleHover={mockFunc}/></Router></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

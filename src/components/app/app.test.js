@@ -3,28 +3,64 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import App from './app.jsx';
-import placesListing from '../../mocks/places-listing-test.js';
-import placesFullData from '../../mocks/places-full-data-test.js';
-import {createStore, applyMiddleware, compose} from "redux";
+import {createStore} from "redux";
 import {Provider} from "react-redux";
-import thunk from "redux-thunk";
-import reducer from "../../reducer/reducer.js";
-import {createAPI} from "../../api.js";
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
-it(`<App/> should return the whole page with 54 matches and 3 places displayed`, () => {
-  const api = createAPI(() => {});
+const mockReducerWithoutPlaces = () => {
+  const state = {
+    offers: {
+      activeCityName: `Metropolis`,
+      activeCityId: 0,
+      activeCardLatLon: {lat: null, lon: null},
+      activeSortType: 0,
+      places: [],
+      allOffers: [{
+        city: `Metropolis`,
+        cityLatLon: {lat: 123, lon: 123},
+        places: []
+      },
+      {
+        city: `Gotham`,
+        cityLatLon: {lat: 123, lon: 123},
+        places: []
+      },
+      {
+        city: `Utopia`,
+        cityLatLon: {lat: 123, lon: 123},
+        places: []
+      },
+      {
+        city: `Dystopia`,
+        cityLatLon: {lat: 123, lon: 123},
+        places: []
+      },
+      {
+        city: `Inferno`,
+        cityLatLon: {lat: 123, lon: 123},
+        places: []
+      },
+      {
+        city: `Limbo`,
+        cityLatLon: {lat: 123, lon: 123},
+        places: []
+      }]
+    },
+    user: {
+      authorizationStatus: `AUTH`
+    }
+  };
+  return state;
+};
 
-  const store = createStore(
-      reducer,
-      compose(
-          applyMiddleware(thunk.withExtraArgument(api)),
-          window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
-      )
-  );
+const mockStoreWithoutPlaces = createStore(mockReducerWithoutPlaces);
 
+it(`<App/> should render <MainPage> by default`, () => {
   const tree = renderer
-    .create(<Provider store={store}><App placesListing={placesListing} placePageData={placesFullData[0]}/></Provider>)
+    .create(<Provider store={mockStoreWithoutPlaces}><Router history={history}><App/></Router></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
+

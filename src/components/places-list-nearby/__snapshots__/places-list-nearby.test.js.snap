@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
+exports[`<PlacesListNearby/> shows three places in Gotham 1`] = `
 <section
   className="near-places places"
 >
@@ -18,13 +18,6 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
       onMouseLeave={[Function]}
     >
       <div
-        className="place-card__mark"
-      >
-        <span>
-          Premium
-        </span>
-      </div>
-      <div
         className="near-places__image-wrapper place-card__image-wrapper"
       >
         <a
@@ -33,7 +26,8 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
           <img
             alt="Place image"
             className="place-card__image"
-            height="200"
+            height="110"
+            src="https://"
             width="260"
           />
         </a>
@@ -51,7 +45,7 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
               className="place-card__price-value"
             >
               €
-              70
+              456
             </b>
             <span
               className="place-card__price-text"
@@ -61,103 +55,7 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
           </div>
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
-            type="button"
-          >
-            <svg
-              className="place-card__bookmark-icon"
-              height="19"
-              width="18"
-            >
-              <use
-                href="#icon-bookmark"
-              />
-            </svg>
-            <span
-              className="visually-hidden"
-            >
-              In bookmarks
-            </span>
-          </button>
-        </div>
-        <div
-          className="place-card__rating rating"
-        >
-          <div
-            className="place-card__stars rating__stars"
-          >
-            <span
-              style={
-                Object {
-                  "width": "80%",
-                }
-              }
-            />
-            <span
-              className="visually-hidden"
-            >
-              Rating
-            </span>
-          </div>
-        </div>
-        <h2
-          className="place-card__name"
-        >
-          <a
-            href="/dev-place-page"
-            onClick={[MockFunction]}
-          >
-            Tiny apartment
-          </a>
-        </h2>
-        <p
-          className="place-card__type"
-        >
-          Apartment
-        </p>
-      </div>
-    </article>
-    <article
-      className="near-places__card place-card"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-    >
-      <div
-        className="near-places__image-wrapper place-card__image-wrapper"
-      >
-        <a
-          href="#"
-        >
-          <img
-            alt="Place image"
-            className="place-card__image"
-            height="200"
-            width="260"
-          />
-        </a>
-      </div>
-      <div
-        className="place-card__info"
-      >
-        <div
-          className="place-card__price-wrapper"
-        >
-          <div
-            className="place-card__price"
-          >
-            <b
-              className="place-card__price-value"
-            >
-              €
-              160
-            </b>
-            <span
-              className="place-card__price-text"
-            >
-              / night
-            </span>
-          </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -200,16 +98,16 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
           className="place-card__name"
         >
           <a
-            href="/dev-place-page"
-            onClick={[MockFunction]}
+            href="/place/3"
+            onClick={[Function]}
           >
-            Spacious loft
+            Batman's Den
           </a>
         </h2>
         <p
           className="place-card__type"
         >
-          Apartment
+          house
         </p>
       </div>
     </article>
@@ -234,7 +132,8 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
           <img
             alt="Place image"
             className="place-card__image"
-            height="200"
+            height="110"
+            src="https://"
             width="260"
           />
         </a>
@@ -252,7 +151,7 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
               className="place-card__price-value"
             >
               €
-              220
+              789
             </b>
             <span
               className="place-card__price-text"
@@ -262,6 +161,7 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
           </div>
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -304,16 +204,115 @@ exports[`<PlacesListNearby/> should return 3 places displayed 1`] = `
           className="place-card__name"
         >
           <a
-            href="/dev-place-page"
-            onClick={[MockFunction]}
+            href="/place/4"
+            onClick={[Function]}
           >
-            Rustic mansion
+            Wayne Estate
           </a>
         </h2>
         <p
           className="place-card__type"
         >
-          House
+          apartment
+        </p>
+      </div>
+    </article>
+    <article
+      className="near-places__card place-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="near-places__image-wrapper place-card__image-wrapper"
+      >
+        <a
+          href="#"
+        >
+          <img
+            alt="Place image"
+            className="place-card__image"
+            height="110"
+            src="https://"
+            width="260"
+          />
+        </a>
+      </div>
+      <div
+        className="place-card__info"
+      >
+        <div
+          className="place-card__price-wrapper"
+        >
+          <div
+            className="place-card__price"
+          >
+            <b
+              className="place-card__price-value"
+            >
+              €
+              19
+            </b>
+            <span
+              className="place-card__price-text"
+            >
+              / night
+            </span>
+          </div>
+          <button
+            className="place-card__bookmark-button button"
+            onClick={[Function]}
+            type="button"
+          >
+            <svg
+              className="place-card__bookmark-icon"
+              height="19"
+              width="18"
+            >
+              <use
+                href="#icon-bookmark"
+              />
+            </svg>
+            <span
+              className="visually-hidden"
+            >
+              In bookmarks
+            </span>
+          </button>
+        </div>
+        <div
+          className="place-card__rating rating"
+        >
+          <div
+            className="place-card__stars rating__stars"
+          >
+            <span
+              style={
+                Object {
+                  "width": "60%",
+                }
+              }
+            />
+            <span
+              className="visually-hidden"
+            >
+              Rating
+            </span>
+          </div>
+        </div>
+        <h2
+          className="place-card__name"
+        >
+          <a
+            href="/place/5"
+            onClick={[Function]}
+          >
+            Circus
+          </a>
+        </h2>
+        <p
+          className="place-card__type"
+        >
+          room
         </p>
       </div>
     </article>

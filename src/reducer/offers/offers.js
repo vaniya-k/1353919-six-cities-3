@@ -1,21 +1,30 @@
-import getAllOffers from '../../adapter/allOffers.js';
-import getAllOffersWithCompleteData from '../../adapter/allOffersWithCompleteData.js';
+import processOffers from '../../adapter/processOffers.js';
+import processOffersNearby from '../../adapter/processOffersNearby.js';
+import processOffersWithCompleteData from '../../adapter/processOffersWithCompleteData.js';
+import processReviews from '../../adapter/processReviews.js';
+import history from '../../history.js';
 
 const initialState = {
   activeCityId: 0,
   activeCityName: ``,
+  activePlacePageId: null,
   places: [],
+  placesNearby: [],
   activeCardLatLon: {lat: null, lon: null},
   activeSortType: 0,
   allOffers: [],
-  allOffersWithCompleteData: []
+  allOffersWithCompleteData: [],
+  currentReviews: []
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_ALL_OFFERS: `GET_ALL_OFFERS`,
   GET_ALL_OFFERS_WITH_COMPLETE_DATA: `GET_ALL_OFFERS_WITH_COMPLETE_DATA`,
+  GET_OFFERS_NEARBY: `GET_OFFERS_NEARBY`,
+  GET_CURRENT_REVIEWS: `GET_CURRENT_REVIEWS`,
   SET_ACTIVE_CARD_LAT_LON: `SET_ACTIVE_CARD_LAT_LON`,
+  SET_ACTIVE_PLACE_PAGE_ID: `SET_ACTIVE_PLACE_PAGE_ID`,
   CHANGE_SORTING: `CHANGE_SORTING`
 };
 
@@ -28,18 +37,30 @@ const ActionCreator = {
     type: ActionType.SET_ACTIVE_CARD_LAT_LON,
     payload: activeCardLatLon
   }),
+  setActivePlacePageId: (activePlacePageId) => ({
+    type: ActionType.SET_ACTIVE_PLACE_PAGE_ID,
+    payload: activePlacePageId
+  }),
   changeSorting: (selectedSortType) => ({
     type: ActionType.CHANGE_SORTING,
     payload: selectedSortType
   }),
   getAllOffers: (apiReturn) => ({
     type: ActionType.GET_ALL_OFFERS,
-    payload: getAllOffers(apiReturn)
+    payload: processOffers(apiReturn)
   }),
   getAllOffersWithCompleteData: (apiReturn) => ({
     type: ActionType.GET_ALL_OFFERS_WITH_COMPLETE_DATA,
-    payload: getAllOffersWithCompleteData(apiReturn)
-  })
+    payload: processOffersWithCompleteData(apiReturn)
+  }),
+  getOffersNearby: (apiReturn) => ({
+    type: ActionType.GET_OFFERS_NEARBY,
+    payload: processOffersNearby(apiReturn)
+  }),
+  getCurrentReviews: (apiReturn) => ({
+    type: ActionType.GET_CURRENT_REVIEWS,
+    payload: processReviews(apiReturn)
+  }),
 };
 
 const ApiManager = {
@@ -53,6 +74,18 @@ const ApiManager = {
     return api.get(`/hotels`)
       .then((response) => {
         dispatch(ActionCreator.getAllOffersWithCompleteData(response.data));
+      });
+  },
+  getOffersNearby: () => (dispatch, getState, api) => {
+    return api.get(`/hotels/${Number(history.location.pathname.slice(7))}/nearby`)
+      .then((response) => {
+        dispatch(ActionCreator.getOffersNearby(response.data));
+      });
+  },
+  getCurrentReviews: () => (dispatch, getState, api) => {
+    return api.get(`/comments/${Number(history.location.pathname.slice(7))}/`)
+      .then((response) => {
+        dispatch(ActionCreator.getCurrentReviews(response.data));
       });
   }
 };
@@ -68,9 +101,7 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.GET_ALL_OFFERS:
       return Object.assign({}, state, {
-        activeCityId: 0,
-        activeCityName: action.payload[0].city,
-        places: action.payload[0].places,
+        places: action.payload[state.activeCityId].places,
         allOffers: action.payload
       });
 
@@ -79,9 +110,24 @@ const reducer = (state = initialState, action) => {
         allOffersWithCompleteData: action.payload
       });
 
+    case ActionType.GET_OFFERS_NEARBY:
+      return Object.assign({}, state, {
+        placesNearby: action.payload
+      });
+
+    case ActionType.GET_CURRENT_REVIEWS:
+      return Object.assign({}, state, {
+        currentReviews: action.payload
+      });
+
     case ActionType.SET_ACTIVE_CARD_LAT_LON:
       return Object.assign({}, state, {
         activeCardLatLon: {lat: action.payload.lat, lon: action.payload.lon}
+      });
+
+    case ActionType.SET_ACTIVE_PLACE_PAGE_ID:
+      return Object.assign({}, state, {
+        activePlacePageId: action.payload
       });
 
     case ActionType.CHANGE_SORTING:

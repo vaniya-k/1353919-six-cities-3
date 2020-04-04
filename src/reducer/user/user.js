@@ -37,12 +37,10 @@ const ApiManager = {
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })
-      .catch((err) => {
-        throw err;
-      });
+      .catch(() => {});
   },
 
-  login: (authData) => (dispatch, getState, api) => {
+  logIn: (authData) => (dispatch, getState, api) => {
     return api.post(`/login`, {
       email: authData.login,
       password: authData.password,

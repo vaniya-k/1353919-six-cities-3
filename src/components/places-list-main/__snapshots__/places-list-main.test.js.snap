@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
+exports[`<PlacesListMain/> shows a couple of places in Metropolis 1`] = `
 <section
   className="cities__places places"
 >
@@ -12,9 +12,9 @@ exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
   <b
     className="places__found"
   >
-    54
+    2
      places to stay in 
-    Bucharest
+    Metropolis
   </b>
   <form
     action="#"
@@ -99,7 +99,8 @@ exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
           <img
             alt="Place image"
             className="place-card__image"
-            height="200"
+            height="110"
+            src="https://"
             width="260"
           />
         </a>
@@ -117,7 +118,7 @@ exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
               className="place-card__price-value"
             >
               €
-              70
+              123
             </b>
             <span
               className="place-card__price-text"
@@ -127,207 +128,7 @@ exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
           </div>
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
-            type="button"
-          >
-            <svg
-              className="place-card__bookmark-icon"
-              height="19"
-              width="18"
-            >
-              <use
-                href="#icon-bookmark"
-              />
-            </svg>
-            <span
-              className="visually-hidden"
-            >
-              In bookmarks
-            </span>
-          </button>
-        </div>
-        <div
-          className="place-card__rating rating"
-        >
-          <div
-            className="place-card__stars rating__stars"
-          >
-            <span
-              style={
-                Object {
-                  "width": "80%",
-                }
-              }
-            />
-            <span
-              className="visually-hidden"
-            >
-              Rating
-            </span>
-          </div>
-        </div>
-        <h2
-          className="place-card__name"
-        >
-          <a
-            href="/dev-place-page"
-            onClick={[MockFunction]}
-          >
-            Tiny apartment
-          </a>
-        </h2>
-        <p
-          className="place-card__type"
-        >
-          Apartment
-        </p>
-      </div>
-    </article>
-    <article
-      className="cities__place-card place-card"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-    >
-      <div
-        className="cities__image-wrapper place-card__image-wrapper"
-      >
-        <a
-          href="#"
-        >
-          <img
-            alt="Place image"
-            className="place-card__image"
-            height="200"
-            width="260"
-          />
-        </a>
-      </div>
-      <div
-        className="place-card__info"
-      >
-        <div
-          className="place-card__price-wrapper"
-        >
-          <div
-            className="place-card__price"
-          >
-            <b
-              className="place-card__price-value"
-            >
-              €
-              160
-            </b>
-            <span
-              className="place-card__price-text"
-            >
-              / night
-            </span>
-          </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
-            type="button"
-          >
-            <svg
-              className="place-card__bookmark-icon"
-              height="19"
-              width="18"
-            >
-              <use
-                href="#icon-bookmark"
-              />
-            </svg>
-            <span
-              className="visually-hidden"
-            >
-              In bookmarks
-            </span>
-          </button>
-        </div>
-        <div
-          className="place-card__rating rating"
-        >
-          <div
-            className="place-card__stars rating__stars"
-          >
-            <span
-              style={
-                Object {
-                  "width": "60%",
-                }
-              }
-            />
-            <span
-              className="visually-hidden"
-            >
-              Rating
-            </span>
-          </div>
-        </div>
-        <h2
-          className="place-card__name"
-        >
-          <a
-            href="/dev-place-page"
-            onClick={[MockFunction]}
-          >
-            Spacious loft
-          </a>
-        </h2>
-        <p
-          className="place-card__type"
-        >
-          Apartment
-        </p>
-      </div>
-    </article>
-    <article
-      className="cities__place-card place-card"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-    >
-      <div
-        className="place-card__mark"
-      >
-        <span>
-          Premium
-        </span>
-      </div>
-      <div
-        className="cities__image-wrapper place-card__image-wrapper"
-      >
-        <a
-          href="#"
-        >
-          <img
-            alt="Place image"
-            className="place-card__image"
-            height="200"
-            width="260"
-          />
-        </a>
-      </div>
-      <div
-        className="place-card__info"
-      >
-        <div
-          className="place-card__price-wrapper"
-        >
-          <div
-            className="place-card__price"
-          >
-            <b
-              className="place-card__price-value"
-            >
-              €
-              220
-            </b>
-            <span
-              className="place-card__price-text"
-            >
-              / night
-            </span>
-          </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -370,16 +171,115 @@ exports[`<PlacesFullList/>  with 54 matches and 3 places displayed 1`] = `
           className="place-card__name"
         >
           <a
-            href="/dev-place-page"
-            onClick={[MockFunction]}
+            href="/place/1"
+            onClick={[Function]}
           >
-            Rustic mansion
+            Solitude Fortress
           </a>
         </h2>
         <p
           className="place-card__type"
         >
-          House
+          house
+        </p>
+      </div>
+    </article>
+    <article
+      className="cities__place-card place-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="cities__image-wrapper place-card__image-wrapper"
+      >
+        <a
+          href="#"
+        >
+          <img
+            alt="Place image"
+            className="place-card__image"
+            height="110"
+            src="https://"
+            width="260"
+          />
+        </a>
+      </div>
+      <div
+        className="place-card__info"
+      >
+        <div
+          className="place-card__price-wrapper"
+        >
+          <div
+            className="place-card__price"
+          >
+            <b
+              className="place-card__price-value"
+            >
+              €
+              321
+            </b>
+            <span
+              className="place-card__price-text"
+            >
+              / night
+            </span>
+          </div>
+          <button
+            className="place-card__bookmark-button place-card__bookmark-button--active button"
+            onClick={[Function]}
+            type="button"
+          >
+            <svg
+              className="place-card__bookmark-icon"
+              height="19"
+              width="18"
+            >
+              <use
+                href="#icon-bookmark"
+              />
+            </svg>
+            <span
+              className="visually-hidden"
+            >
+              In bookmarks
+            </span>
+          </button>
+        </div>
+        <div
+          className="place-card__rating rating"
+        >
+          <div
+            className="place-card__stars rating__stars"
+          >
+            <span
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            />
+            <span
+              className="visually-hidden"
+            >
+              Rating
+            </span>
+          </div>
+        </div>
+        <h2
+          className="place-card__name"
+        >
+          <a
+            href="/place/2"
+            onClick={[Function]}
+          >
+            Daily Planet Office
+          </a>
+        </h2>
+        <p
+          className="place-card__type"
+        >
+          apartment
         </p>
       </div>
     </article>

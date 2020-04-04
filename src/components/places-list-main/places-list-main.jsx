@@ -4,14 +4,14 @@ import PlaceCard from '../place-card/place-card.jsx';
 import PlacesListSorting from '../places-list-sorting/places-list-sorting.jsx';
 
 const PlacesListMain = (props) => {
-  const {activeCityName, places, foundPlacesQnt, onPlaceCardClick, handleHover} = props;
+  const {activeCityName, places, foundPlacesQnt, handleHover} = props;
 
   return <section className="cities__places places">
     <h2 className="visually-hidden">Places</h2>
     <b className="places__found">{foundPlacesQnt} places to stay in {activeCityName}</b>
     <PlacesListSorting/>
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} handleHover={handleHover} onPlaceCardClick={onPlaceCardClick} articleLocationClass={`cities`}/>)}
+      {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} handleHover={handleHover}/>)}
     </div>
   </section>;
 };
@@ -26,6 +26,8 @@ PlacesListMain.propTypes = {
         rating: PropTypes.number.isRequired,
         previewUrl: PropTypes.string.isRequired,
         isPremium: PropTypes.bool.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired,
         gps: PropTypes.shape({
           lat: PropTypes.number.isRequired,
           lon: PropTypes.number.isRequired
@@ -33,7 +35,6 @@ PlacesListMain.propTypes = {
       }).isRequired
   ).isRequired,
   foundPlacesQnt: PropTypes.number.isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
   handleHover: PropTypes.func.isRequired
 };
 

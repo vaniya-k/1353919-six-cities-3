@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
+import {ApiManager as OffersApiManager, ActionCreator as OffersActionCreator} from "../../reducer/offers/offers.js";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import YourReview from '../your-review/your-review.jsx';
 import CityMap from '../city-map/city-map.jsx';
 import Header from '../header/header.jsx';
+import Bookmark from '../bookmark/bookmark.jsx';
 import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
+import history from '../../history.js';
 
 const PlaceImage = ({imageUrl}) => {
   return <div className="property__image-wrapper">
     <img className="property__image" src={imageUrl}></img>
   </div>;
-};
-
-const PremiumMark = ({isPremium}) => {
-  return isPremium ? <div className="property__mark"><span>Premium</span></div> : null;
 };
 
 const Commodity = ({item}) => {
@@ -23,109 +23,158 @@ const Commodity = ({item}) => {
   </li>;
 };
 
-const PlacePage = ({title, price, isPremium, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, reviews, onPlaceCardClick, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon}) => {
-  return <div className="page">
-    <Header/>
+class PlacePage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-    <main className="page__main page__main--property">
-      <section className="property">
-        <div className="property__gallery-container container">
-          <div className="property__gallery">
-            {images.map((image, i) => <PlaceImage key={`key${i}`} imageUrl={image}/>)}
+  componentDidMount() {
+    const {getCurrentReviews, getOffersNearby, setActivePlacePageId, id} = this.props;
+
+    getOffersNearby();
+    setActivePlacePageId(id);
+    getCurrentReviews();
+  }
+
+  componentDidUpdate() {
+    const {getCurrentReviews, getOffersNearby, setActivePlacePageId, id, activePlacePageId} = this.props;
+
+    if (activePlacePageId !== id) {
+      getOffersNearby();
+      setActivePlacePageId(id);
+      getCurrentReviews();
+    }
+  }
+
+  render() {
+    const {currentReviews, currentReviewsQnt, authorizationStatus, title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, activePlacePageId, id, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon} = this.props;
+
+    return <div className="page">
+      <Header/>
+
+      <main className="page__main page__main--property">
+        <section className="property">
+          <div className="property__gallery-container container">
+            <div className="property__gallery">
+              {images.map((image, i) => <PlaceImage key={`key${i}`} imageUrl={image}/>)}
+            </div>
           </div>
-        </div>
-        <div className="property__container container">
-          <div className="property__wrapper">
-            <PremiumMark isPremium={isPremium}/>
-            <div className="property__name-wrapper">
-              <h1 className="property__name">
-                {title}
-              </h1>
-              <button className="property__bookmark-button button" type="button">
-                <svg className="property__bookmark-icon" width="31" height="33">
-                  <use href="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
-            </div>
-            <div className="property__rating rating">
-              <div className="property__stars rating__stars">
-                <span style={{width: `${Math.round(rating)}%`}}></span>
-                <span className="visually-hidden">Rating</span>
-              </div>
-              <span className="property__rating-value rating__value">{rating / 20}</span>
-            </div>
-            <ul className="property__features">
-              <li className="property__feature property__feature--entire">
-                {type}
-              </li>
-              <li className="property__feature property__feature--bedrooms">
-                {bedroomsQnt}
-              </li>
-              <li className="property__feature property__feature--adults">
-                {guestsMaxQnt}
-              </li>
-            </ul>
-            <div className="property__price">
-              <b className="property__price-value">&euro;{price}</b>
-              <span className="property__price-text">&nbsp;night</span>
-            </div>
-            <div className="property__inside">
-              <h2 className="property__inside-title">What&apos;s inside</h2>
-              <ul className="property__inside-list">
-                {commodities.map((item, i) => <Commodity key={`key${i}`} item={item}/>)}
-              </ul>
-            </div>
-            <div className="property__host">
-              <h2 className="property__host-title">Meet the host</h2>
-              <div className="property__host-user user">
-                <div className={host.super ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`}>
-                  <img className="property__avatar user__avatar" src={host.avaPicUrl} width="74" height="74" alt="Host avatar"></img>
+          <div className="property__container container">
+            <div className="property__wrapper">
+              {(isPremium)
+                ? <div className="property__mark">
+                  <span>Premium</span>
                 </div>
-                <span className="property__user-name">
-                  {host.name}
-                </span>
+                : null
+              }
+              <div className="property__name-wrapper">
+                <h1 className="property__name">
+                  {title}
+                </h1>
+                <Bookmark id={id} isFavorite={isFavorite} isOnPlacePage={true}/>
               </div>
-              <div className="property__description">
-                <p className="property__text">
-                  {description}
-                </p>
+              <div className="property__rating rating">
+                <div className="property__stars rating__stars">
+                  <span style={{width: `${Math.round(rating)}%`}}></span>
+                  <span className="visually-hidden">Rating</span>
+                </div>
+                <span className="property__rating-value rating__value">{rating / 20}</span>
               </div>
+              <ul className="property__features">
+                <li className="property__feature property__feature--entire">
+                  {type}
+                </li>
+                <li className="property__feature property__feature--bedrooms">
+                  {bedroomsQnt}
+                </li>
+                <li className="property__feature property__feature--adults">
+                  {guestsMaxQnt}
+                </li>
+              </ul>
+              <div className="property__price">
+                <b className="property__price-value">&euro;{price}</b>
+                <span className="property__price-text">&nbsp;night</span>
+              </div>
+              <div className="property__inside">
+                <h2 className="property__inside-title">What&apos;s inside</h2>
+                <ul className="property__inside-list">
+                  {commodities.map((item, i) => <Commodity key={`key${i}`} item={item}/>)}
+                </ul>
+              </div>
+              <div className="property__host">
+                <h2 className="property__host-title">Meet the host</h2>
+                <div className="property__host-user user">
+                  <div className={host.super ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={`/${host.avaPicUrl}`} width="74" height="74" alt="Host avatar"></img>
+                  </div>
+                  <span className="property__user-name">
+                    {host.name}
+                  </span>
+                </div>
+                <div className="property__description">
+                  <p className="property__text">
+                    {description}
+                  </p>
+                </div>
+              </div>
+              <section className="property__reviews reviews">
+                {(currentReviews && currentReviews.length !== 0)
+                  ? <React.Fragment>
+                    <h2 className="reviews__title">
+                        Reviews &middot; <span className="reviews__amount">{currentReviewsQnt}</span>
+                    </h2>
+                    <ReviewsList reviews={currentReviews}/>
+                  </React.Fragment>
+                  : <h2 className="reviews__title">There are no reviews for this place yet</h2>
+                }
+                {(authorizationStatus === `AUTH`)
+                  ? <YourReview/>
+                  : null
+                }
+              </section>
             </div>
-            <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-              <ReviewsList reviews={reviews}/>
-              <YourReview/>
-            </section>
           </div>
+          {(placesNearby.length === 3 && activePlacePageId === id)
+            ? <CityMap placesCoordinates={placesNearbyCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={activeCardLatLon} cityLatLon={cityLatLon}/>
+            : null
+          }
+        </section>
+        <div className="container">
+          {(placesNearby.length === 3 && activePlacePageId === id)
+            ? <PlacesListNearbyWrapped places={placesNearby}/>
+            : <section className="near-places places">
+              <h2 className="near-places__title">Loading other places in the neighbourhood</h2>
+            </section>
+          }
         </div>
-        <CityMap placesCoordinates={placesNearbyCoordinates} sectionLocationClass={`property__map`} placePageCoordinates={gps} activePlaceCoordinates={activeCardLatLon} cityLatLon={cityLatLon}/>
-      </section>
-      <div className="container">
-        <PlacesListNearbyWrapped places={placesNearby.slice(0, 3)} onPlaceCardClick={onPlaceCardClick}/>
-      </div>
-    </main>
-  </div>;
-};
+      </main>
+      <footer className="footer container">
+        <Link className="footer__logo-link" to="/">
+          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
+        </Link>
+      </footer>
+    </div>;
+  }
+}
+
 
 PlaceImage.propTypes = {
   imageUrl: PropTypes.string.isRequired
-};
-
-PremiumMark.propTypes = {
-  isPremium: PropTypes.bool.isRequired
 };
 
 Commodity.propTypes = {
   item: PropTypes.string.isRequired
 };
 
-
 PlacePage.propTypes = {
+  currentReviewsQnt: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  activePlacePageId: PropTypes.number,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   isPremium: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   rating: PropTypes.number.isRequired,
   gps: PropTypes.shape({
     lat: PropTypes.number.isRequired,
@@ -141,34 +190,36 @@ PlacePage.propTypes = {
     super: PropTypes.bool.isRequired,
     avaPicUrl: PropTypes.string.isRequired
   }).isRequired,
-  reviews: PropTypes.arrayOf(
+  id: PropTypes.number.isRequired,
+  currentReviews: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        avaPicName: PropTypes.string.isRequired,
+        avaPicUrl: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
         text: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
+        date: PropTypes.instanceOf(Date).isRequired,
+      }).isRequired
+  ).isRequired,
+  placesNearby: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        previewUrl: PropTypes.string.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        gps: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired
+        }).isRequired
       }).isRequired
   ).isRequired,
   placesNearbyCoordinates: PropTypes.arrayOf(
       PropTypes.shape({
         lat: PropTypes.number.isRequired,
         lon: PropTypes.number.isRequired
-      }).isRequired
-  ).isRequired,
-  onPlaceCardClick: PropTypes.func.isRequired,
-  placesNearby: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        previewUrl: PropTypes.string.isRequired,
-        gps: PropTypes.shape({
-          lat: PropTypes.number.isRequired,
-          lon: PropTypes.number.isRequired
-        }).isRequired
       }).isRequired
   ).isRequired,
   activeCardLatLon: PropTypes.shape({
@@ -178,24 +229,57 @@ PlacePage.propTypes = {
   cityLatLon: PropTypes.shape({
     lat: PropTypes.number,
     lon: PropTypes.number
-  })
+  }),
+  getCurrentReviews: PropTypes.func.isRequired,
+  getOffersNearby: PropTypes.func.isRequired,
+  setActivePlacePageId: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
-  const placeObj = state.offers.allOffersWithCompleteData[0];
+  const {activePlacePageId, placesNearby, currentReviews} = state.offers;
 
-  const placesNearby = [state.offers.allOffers[0].places[1], state.offers.allOffers[0].places[2], state.offers.allOffers[0].places[3]];
+  const routeId = Number(history.location.pathname.slice(7));
 
-  const placesNearbyCoordinates = [{lat: placesNearby[0].gps.lat, lon: placesNearby[0].gps.lon}, {lat: placesNearby[1].gps.lat, lon: placesNearby[1].gps.lon}, {lat: placesNearby[2].gps.lat, lon: placesNearby[2].gps.lon}];
+  const placesNearbyProps = [];
+
+  const placesNearbyPropsCoordinates = [];
+
+  const shouldUpdatePlacesNearby = () => {
+    if (activePlacePageId === routeId && placesNearby.length === 3) {
+      for (let i = 0; i < 3; i++) {
+        placesNearbyProps.push(placesNearby[i]);
+        placesNearbyPropsCoordinates.push({lat: placesNearbyProps[i].gps.lat, lon: placesNearbyProps[i].gps.lon});
+      }
+    }
+  };
+
+  shouldUpdatePlacesNearby();
+
+  const sortedReviews = currentReviews.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? -1 : 1);
+
+  let currentReviewsQnt = `` + sortedReviews.length;
+
+  if (sortedReviews.length > 9) {
+    sortedReviews.splice(10);
+    currentReviewsQnt = `10+ (showing most recent ones)`;
+  }
+
+  const placeObj = state.offers.allOffersWithCompleteData[routeId - 1];
 
   return {
-    placesNearby,
-    placesNearbyCoordinates,
-    cityLatLon: state.offers.allOffers[0].cityLatLon,
+    currentReviewsQnt,
+    currentReviews: sortedReviews,
+    authorizationStatus: state.user.authorizationStatus,
+    activePlacePageId,
+    placesNearby: placesNearbyProps,
+    placesNearbyCoordinates: placesNearbyPropsCoordinates,
+    cityLatLon: placeObj.cityLatLon,
     activeCardLatLon: state.offers.activeCardLatLon,
     title: placeObj.title,
     price: placeObj.price,
     isPremium: placeObj.isPremium,
+    isFavorite: placeObj.isFavorite,
+    id: placeObj.id,
     type: placeObj.type,
     rating: placeObj.rating,
     gps: placeObj.gps,
@@ -208,4 +292,16 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(PlacePage);
+const mapDispatchToProps = (dispatch) => ({
+  getCurrentReviews() {
+    dispatch(OffersApiManager.getCurrentReviews());
+  },
+  getOffersNearby() {
+    dispatch(OffersApiManager.getOffersNearby());
+  },
+  setActivePlacePageId(activePlacePageId) {
+    dispatch(OffersActionCreator.setActivePlacePageId(activePlacePageId));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlacePage);
