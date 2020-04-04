@@ -52,14 +52,14 @@ const placesNearby = [
 const currentReviews = [
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 17, 2019 03:24:00`),
+    date: new Date(`December 17, 2019 00:24:00`),
     name: `Bruce`,
     rating: 1,
     text: `I couldn't stand beeing there -- it's like desert. Why would anyone live in such a place? It's beyond my comprehension`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 25, 2019 13:27:00`),
+    date: new Date(`December 25, 2019 10:27:00`),
     name: `Clark`,
     rating: 5,
     text: `Gorgeous ambience, so much light and air! You could even play soccer here!`
@@ -69,77 +69,77 @@ const currentReviews = [
 const currentReviewsTooMany = [
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 17, 2019 03:24:00`),
+    date: new Date(`December 17, 2019 00:24:00`),
     name: `Bruce`,
     rating: 1,
     text: `I couldn't stand beeing there -- it's like desert. Why would anyone live in such a place? It's beyond my comprehension`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 25, 2019 13:27:00`),
-    name: `Clark`,
-    rating: 4,
-    text: `Gorgeous ambience, so much light and air! You could even play soccer here!`
-  },
-  {
-    avaPicUrl: `https://localhost`,
-    date: new Date(`December 18, 2019 03:24:00`),
-    name: `Bruce`,
-    rating: 2,
-    text: `I couldn't stand beeing there -- it's like beeing in a cave. Why would anyone live in such a place? It's beyond my comprehension`
-  },
-  {
-    avaPicUrl: `https://localhost`,
-    date: new Date(`December 25, 2019 13:27:00`),
+    date: new Date(`December 25, 2019 10:27:00`),
     name: `Clark`,
     rating: 5,
     text: `Gorgeous ambience, so much light and air! You could even play basketball here!`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 16, 2019 03:24:00`),
+    date: new Date(`December 18, 2019 00:24:00`),
+    name: `Bruce`,
+    rating: 2,
+    text: `I couldn't stand beeing there -- it's like beeing in a cave. Why would anyone live in such a place? It's beyond my comprehension`
+  },
+  {
+    avaPicUrl: `https://localhost`,
+    date: new Date(`December 25, 2019 10:27:00`),
+    name: `Clark`,
+    rating: 4,
+    text: `Gorgeous ambience, so much light and air! You could even play soccer here!`
+  },
+  {
+    avaPicUrl: `https://localhost`,
+    date: new Date(`December 16, 2019 00:24:00`),
     name: `Bruce`,
     rating: 1,
     text: `I couldn't stand beeing there -- it's like floating in space. Why would anyone live in such a place? It's beyond my comprehension`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 15, 2019 13:27:00`),
+    date: new Date(`December 15, 2019 10:27:00`),
     name: `Clark`,
     rating: 4,
     text: `Gorgeous ambience, so much light and air! You could even play baseball here!`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 14, 2019 03:24:00`),
+    date: new Date(`December 14, 2019 00:24:00`),
     name: `Bruce`,
     rating: 2,
     text: `I couldn't stand beeing there -- it's like hell. Why would anyone live in such a place? It's beyond my comprehension`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 13, 2019 13:27:00`),
+    date: new Date(`December 13, 2019 10:27:00`),
     name: `Clark`,
     rating: 5,
     text: `Gorgeous ambience, so much light and air! You could even play volleyball here!`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 12, 2019 03:24:00`),
+    date: new Date(`December 12, 2019 00:24:00`),
     name: `Bruce`,
     rating: 1,
     text: `I couldn't stand beeing there -- it's like limbo. Why would anyone live in such a place? It's beyond my comprehension`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 11, 2019 13:27:00`),
+    date: new Date(`December 11, 2019 10:27:00`),
     name: `Clark`,
     rating: 4,
     text: `Gorgeous ambience, so much light and air! You could even play football here!`
   },
   {
     avaPicUrl: `https://localhost`,
-    date: new Date(`December 10, 2019 13:27:00`),
+    date: new Date(`December 10, 2019 10:27:00`),
     name: `Clark`,
     rating: 5,
     text: `Gorgeous ambience, so much light and air! You could even play tennis here!`

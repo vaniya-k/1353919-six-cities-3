@@ -57,7 +57,7 @@ exports[`<ReviewList/> should render two reviews 1`] = `
       </p>
       <time
         className="reviews__time"
-        dateTime={2019-12-17T00:24:00.000Z}
+        dateTime={2019-12-16T21:24:00.000Z}
       >
         December 2019
       </time>
@@ -116,7 +116,7 @@ exports[`<ReviewList/> should render two reviews 1`] = `
       </p>
       <time
         className="reviews__time"
-        dateTime={2019-12-25T10:27:00.000Z}
+        dateTime={2019-12-25T07:27:00.000Z}
       >
         December 2019
       </time>
