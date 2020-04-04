@@ -40,7 +40,7 @@ const mockReducerWithoutPlaces = () => {
         places: []
       },
       {
-        city: `Limbo`,
+        city: `Paradise`,
         cityLatLon: {lat: 123, lon: 123},
         places: []
       }]
