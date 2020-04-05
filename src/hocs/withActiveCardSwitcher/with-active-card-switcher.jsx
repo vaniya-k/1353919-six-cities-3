@@ -18,7 +18,7 @@ const withActiveCardSwitcher = (Component) => {
     }
 
     render() {
-      return <Component {...this.props} handleHover={this.handleHover}/>;
+      return <Component {...this.props} onHover={this.handleHover}/>;
     }
   }
 

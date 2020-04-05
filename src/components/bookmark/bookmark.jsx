@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getAllOffersWithCompleteData() {
     dispatch(OffersApiManager.getAllOffersWithCompleteData());
-  },
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bookmark);

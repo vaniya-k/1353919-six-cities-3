@@ -3,8 +3,8 @@
 exports[`<PlaceCard/> should show Wayne Estate rendered for <FavoritesPage/> 1`] = `
 <article
   className="favorites__card place-card"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
+  onMouseEnter={null}
+  onMouseLeave={null}
 >
   <div
     className="place-card__mark"
@@ -112,8 +112,8 @@ exports[`<PlaceCard/> should show Wayne Estate rendered for <FavoritesPage/> 1`]
 exports[`<PlaceCard/> should show Wayne Estate rendered for <MainPage/> 1`] = `
 <article
   className="cities__place-card place-card"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
+  onMouseEnter={null}
+  onMouseLeave={null}
 >
   <div
     className="place-card__mark"
@@ -221,8 +221,8 @@ exports[`<PlaceCard/> should show Wayne Estate rendered for <MainPage/> 1`] = `
 exports[`<PlaceCard/> should show Wayne Estate rendered for <PlacesListNearby/> on <PlacePage> 1`] = `
 <article
   className="near-places__card place-card"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
+  onMouseEnter={null}
+  onMouseLeave={null}
 >
   <div
     className="place-card__mark"

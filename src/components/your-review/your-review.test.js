@@ -17,7 +17,7 @@ const mockStore = createStore(mockReducer);
 
 it(`<YourReview/> with empty fields`, () => {
   const tree = renderer
-    .create(<Provider store={mockStore}><YourReview/></Provider>)
+    .create(<Provider store={mockStore}><YourReview newPlaceLoaded={false}/></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

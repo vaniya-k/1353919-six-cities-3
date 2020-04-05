@@ -32,7 +32,7 @@ class PlacesListSorting extends React.PureComponent {
 
     for (let i = 0; i < SORT_TYPES.length; i++) {
       liItems.push(<li className={this.generateStyleClasses(this.props.activeSortType, i)} key={`key${i}`} onClick={() => {
-        this.props.handleTypeItemClick(i); this.toggleDropDown();
+        this.props.onTypeItemClick(i); this.toggleDropDown();
       }} tabIndex="0">{SORT_TYPES[i]}</li>);
     }
 
@@ -57,7 +57,7 @@ class PlacesListSorting extends React.PureComponent {
 
 PlacesListSorting.propTypes = {
   activeSortType: PropTypes.number.isRequired,
-  handleTypeItemClick: PropTypes.func.isRequired
+  onTypeItemClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -65,7 +65,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleTypeItemClick(selectedSortType) {
+  onTypeItemClick(selectedSortType) {
     dispatch(ActionCreator.changeSorting(selectedSortType));
   },
 });

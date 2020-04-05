@@ -166,7 +166,7 @@ exports[`<YourReview/> with empty fields 1`] = `
     </p>
     <button
       className="reviews__submit form__submit button"
-      disabled=""
+      disabled={true}
       onClick={[Function]}
       type="submit"
     >

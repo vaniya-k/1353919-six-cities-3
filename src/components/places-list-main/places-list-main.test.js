@@ -50,7 +50,7 @@ const mockFunc = jest.fn();
 
 it(`<PlacesListMain/> shows a couple of places in Metropolis`, () => {
   const tree = renderer
-    .create(<Provider store={mockStore}><Router history={history}><PlacesListMain places={mockPlaces} activeCityName={`Metropolis`} foundPlacesQnt={mockPlaces.length} handleHover={mockFunc}/></Router></Provider>)
+    .create(<Provider store={mockStore}><Router history={history}><PlacesListMain places={mockPlaces} activeCityName={`Metropolis`} foundPlacesQuantity={mockPlaces.length} onHover={mockFunc}/></Router></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

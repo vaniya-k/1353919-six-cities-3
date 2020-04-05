@@ -53,9 +53,9 @@ class PlaceCard extends React.PureComponent {
   }
 
   render() {
-    const {place, handleHover, placeLatLon, page = `/`} = this.props;
+    const {place, onHover, placeLatLon, page = `/`} = this.props;
 
-    return <article className={this.setActicleLocationClass(page)} onMouseEnter={(handleHover) ? () => handleHover(placeLatLon) : null} onMouseLeave={(handleHover) ? () => handleHover({lat: null, lon: null}) : null}>
+    return <article className={this.setActicleLocationClass(page)} onMouseEnter={(onHover) ? () => onHover(placeLatLon) : null} onMouseLeave={(onHover) ? () => onHover({lat: null, lon: null}) : null}>
       {place.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className={this.setDivLocationClass(page)}>
         <a href="#">
@@ -99,7 +99,7 @@ PlaceCard.propTypes = {
       lon: PropTypes.number.isRequired
     }).isRequired
   }).isRequired,
-  handleHover: PropTypes.func,
+  onHover: PropTypes.func,
   placeLatLon: PropTypes.shape({
     lat: PropTypes.number.isRequired,
     lon: PropTypes.number.isRequired

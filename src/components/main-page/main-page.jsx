@@ -24,7 +24,7 @@ const CityWithoutOffers = ({activeCityName}) => {
 const CityWithOffers = ({cityLatLon, activeCityName, places, placesCoordinates, activePlaceCoordinates}) => {
   return <div className="cities">
     <div className="cities__places-container container">
-      <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQnt={places.length}/>
+      <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQuantity={places.length}/>
       <div className="cities__right-section">
         <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={activePlaceCoordinates} cityLatLon={cityLatLon}/>
       </div>
@@ -35,6 +35,14 @@ const CityWithOffers = ({cityLatLon, activeCityName, places, placesCoordinates, 
 class MainPage extends React.PureComponent {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    const {setActiveCardLatLon, activeCardLatLon} = this.props;
+
+    if (activeCardLatLon.lat !== null) {
+      setActiveCardLatLon({lat: null, lon: null});
+    }
   }
 
   getPlacesCoordinates = (places) => places.map((place) => {
@@ -147,6 +155,7 @@ MainPage.propTypes = {
   onCityTabClick: PropTypes.func.isRequired,
   activeCityId: PropTypes.number.isRequired,
   activeSortType: PropTypes.number.isRequired,
+  setActiveCardLatLon: PropTypes.func.isRequired,
   activeCardLatLon: PropTypes.shape({
     lat: PropTypes.number,
     lon: PropTypes.number
@@ -195,7 +204,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   onCityTabClick(cityId) {
     dispatch(OffersActionCreator.changeCity(cityId));
-  }
+  },
+  setActiveCardLatLon(activeCardLatLon) {
+    dispatch(OffersActionCreator.setActiveCardLatLon(activeCardLatLon));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
