@@ -49,9 +49,7 @@ exports[`<App/> should render <MainPage> by default 1`] = `
                 />
                 <span
                   className="header__user-name user__name"
-                >
-                  john@doe
-                </span>
+                />
               </a>
             </li>
           </ul>

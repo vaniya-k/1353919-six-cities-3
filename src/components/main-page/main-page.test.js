@@ -11,7 +11,7 @@ const mockReducerWithPlaces = () => {
     offers: {
       activeCityName: `Metropolis`,
       activeCityId: 0,
-      activeCardLatLon: {lat: 123, lon: 123},
+      activeCardLatLon: {lat: null, lon: null},
       activeSortType: 0,
       places: [
         {
@@ -115,7 +115,8 @@ const mockReducerWithPlaces = () => {
       }]
     },
     user: {
-      authorizationStatus: `AUTH`
+      authorizationStatus: `AUTH`,
+      username: `Batman`
     }
   };
   return state;
@@ -163,7 +164,8 @@ const mockReducerWithoutPlaces = () => {
       }]
     },
     user: {
-      authorizationStatus: `AUTH`
+      authorizationStatus: `AUTH`,
+      username: `Batman`
     }
   };
   return state;

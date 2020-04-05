@@ -10,7 +10,8 @@ const mockReducerNotLoggedIn = () => {
   const state = {
     offers: null,
     user: {
-      authorizationStatus: `NO_AUTH`
+      authorizationStatus: `NO_AUTH`,
+      username: null
     }
   };
   return state;
@@ -22,7 +23,8 @@ const mockReducerLoggedIn = () => {
   const state = {
     offers: null,
     user: {
-      authorizationStatus: `AUTH`
+      authorizationStatus: `AUTH`,
+      username: `Batman`
     }
   };
   return state;

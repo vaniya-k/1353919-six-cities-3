@@ -49,9 +49,7 @@ exports[`<PlacePage/> renders Gordon's workplace with 10+ reviews 1`] = `
                 />
                 <span
                   className="header__user-name user__name"
-                >
-                  john@doe
-                </span>
+                />
               </a>
             </li>
           </ul>
@@ -246,7 +244,7 @@ exports[`<PlacePage/> renders Gordon's workplace with 10+ reviews 1`] = `
               <span
                 className="reviews__amount"
               >
-                10+ (showing most recent ones)
+                10
               </span>
             </h2>
             <ul
@@ -1008,7 +1006,7 @@ exports[`<PlacePage/> renders Gordon's workplace with 10+ reviews 1`] = `
                 </p>
                 <button
                   className="reviews__submit form__submit button"
-                  disabled=""
+                  disabled={true}
                   onClick={[Function]}
                   type="submit"
                 >
@@ -1512,9 +1510,7 @@ exports[`<PlacePage/> renders Gordon's workplace without places nearby 1`] = `
                 />
                 <span
                   className="header__user-name user__name"
-                >
-                  john@doe
-                </span>
+                />
               </a>
             </li>
           </ul>
@@ -1999,7 +1995,7 @@ exports[`<PlacePage/> renders Gordon's workplace without places nearby 1`] = `
                 </p>
                 <button
                   className="reviews__submit form__submit button"
-                  disabled=""
+                  disabled={true}
                   onClick={[Function]}
                   type="submit"
                 >
@@ -2094,9 +2090,7 @@ exports[`<PlacePage/> renders Gordon's workplace without reviews, but with the e
                 />
                 <span
                   className="header__user-name user__name"
-                >
-                  john@doe
-                </span>
+                />
               </a>
             </li>
           </ul>
@@ -2454,7 +2448,7 @@ exports[`<PlacePage/> renders Gordon's workplace without reviews, but with the e
                 </p>
                 <button
                   className="reviews__submit form__submit button"
-                  disabled=""
+                  disabled={true}
                   onClick={[Function]}
                   type="submit"
                 >

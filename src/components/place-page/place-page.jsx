@@ -11,6 +11,10 @@ import Bookmark from '../bookmark/bookmark.jsx';
 import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
 import history from '../../history.js';
 
+const ReviewsParams = {
+  MAX_QUANTITY: 10
+};
+
 const PlaceImage = ({imageUrl}) => {
   return <div className="property__image-wrapper">
     <img className="property__image" src={imageUrl}></img>
@@ -47,7 +51,7 @@ class PlacePage extends React.PureComponent {
   }
 
   render() {
-    const {currentReviews, currentReviewsQnt, authorizationStatus, title, price, isPremium, isFavorite, type, rating, gps, bedroomsQnt, guestsMaxQnt, images, commodities, description, host, activePlacePageId, id, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon} = this.props;
+    const {currentReviews, currentReviewsQuantity, authorizationStatus, title, price, isPremium, isFavorite, type, rating, gps, bedroomsQuantity, guestsMaxQuantity, images, commodities, description, host, activePlacePageId, id, placesNearby, placesNearbyCoordinates, activeCardLatLon, cityLatLon} = this.props;
 
     return <div className="page">
       <Header/>
@@ -85,10 +89,10 @@ class PlacePage extends React.PureComponent {
                   {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {bedroomsQnt}
+                  {bedroomsQuantity}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  {guestsMaxQnt}
+                  {guestsMaxQuantity}
                 </li>
               </ul>
               <div className="property__price">
@@ -121,14 +125,14 @@ class PlacePage extends React.PureComponent {
                 {(currentReviews && currentReviews.length !== 0)
                   ? <React.Fragment>
                     <h2 className="reviews__title">
-                        Reviews &middot; <span className="reviews__amount">{currentReviewsQnt}</span>
+                        Reviews &middot; <span className="reviews__amount">{currentReviewsQuantity}</span>
                     </h2>
                     <ReviewsList reviews={currentReviews}/>
                   </React.Fragment>
                   : <h2 className="reviews__title">There are no reviews for this place yet</h2>
                 }
                 {(authorizationStatus === `AUTH`)
-                  ? <YourReview/>
+                  ? <YourReview newPlaceLoaded={(activePlacePageId !== id) ? true : false}/>
                   : null
                 }
               </section>
@@ -167,7 +171,7 @@ Commodity.propTypes = {
 };
 
 PlacePage.propTypes = {
-  currentReviewsQnt: PropTypes.string.isRequired,
+  currentReviewsQuantity: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   activePlacePageId: PropTypes.number,
   title: PropTypes.string.isRequired,
@@ -180,8 +184,8 @@ PlacePage.propTypes = {
     lat: PropTypes.number.isRequired,
     lon: PropTypes.number.isRequired
   }).isRequired,
-  bedroomsQnt: PropTypes.number.isRequired,
-  guestsMaxQnt: PropTypes.number.isRequired,
+  bedroomsQuantity: PropTypes.number.isRequired,
+  guestsMaxQuantity: PropTypes.number.isRequired,
   images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   commodities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   description: PropTypes.string.isRequired,
@@ -257,17 +261,17 @@ const mapStateToProps = (state) => {
 
   const sortedReviews = currentReviews.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? -1 : 1);
 
-  let currentReviewsQnt = `` + sortedReviews.length;
+  let currentReviewsQuantity = `` + sortedReviews.length;
 
-  if (sortedReviews.length > 9) {
-    sortedReviews.splice(10);
-    currentReviewsQnt = `10+ (showing most recent ones)`;
+  if (sortedReviews.length > ReviewsParams.MAX_QUANTITY) {
+    sortedReviews.splice(ReviewsParams.MAX_QUANTITY);
+    currentReviewsQuantity = `${ReviewsParams.MAX_QUANTITY}+ (showing most recent ones)`;
   }
 
   const placeObj = state.offers.allOffersWithCompleteData[routeId - 1];
 
   return {
-    currentReviewsQnt,
+    currentReviewsQuantity,
     currentReviews: sortedReviews,
     authorizationStatus: state.user.authorizationStatus,
     activePlacePageId,
@@ -283,8 +287,8 @@ const mapStateToProps = (state) => {
     type: placeObj.type,
     rating: placeObj.rating,
     gps: placeObj.gps,
-    bedroomsQnt: placeObj.bedroomsQnt,
-    guestsMaxQnt: placeObj.guestsMaxQnt,
+    bedroomsQuantity: placeObj.bedroomsQuantity,
+    guestsMaxQuantity: placeObj.guestsMaxQuantity,
     images: placeObj.images,
     commodities: placeObj.commodities,
     description: placeObj.description,

@@ -49,9 +49,7 @@ exports[`<FavoritesPage/> shows no favs 1`] = `
                 />
                 <span
                   className="header__user-name user__name"
-                >
-                  john@doe
-                </span>
+                />
               </a>
             </li>
           </ul>
@@ -95,13 +93,14 @@ exports[`<FavoritesPage/> shows no favs 1`] = `
   >
     <a
       className="footer__logo-link"
-      href="main.html"
+      href="/"
+      onClick={[Function]}
     >
       <img
         alt="6 cities logo"
         className="footer__logo"
         height="33"
-        src="img/logo.svg"
+        src="/img/logo.svg"
         width="64"
       />
     </a>
@@ -158,9 +157,7 @@ exports[`<FavoritesPage/> shows two favs -- of Kent Clark by day and Superman by
                 />
                 <span
                   className="header__user-name user__name"
-                >
-                  john@doe
-                </span>
+                />
               </a>
             </li>
           </ul>
@@ -424,13 +421,14 @@ exports[`<FavoritesPage/> shows two favs -- of Kent Clark by day and Superman by
   >
     <a
       className="footer__logo-link"
-      href="main.html"
+      href="/"
+      onClick={[Function]}
     >
       <img
         alt="6 cities logo"
         className="footer__logo"
         height="33"
-        src="img/logo.svg"
+        src="/img/logo.svg"
         width="64"
       />
     </a>

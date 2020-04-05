@@ -4,14 +4,14 @@ import PlaceCard from '../place-card/place-card.jsx';
 import PlacesListSorting from '../places-list-sorting/places-list-sorting.jsx';
 
 const PlacesListMain = (props) => {
-  const {activeCityName, places, foundPlacesQnt, handleHover} = props;
+  const {activeCityName, places, foundPlacesQuantity, onHover} = props;
 
   return <section className="cities__places places">
     <h2 className="visually-hidden">Places</h2>
-    <b className="places__found">{foundPlacesQnt} places to stay in {activeCityName}</b>
+    <b className="places__found">{foundPlacesQuantity} places to stay in {activeCityName}</b>
     <PlacesListSorting/>
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} handleHover={handleHover}/>)}
+      {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} onHover={onHover}/>)}
     </div>
   </section>;
 };
@@ -34,8 +34,8 @@ PlacesListMain.propTypes = {
         }).isRequired
       }).isRequired
   ).isRequired,
-  foundPlacesQnt: PropTypes.number.isRequired,
-  handleHover: PropTypes.func.isRequired
+  foundPlacesQuantity: PropTypes.number.isRequired,
+  onHover: PropTypes.func.isRequired
 };
 
 export default PlacesListMain;

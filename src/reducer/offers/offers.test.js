@@ -278,8 +278,8 @@ const processedAllOffersWithCompleteData = [
     isPremium: true,
     isFavorite: true,
     gps: {lat: 123, lon: 123},
-    bedroomsQnt: 13,
-    guestsMaxQnt: 14,
+    bedroomsQuantity: 13,
+    guestsMaxQuantity: 14,
     images: [
       `https://`,
       `https://`

@@ -7,37 +7,70 @@ import {ApiManager as OffersApiManager, ActionCreator as OffersActionCreator} fr
 
 const api = createAPI(() => {});
 
+const ReviewInputParams = {
+  MAX_LENGTH: 300,
+  MIN_LENGTH: 50
+};
+
 class YourReview extends React.PureComponent {
   constructor() {
     super();
     this.state = {
       rating: null,
-      review: ``
+      review: ``,
+      validForSubmitting: false
     };
   }
 
-  handleSetRating = (e) => {
-    this.setState({
-      rating: Number(e.target.value)
-    });
-  }
+  componentDidUpdate() {
+    const {newPlaceLoaded} = this.props;
 
-  handleTypeReview = (e) => {
-    if (this.state.review.length < 301) {
+    if (newPlaceLoaded) {
       this.setState({
-        review: e.target.value
-      });
-    } else {
-      this.setState({
-        review: e.target.value.slice(0, 300)
+        rating: null,
+        review: ``,
+        validForSubmitting: false
       });
     }
   }
 
-  handleSumbit = (e) => {
-    e.preventDefault();
+  validateSubmitting = () => {
+    if (this.state.rating !== null && (this.state.review.length >= ReviewInputParams.MIN_LENGTH && this.state.review.length <= ReviewInputParams.MAX_LENGTH)) {
+      this.setState({
+        validForSubmitting: true
+      });
+    } else {
+      this.setState({
+        validForSubmitting: false
+      });
+    }
+  }
 
-    if (this.state.review.length > 49 && this.state.review.length < 301) {
+  handleSetRating = (evt) => {
+    this.setState({
+      rating: Number(evt.target.value)
+    });
+    this.validateSubmitting();
+  }
+
+  handleTypeReview = (evt) => {
+    if (this.state.review.length <= ReviewInputParams.MAX_LENGTH) {
+      this.setState({
+        review: evt.target.value
+      });
+      this.validateSubmitting();
+    } else {
+      this.setState({
+        review: evt.target.value.slice(0, ReviewInputParams.MAX_LENGTH)
+      });
+      this.validateSubmitting();
+    }
+  }
+
+  handleSumbit = (evt) => {
+    evt.preventDefault();
+
+    if (this.state.review.length >= ReviewInputParams.MIN_LENGTH && this.state.review.length <= ReviewInputParams.MAX_LENGTH) {
       const params = {
         "comment": this.state.review,
         "rating": this.state.rating
@@ -104,7 +137,7 @@ class YourReview extends React.PureComponent {
         <p className="reviews__help">
         To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with <b className="reviews__text-amount">at least 50, but no more than 300 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="" onClick={this.handleSumbit}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={(this.state.validForSubmitting === true) ? false : true} onClick={this.handleSumbit}>Submit</button>
       </div>
     </form>;
   }
@@ -114,6 +147,7 @@ YourReview.propTypes = {
   getCurrentReviews: PropTypes.func.isRequired,
   getOffersNearby: PropTypes.func.isRequired,
   setActivePlacePageId: PropTypes.func.isRequired,
+  newPlaceLoaded: PropTypes.bool.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
