@@ -11,14 +11,13 @@ const IconParams = {
 class CityMap extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      activeMarker: null
-    };
   }
 
   markers = null;
 
   mapObj = null;
+
+  activeMarker = null;
 
   componentDidMount() {
     const {placesCoordinates, activePlaceCoordinates, cityLatLon, placePageCoordinates} = this.props;
@@ -63,6 +62,10 @@ class CityMap extends React.PureComponent {
 
       this.markers.forEach((marker) => map.removeLayer(marker));
 
+      if (this.activeMarker !== null) {
+        map.removeLayer(activeMarker);
+      }
+
       this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
     }
   }
@@ -81,19 +84,15 @@ class CityMap extends React.PureComponent {
 
     this.markers = markers;
 
+    let tempActiveMarker = null;
+
     if (activePlaceCoordinates.lat !== null && activePlaceCoordinates.lon !== null) {
-      if (this.state.activeMarker !== null) {
-        map.removeLayer(this.state.activeMarker);
-      }
+      this.tempActiveMarker = leaflet
+        .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: IconParams.SIZE, iconUrl: IconParams.ACTIVE_URL})})
+        .addTo(map);
+    };
 
-      const activeMarker = leaflet
-      .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: IconParams.SIZE, iconUrl: IconParams.ACTIVE_URL})})
-      .addTo(map);
-
-      this.setState({
-        activeMarker
-      });
-    }
+    this.activeMarker = tempActiveMarker
   }
 
   render() {
