@@ -23,7 +23,7 @@ const ActionCreator = {
   setUsername: (apiReturn) => {
     return {
       type: ActionType.SET_USERNAME,
-      payload: apiReturn.data.name,
+      payload: apiReturn.data.email,
     };
   },
 };

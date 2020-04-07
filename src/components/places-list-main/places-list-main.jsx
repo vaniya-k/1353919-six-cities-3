@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
-import PlacesListSorting from '../places-list-sorting/places-list-sorting.jsx';
+import PlacesListSortingWrapped from '../../hocs/withDropdownStatusSwitcher/with-dropdown-status-switcher.jsx';
 
 const PlacesListMain = (props) => {
   const {activeCityName, places, foundPlacesQuantity, onHover} = props;
@@ -9,7 +9,7 @@ const PlacesListMain = (props) => {
   return <section className="cities__places places">
     <h2 className="visually-hidden">Places</h2>
     <b className="places__found">{foundPlacesQuantity} places to stay in {activeCityName}</b>
-    <PlacesListSorting/>
+    <PlacesListSortingWrapped/>
     <div className="cities__places-list places__list tabs__content">
       {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} onHover={onHover}/>)}
     </div>

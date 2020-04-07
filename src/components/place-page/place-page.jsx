@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import {ApiManager as OffersApiManager, ActionCreator as OffersActionCreator} from "../../reducer/offers/offers.js";
 import ReviewsList from '../reviews-list/reviews-list.jsx';
-import YourReview from '../your-review/your-review.jsx';
+import YourReview from '../../hocs/withYourReviewInputsValidator/with-your-review-inputs-validator.jsx';
 import CityMap from '../city-map/city-map.jsx';
 import Header from '../header/header.jsx';
 import Bookmark from '../bookmark/bookmark.jsx';
