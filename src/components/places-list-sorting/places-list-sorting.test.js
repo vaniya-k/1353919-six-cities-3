@@ -52,9 +52,11 @@ const mockReducerSortedByTopRated = () => {
 
 const mockStoreSortedByTopRated = createStore(mockReducerSortedByTopRated);
 
+const mock = jest.fn();
+
 it(`<PlacesListSorting/> is sorted with popular first`, () => {
   const tree = renderer
-    .create(<Provider store={mockStoreSortedByPopular}><PlacesListSorting/></Provider>)
+    .create(<Provider store={mockStoreSortedByPopular}><PlacesListSorting isOpened={false} onDropdownToggle={mock}/></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -62,7 +64,7 @@ it(`<PlacesListSorting/> is sorted with popular first`, () => {
 
 it(`<PlacesListSorting/> is sorted by price from low to high`, () => {
   const tree = renderer
-    .create(<Provider store={mockStoreSortedByPriceLowToHigh}><PlacesListSorting/></Provider>)
+    .create(<Provider store={mockStoreSortedByPriceLowToHigh}><PlacesListSorting isOpened={false} onDropdownToggle={mock}/></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -70,7 +72,7 @@ it(`<PlacesListSorting/> is sorted by price from low to high`, () => {
 
 it(`<PlacesListSorting/> is sorted by price from high to low`, () => {
   const tree = renderer
-    .create(<Provider store={mockStoreSortedByPriceHighToLow}><PlacesListSorting/></Provider>)
+    .create(<Provider store={mockStoreSortedByPriceHighToLow}><PlacesListSorting isOpened={false} onDropdownToggle={mock}/></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -78,7 +80,7 @@ it(`<PlacesListSorting/> is sorted by price from high to low`, () => {
 
 it(`<PlacesListSorting/> is sorted with top rated first`, () => {
   const tree = renderer
-    .create(<Provider store={mockStoreSortedByTopRated}><PlacesListSorting/></Provider>)
+    .create(<Provider store={mockStoreSortedByTopRated}><PlacesListSorting isOpened={false} onDropdownToggle={mock}/></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

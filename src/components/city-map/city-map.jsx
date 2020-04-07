@@ -63,7 +63,7 @@ class CityMap extends React.PureComponent {
       this.markers.forEach((marker) => map.removeLayer(marker));
 
       if (this.activeMarker !== null) {
-        map.removeLayer(activeMarker);
+        map.removeLayer(this.activeMarker);
       }
 
       this.renderMarkers(placesCoordinates, activePlaceCoordinates, map);
@@ -90,9 +90,9 @@ class CityMap extends React.PureComponent {
       this.tempActiveMarker = leaflet
         .marker([activePlaceCoordinates.lat, activePlaceCoordinates.lon], {icon: leaflet.icon({iconSize: IconParams.SIZE, iconUrl: IconParams.ACTIVE_URL})})
         .addTo(map);
-    };
+    }
 
-    this.activeMarker = tempActiveMarker
+    this.activeMarker = tempActiveMarker;
   }
 
   render() {

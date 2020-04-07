@@ -13,7 +13,7 @@ exports[`<PlacesListSorting/> is sorted by price from high to low 1`] = `
   </span>
   <span
     className="places__sorting-type"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     tabIndex="0"
   >
     Price: high to low
@@ -75,7 +75,7 @@ exports[`<PlacesListSorting/> is sorted by price from low to high 1`] = `
   </span>
   <span
     className="places__sorting-type"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     tabIndex="0"
   >
     Price: low to high
@@ -137,7 +137,7 @@ exports[`<PlacesListSorting/> is sorted with popular first 1`] = `
   </span>
   <span
     className="places__sorting-type"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     tabIndex="0"
   >
     Popular
@@ -199,7 +199,7 @@ exports[`<PlacesListSorting/> is sorted with top rated first 1`] = `
   </span>
   <span
     className="places__sorting-type"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     tabIndex="0"
   >
     Top rated first

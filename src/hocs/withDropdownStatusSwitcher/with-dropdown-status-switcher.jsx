@@ -8,23 +8,23 @@ const withDropdownStatusSwitcher = (Component) => {
 
       this.state = {
         isOpened: false
-      }
+      };
 
       this.handleToggle = this.handleToggle.bind(this);
     }
 
-    handleToggle () {
+    handleToggle() {
       this.setState((prevState) => ({
         isOpened: !prevState.isOpened
       }));
     }
 
     render() {
-      return <Component {...this.props} isOpened={this.state.isOpened} onDropdownToggle={this.handleToggle}/>
+      return <Component {...this.props} isOpened={this.state.isOpened} onDropdownToggle={this.handleToggle}/>;
     }
   }
 
   return DropdownStatusSwitcher;
-}
+};
 
 export default withDropdownStatusSwitcher(PlacesListSorting);
