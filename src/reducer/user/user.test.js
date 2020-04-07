@@ -2,7 +2,7 @@ import {reducer, ActionCreator, ActionType} from "./user.js";
 
 const apiReturn = {
   data: {
-    email: `bruce@wayne.com`
+    email: `clark@kent.com`
   }
 };
 
@@ -66,6 +66,6 @@ it(`Action Creator for REQUIRE_AUTHORIZATION returns correct action objects`, ()
 it(`Action Creator for SET_USERNAME returns a correct action object`, () => {
   expect(ActionCreator.setUsername(apiReturn)).toEqual({
     type: ActionType.SET_USERNAME,
-    payload: `bruce@wayne.com`,
+    payload: `clark@kent.com`,
   });
 });
