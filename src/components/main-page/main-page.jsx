@@ -221,14 +221,6 @@ const mapStateToProps = (state) => {
 
   buildPlacesListing(activeSortType);
 
-  // let favsQuantity = null;
-
-  // if(sortedPlaces.length !== 0) {
-  //   const favsList = sortedPlaces.filter((place) => place.isFavorite === true);
-
-  //   favsQuantity = favsList.length;
-  // }
-
   return {
     activeCityName: state.offers.activeCityName,
     activeCityId: state.offers.activeCityId,
@@ -236,7 +228,6 @@ const mapStateToProps = (state) => {
     activeCardLatLon: state.offers.activeCardLatLon,
     activeSortType: state.offers.activeSortType,
     allOffers: state.offers.allOffers,
-    // favsQuantity
   };
 };
 
@@ -250,25 +241,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
-
-// const mapStateToProps = (state) => {
-//   const allOffers = state.offers.allOffers;
-
-//   const allOffersFilteredWithFavs = [];
-
-//   allOffers.map((cityObj) => {
-//     const filteredPlaces = cityObj.places.filter((place) => place.isFavorite === true);
-
-//     const filteredCityObj = Object.assign({}, {city: cityObj.city}, {
-//       places: [...filteredPlaces]
-//     });
-
-//     if (filteredCityObj.places.length !== 0) {
-//       allOffersFilteredWithFavs.push(filteredCityObj);
-//     }
-//   });
-
-//   return {
-//     favsList: allOffersFilteredWithFavs
-//   };
-// };
