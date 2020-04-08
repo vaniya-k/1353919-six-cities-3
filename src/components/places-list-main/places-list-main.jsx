@@ -23,7 +23,7 @@ class PlacesListMain extends React.Component {
     }
   }
 
-  handleHover = (placeLatLon) => {
+  handleCardHover = (placeLatLon) => {
     const value = (placeLatLon === this.props.activeCardLatLon) ? {lat: null, lon: null} : placeLatLon;
     this.props.setActiveCardLatLon(value);
   }
@@ -36,7 +36,7 @@ class PlacesListMain extends React.Component {
       <b className="places__found" ref={this.myRef}>{places.length} places to stay in {activeCityName}</b>
       <PlacesListSortingWrapped/>
       <div className="cities__places-list places__list tabs__content">
-        {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} onHover={this.handleHover}/>)}
+        {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} onHover={this.handleCardHover}/>)}
       </div>
     </section>;
   }

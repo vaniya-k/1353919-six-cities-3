@@ -10,17 +10,17 @@ const withDropdownStatusSwitcher = (Component) => {
         isOpened: false
       };
 
-      this.handleToggle = this.handleToggle.bind(this);
+      this.handleDropdownToggle = this.handleDropdownToggle.bind(this);
     }
 
-    handleToggle() {
+    handleDropdownToggle() {
       this.setState((prevState) => ({
         isOpened: !prevState.isOpened
       }));
     }
 
     render() {
-      return <Component {...this.props} isOpened={this.state.isOpened} onDropdownToggle={this.handleToggle}/>;
+      return <Component {...this.props} isOpened={this.state.isOpened} onDropdownToggle={this.handleDropdownToggle}/>;
     }
   }
 
