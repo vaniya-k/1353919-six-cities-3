@@ -45,44 +45,33 @@ class MainPage extends React.PureComponent {
     }
   }
 
-  localSortType = null;
+  sortTypeBuffer = null;
 
-  localCityId = null;
+  cityIdBuffer = null;
 
-  sortPlaces = () => {
-    const {places, activeSortType, activeCityId} = this.props;
+  placesBuffer = [];
 
-    let sortedPlaces = places;
+  favsQuantity = 0;
 
-    if (activeSortType !== this.localSortType || activeCityId !== this.localCityId) {
-      this.localSortType = activeSortType;
-      this.localCityId = activeCityId;
+  getPlacesToRender = () => {
+    const {places, activeCityId, activeSortType} = this.props;
 
-      const buildPlacesListing = (sortType) => {
-        switch (sortType) {
-          case 0:
-            sortedPlaces = places;
-            break;
-          case 1:
-            sortedPlaces = places.sort((a, b) => (a.price > b.price) ? 1 : -1);
-            break;
-          case 2:
-            sortedPlaces = places.sort((a, b) => (a.price > b.price) ? -1 : 1);
-            break;
-          case 3:
-            sortedPlaces = places.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
-            break;
-          default:
-            sortedPlaces = places;
-            break;
-        }
-      };
+    const currentFavsQuantity = places.filter((place) => place.isFavorite === true).length;
 
-      buildPlacesListing(this.localSortType);
+    if (activeSortType !== this.sortTypeBuffer || activeCityId !== this.cityIdBuffer || currentFavsQuantity !== this.favsQuantity) {
+      this.sortTypeBuffer = activeSortType;
+
+      this.cityIdBuffer = activeCityId;
+
+      this.placesBuffer = places;
+
+      this.favsQuantity = currentFavsQuantity;
     }
 
-    return sortedPlaces;
-  };
+    let placesToReturn = this.placesBuffer;
+
+    return placesToReturn;
+  }
 
   getPlacesCoordinates = (places) => places.map((place) => {
     return {lat: place.gps.lat, lon: place.gps.lon};
@@ -93,17 +82,19 @@ class MainPage extends React.PureComponent {
   });
 
   render() {
-    const {places, allOffers, activeCityName, activeCityId, onCityTabClick, activeCardLatLon} = this.props;
+    const {allOffers, activeCityName, activeCityId, onCityTabClick, activeCardLatLon} = this.props;
+
+    const placesToRender = this.getPlacesToRender();
 
     return <div className="page page--gray page--main">
       <Header/>
 
-      <main className={`page__main page__main--index ${(places.length === 0) ? `page__main--index-empty` : null}`}>
+      <main className={`page__main page__main--index ${(placesToRender.length === 0) ? `page__main--index-empty` : null}`}>
         <h1 className="visually-hidden">Cities</h1>
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(allOffers)} onCityTabClick={onCityTabClick}/>
-        {(places.length === 0)
+        {(placesToRender.length === 0)
           ? <CityWithoutOffers activeCityName={activeCityName}/>
-          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={this.sortPlaces()} activePlaceCoordinates={activeCardLatLon}/>
+          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(placesToRender)} activeCityName={activeCityName} places={placesToRender} activePlaceCoordinates={activeCardLatLon}/>
         }
       </main>
     </div>;
@@ -202,13 +193,50 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  const {places, activeSortType} = state.offers;
+
+  let sortedPlaces = [];
+
+  if (places) {
+    sortedPlaces = places;
+  }
+
+  const buildPlacesListing = (sortType) => {
+    switch (sortType) {
+      case 0:
+        break;
+      case 1:
+        sortedPlaces = places.sort((a, b) => (a.price > b.price) ? 1 : -1);
+        break;
+      case 2:
+        sortedPlaces = places.sort((a, b) => (a.price > b.price) ? -1 : 1);
+        break;
+      case 3:
+        sortedPlaces = places.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
+        break;
+      default:
+        break;
+    }
+  };
+
+  buildPlacesListing(activeSortType);
+
+  // let favsQuantity = null;
+
+  // if(sortedPlaces.length !== 0) {
+  //   const favsList = sortedPlaces.filter((place) => place.isFavorite === true);
+
+  //   favsQuantity = favsList.length;
+  // }
+
   return {
     activeCityName: state.offers.activeCityName,
     activeCityId: state.offers.activeCityId,
-    places: state.offers.places,
+    places: sortedPlaces,
     activeCardLatLon: state.offers.activeCardLatLon,
     activeSortType: state.offers.activeSortType,
-    allOffers: state.offers.allOffers
+    allOffers: state.offers.allOffers,
+    // favsQuantity
   };
 };
 
@@ -222,3 +250,25 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+
+// const mapStateToProps = (state) => {
+//   const allOffers = state.offers.allOffers;
+
+//   const allOffersFilteredWithFavs = [];
+
+//   allOffers.map((cityObj) => {
+//     const filteredPlaces = cityObj.places.filter((place) => place.isFavorite === true);
+
+//     const filteredCityObj = Object.assign({}, {city: cityObj.city}, {
+//       places: [...filteredPlaces]
+//     });
+
+//     if (filteredCityObj.places.length !== 0) {
+//       allOffersFilteredWithFavs.push(filteredCityObj);
+//     }
+//   });
+
+//   return {
+//     favsList: allOffersFilteredWithFavs
+//   };
+// };
