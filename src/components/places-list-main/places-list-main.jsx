@@ -12,7 +12,7 @@ class PlacesListMain extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (this.props.activeCityName !== this.cityNameBuffer || this.props.activeSortType !== nextProps.activeSortType || this.props.activeCityId !== nextProps.activeCityId || this.props.favsQuantity !== nextProps.favsQuantity) {
+    if (this.props.activeSortType !== nextProps.activeSortType || this.props.activeCityId !== nextProps.activeCityId || this.props.favsQuantity !== nextProps.favsQuantity) {
       if (this.props.activeCityId !== nextProps.activeCityId) {
         this.myRef.current.scrollIntoView();
       }
