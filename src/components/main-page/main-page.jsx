@@ -45,6 +45,45 @@ class MainPage extends React.PureComponent {
     }
   }
 
+  localSortType = null;
+
+  localCityId = null;
+
+  sortPlaces = () => {
+    const {places, activeSortType, activeCityId} = this.props;
+
+    let sortedPlaces = places;
+
+    if (activeSortType !== this.localSortType || activeCityId !== this.localCityId) {
+      this.localSortType = activeSortType;
+      this.localCityId = activeCityId;
+
+      const buildPlacesListing = (sortType) => {
+        switch (sortType) {
+          case 0:
+            sortedPlaces = places;
+            break;
+          case 1:
+            sortedPlaces = places.sort((a, b) => (a.price > b.price) ? 1 : -1);
+            break;
+          case 2:
+            sortedPlaces = places.sort((a, b) => (a.price > b.price) ? -1 : 1);
+            break;
+          case 3:
+            sortedPlaces = places.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
+            break;
+          default:
+            sortedPlaces = places;
+            break;
+        }
+      };
+
+      buildPlacesListing(this.localSortType);
+    }
+
+    return sortedPlaces;
+  };
+
   getPlacesCoordinates = (places) => places.map((place) => {
     return {lat: place.gps.lat, lon: place.gps.lon};
   });
@@ -64,7 +103,7 @@ class MainPage extends React.PureComponent {
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(allOffers)} onCityTabClick={onCityTabClick}/>
         {(places.length === 0)
           ? <CityWithoutOffers activeCityName={activeCityName}/>
-          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={places} activePlaceCoordinates={activeCardLatLon}/>
+          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activeCityName={activeCityName} places={this.sortPlaces()} activePlaceCoordinates={activeCardLatLon}/>
         }
       </main>
     </div>;
@@ -163,38 +202,10 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  let {places, activeSortType} = state.offers;
-
-  const sortPlaces = (sortType) => {
-    let sortedPlaces = [];
-
-    switch (sortType) {
-      case 0:
-        sortedPlaces = places;
-        break;
-      case 1:
-        sortedPlaces = places.sort((a, b) => (a.price > b.price) ? 1 : -1);
-        break;
-      case 2:
-        sortedPlaces = places.sort((a, b) => (a.price > b.price) ? -1 : 1);
-        break;
-      case 3:
-        sortedPlaces = places.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
-        break;
-      default:
-        sortedPlaces = places;
-        break;
-    }
-
-    return sortedPlaces;
-  };
-
-  places = sortPlaces(activeSortType);
-
   return {
     activeCityName: state.offers.activeCityName,
     activeCityId: state.offers.activeCityId,
-    places,
+    places: state.offers.places,
     activeCardLatLon: state.offers.activeCardLatLon,
     activeSortType: state.offers.activeSortType,
     allOffers: state.offers.allOffers
