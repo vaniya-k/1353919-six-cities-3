@@ -1,15 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/offers/offers.js";
 import PlaceCard from '../place-card/place-card.jsx';
 
-const PlacesListNearby = ({places, onHover}) => {
-  return <section className="near-places places">
-    <h2 className="near-places__title">Other places in the neighbourhood</h2>
-    <div className="near-places__list places__list">
-      {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} onHover={onHover} page={`place`}/>)}
-    </div>
-  </section>;
-};
+class PlacesListNearby extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  handleHover = (placeLatLon) => {
+    const value = (placeLatLon === this.props.activeCardLatLon) ? {lat: null, lon: null} : placeLatLon;
+    this.props.setActiveCardLatLon(value);
+  }
+
+  render() {
+    const {places} = this.props;
+
+    return <section className="near-places places">
+      <h2 className="near-places__title">Other places in the neighbourhood</h2>
+      <div className="near-places__list places__list">
+        {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} onHover={this.handleHover} page={`place`}/>)}
+      </div>
+    </section>;
+  }
+}
 
 PlacesListNearby.propTypes = {
   places: PropTypes.arrayOf(
@@ -28,8 +43,21 @@ PlacesListNearby.propTypes = {
         }).isRequired
       }).isRequired
   ).isRequired,
-  onHover: PropTypes.func.isRequired
+  activeCardLatLon: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  }),
+  setActiveCardLatLon: PropTypes.func.isRequired
 };
 
-export default PlacesListNearby;
+const mapStateToProps = (state) => ({
+  activeCardLatLon: state.offers.activeCardLatLon
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  setActiveCardLatLon(placeLatLon) {
+    dispatch(ActionCreator.setActiveCardLatLon(placeLatLon));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlacesListNearby);

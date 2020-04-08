@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {ActionCreator as OffersActionCreator} from "../../reducer/offers/offers.js";
-import {PlacesListMainWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
+import PlacesListMain from '../../components/places-list-main/places-list-main.jsx';
 import Header from '../header/header.jsx';
 import CityMap from '../city-map/city-map.jsx';
 import CitiesNavigation from '../cities-navigation/cities-navigation.jsx';
@@ -21,10 +21,10 @@ const CityWithoutOffers = ({activeCityName}) => {
   </div>;
 };
 
-const CityWithOffers = ({cityLatLon, activeCityName, places, placesCoordinates, activePlaceCoordinates}) => {
+const CityWithOffers = ({cityLatLon, placesCoordinates, activePlaceCoordinates}) => {
   return <div className="cities">
     <div className="cities__places-container container">
-      <PlacesListMainWrapped activeCityName={activeCityName} places={places} foundPlacesQuantity={places.length}/>
+      <PlacesListMain/>
       <div className="cities__right-section">
         <CityMap placesCoordinates={placesCoordinates} sectionLocationClass={`cities__map`} activePlaceCoordinates={activePlaceCoordinates} cityLatLon={cityLatLon}/>
       </div>
@@ -45,34 +45,6 @@ class MainPage extends React.PureComponent {
     }
   }
 
-  sortTypeBuffer = null;
-
-  cityIdBuffer = null;
-
-  placesBuffer = [];
-
-  favsQuantity = 0;
-
-  getPlacesToRender = () => {
-    const {places, activeCityId, activeSortType} = this.props;
-
-    const currentFavsQuantity = places.filter((place) => place.isFavorite === true).length;
-
-    if (activeSortType !== this.sortTypeBuffer || activeCityId !== this.cityIdBuffer || currentFavsQuantity !== this.favsQuantity) {
-      this.sortTypeBuffer = activeSortType;
-
-      this.cityIdBuffer = activeCityId;
-
-      this.placesBuffer = places;
-
-      this.favsQuantity = currentFavsQuantity;
-    }
-
-    let placesToReturn = this.placesBuffer;
-
-    return placesToReturn;
-  }
-
   getPlacesCoordinates = (places) => places.map((place) => {
     return {lat: place.gps.lat, lon: place.gps.lon};
   });
@@ -82,19 +54,16 @@ class MainPage extends React.PureComponent {
   });
 
   render() {
-    const {allOffers, activeCityName, activeCityId, onCityTabClick, activeCardLatLon} = this.props;
-
-    const placesToRender = this.getPlacesToRender();
+    const {places, allOffers, activeCityName, activeCityId, onCityTabClick, activeCardLatLon} = this.props;
 
     return <div className="page page--gray page--main">
       <Header/>
-
-      <main className={`page__main page__main--index ${(placesToRender.length === 0) ? `page__main--index-empty` : null}`}>
+      <main className={`page__main page__main--index ${(places.length === 0) ? `page__main--index-empty` : null}`}>
         <h1 className="visually-hidden">Cities</h1>
         <CitiesNavigation activeCityId={activeCityId} cities={this.getCitiesTabsList(allOffers)} onCityTabClick={onCityTabClick}/>
-        {(placesToRender.length === 0)
+        {(places.length === 0)
           ? <CityWithoutOffers activeCityName={activeCityName}/>
-          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(placesToRender)} activeCityName={activeCityName} places={placesToRender} activePlaceCoordinates={activeCardLatLon}/>
+          : <CityWithOffers cityLatLon={allOffers[activeCityId].cityLatLon} placesCoordinates={this.getPlacesCoordinates(places)} activePlaceCoordinates={activeCardLatLon}/>
         }
       </main>
     </div>;
@@ -106,27 +75,10 @@ CityWithoutOffers.propTypes = {
 };
 
 CityWithOffers.propTypes = {
-  activeCityName: PropTypes.string.isRequired,
   cityLatLon: PropTypes.shape({
     lat: PropTypes.number.isRequired,
     lon: PropTypes.number.isRequired
   }).isRequired,
-  places: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        previewUrl: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        gps: PropTypes.shape({
-          lat: PropTypes.number.isRequired,
-          lon: PropTypes.number.isRequired
-        }).isRequired
-      }).isRequired
-  ).isRequired,
   placesCoordinates: PropTypes.arrayOf(
       PropTypes.shape({
         lat: PropTypes.number.isRequired,
@@ -141,6 +93,7 @@ CityWithOffers.propTypes = {
 
 MainPage.propTypes = {
   activeCityName: PropTypes.string.isRequired,
+  activeCityId: PropTypes.number.isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -183,8 +136,6 @@ MainPage.propTypes = {
       }).isRequired
   ).isRequired,
   onCityTabClick: PropTypes.func.isRequired,
-  activeCityId: PropTypes.number.isRequired,
-  activeSortType: PropTypes.number.isRequired,
   setActiveCardLatLon: PropTypes.func.isRequired,
   activeCardLatLon: PropTypes.shape({
     lat: PropTypes.number,
@@ -193,40 +144,11 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {places, activeSortType} = state.offers;
-
-  let sortedPlaces = [];
-
-  if (places) {
-    sortedPlaces = places;
-  }
-
-  const buildPlacesListing = (sortType) => {
-    switch (sortType) {
-      case 0:
-        break;
-      case 1:
-        sortedPlaces = places.sort((a, b) => (a.price > b.price) ? 1 : -1);
-        break;
-      case 2:
-        sortedPlaces = places.sort((a, b) => (a.price > b.price) ? -1 : 1);
-        break;
-      case 3:
-        sortedPlaces = places.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
-        break;
-      default:
-        break;
-    }
-  };
-
-  buildPlacesListing(activeSortType);
-
   return {
     activeCityName: state.offers.activeCityName,
     activeCityId: state.offers.activeCityId,
-    places: sortedPlaces,
+    places: state.offers.places,
     activeCardLatLon: state.offers.activeCardLatLon,
-    activeSortType: state.offers.activeSortType,
     allOffers: state.offers.allOffers,
   };
 };

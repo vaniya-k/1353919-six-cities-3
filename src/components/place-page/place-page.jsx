@@ -8,7 +8,7 @@ import YourReview from '../../hocs/withYourReviewInputsValidator/with-your-revie
 import CityMap from '../city-map/city-map.jsx';
 import Header from '../header/header.jsx';
 import Bookmark from '../bookmark/bookmark.jsx';
-import {PlacesListNearbyWrapped} from '../../hocs/withActiveCardSwitcher/with-active-card-switcher.jsx';
+import PlacesListNearby from '../places-list-nearby/places-list-nearby.jsx';
 import history from '../../history.js';
 
 const ReviewsParams = {
@@ -145,7 +145,7 @@ class PlacePage extends React.PureComponent {
         </section>
         <div className="container">
           {(placesNearby.length === 3 && activePlacePageId === id)
-            ? <PlacesListNearbyWrapped places={placesNearby}/>
+            ? <PlacesListNearby places={placesNearby}/>
             : <section className="near-places places">
               <h2 className="near-places__title">Loading other places in the neighbourhood</h2>
             </section>
