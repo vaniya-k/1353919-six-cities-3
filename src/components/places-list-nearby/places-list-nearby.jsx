@@ -9,7 +9,7 @@ class PlacesListNearby extends React.PureComponent {
     super(props);
   }
 
-  handleHover = (placeLatLon) => {
+  handleCardHover = (placeLatLon) => {
     const value = (placeLatLon === this.props.activeCardLatLon) ? {lat: null, lon: null} : placeLatLon;
     this.props.setActiveCardLatLon(value);
   }
@@ -20,7 +20,7 @@ class PlacesListNearby extends React.PureComponent {
     return <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} onHover={this.handleHover} page={`place`}/>)}
+        {places.map((place, i) => <PlaceCard key={`key${i}`} placeLatLon={{lat: place.gps.lat, lon: place.gps.lon}} place={place} onHover={this.handleCardHover} page={`place`}/>)}
       </div>
     </section>;
   }
